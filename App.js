@@ -36,7 +36,7 @@ export default function App() {
 
   const AppStack = (
     <>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
       <Stack.Screen name="Game" component={Game} />
     </>
   );
