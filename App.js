@@ -9,7 +9,7 @@ import Signup from "./screens/Signup";
 import Login from "./screens/Login";
 import Home from "./screens/Home";
 import Game from "./screens/Game";
-
+import PressableButton from "./components/PressableButton";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,7 +37,17 @@ export default function App() {
   const AppStack = (
     <>
       <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <Stack.Screen name="Game" component={Game} />
+      <Stack.Screen name="Game" component={Game} options={({ navigation }) => {
+          return {
+            headerRight: () => {
+              return (
+                <PressableButton onPress={() => navigation.replace("Home")}>
+                  <Text>quit</Text>
+                </PressableButton>
+              );
+            },
+          };
+        }}/>
     </>
   );
 
