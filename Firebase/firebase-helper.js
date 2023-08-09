@@ -51,6 +51,18 @@ import {
     }
   }
 
+  //update a user's avatar in db
+  export async function updateUserAvatarInDB(id, newAvatarUri) {
+    try {
+      const docRef = doc(db, "users", id);
+      await updateDoc(docRef, {
+        avatar: newAvatarUri,
+      });
+    } catch (e) {
+      console.error("Error happened while updating user's avatar in db: ", e);
+    }
+  }
+
 
   //puzzles collection
 

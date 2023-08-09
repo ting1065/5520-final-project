@@ -3,10 +3,15 @@ import React, {useEffect, useState} from "react";
 import { auth } from "../Firebase/firebase-setup";
 import { signOut } from "firebase/auth";
 import PressableButton from "../components/PressableButton";
-import { getUserFromDB } from "../Firebase/firebase-helper";
+import { getUserFromDB, updateUserAvatarInDB} from "../Firebase/firebase-helper";
 import UserNameEditor from "../components/UserNameEditor";
+import ImageManager from "../components/ImageManager";
 
 export default function Profile() {
+
+  const avatarStorageFolder = "avatars";
+  const avatarFileName = auth.currentUser.uid;
+
   const [user, setUser] = useState(null);
   const [isEditingName, setIsEditingName] = useState(false);
   const [refreshHandler, setRefreshHandler] = useState(false);
@@ -28,11 +33,17 @@ export default function Profile() {
     };
   }, [refreshHandler]);
 
+  async function updateAvatarUri(uri) {
+    await updateUserAvatarInDB(auth.currentUser.uid, uri);
+    setRefreshHandler(!refreshHandler);
+  }
+
   console.log("user: ", user);
 
   return (
     <View>
       <Image style={{width:100, height:100,}} source={{uri: user?.avatar}}/>
+      <ImageManager storeDownloadUri={updateAvatarUri} folderName={avatarStorageFolder} fileName={avatarFileName} />
       <Text>name:</Text>
       {isEditingName ? (<UserNameEditor currentName={user?.name} confirmHandler={() => {
         setIsEditingName(false);
