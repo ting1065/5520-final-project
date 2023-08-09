@@ -33,13 +33,13 @@ export default function PuzzleEditor({ puzzleDoc, modalVisible, confirmHandler, 
 
   async function pushNewPuzzle() {
 
-    if (!(quizPattern.test(quiz1) && quizPattern.test(quiz2) && quizPattern.test(quiz3) && quizPattern.test(quiz4) && quizPattern.test(quiz5))) {
-      Alert.alert("only A-Z and 0-9 are allowed")
+    if (!(quiz1.length === 5 && quiz2.length === 10 && quiz3.length === 15 && quiz4.length === 20 && quiz5.length === 30)) {
+      Alert.alert("invalid quiz length, please follow the instruction");
       return;
     }
 
-    if (!(quiz1.length === 5 && quiz2.length === 10 && quiz3.length === 15 && quiz4.length === 20 && quiz5.length === 30)) {
-      Alert.alert("invalid quiz length, please follow the instruction");
+    if (!(quizPattern.test(quiz1) && quizPattern.test(quiz2) && quizPattern.test(quiz3) && quizPattern.test(quiz4) && quizPattern.test(quiz5))) {
+      Alert.alert("only A-Z and 0-9 are allowed")
       return;
     }
 

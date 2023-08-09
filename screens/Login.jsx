@@ -19,9 +19,15 @@ export default function Login({ navigation }) {
       return;
     }
 
+    if (!password) {
+      Alert.alert("Please enter a password");
+      return;
+    }
+
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
+      Alert.alert("failed to log in, please check your email and password");
       console.log("error happened while logging in:",error);
     }
   }
