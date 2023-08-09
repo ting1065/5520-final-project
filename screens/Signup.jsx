@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import PressableButton from '../components/PressableButton'
 import { auth } from "../Firebase/firebase-setup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { addUserToDB } from '../Firebase/firebase-helper';
 
 export default function Signup({ navigation }) {
 
@@ -32,9 +33,9 @@ export default function Signup({ navigation }) {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      await addUserToDB(auth.currentUser.uid, auth.currentUser.email);
     } catch (error) {
       console.log("error happened while signing up:",error);
-      Alert.alert("error happened while signing up:",error);
     }
   }
 

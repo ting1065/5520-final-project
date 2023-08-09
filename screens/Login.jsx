@@ -23,7 +23,6 @@ export default function Login({ navigation }) {
       const user = await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.log("error happened while logging in:",error);
-      Alert.alert("error happened while logging in:",error);
     }
   }
 

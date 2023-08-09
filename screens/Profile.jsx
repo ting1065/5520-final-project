@@ -1,21 +1,55 @@
-import { View, Text, Alert } from "react-native";
-import React from "react";
+import { View, Text, Alert, Image } from "react-native";
+import React, {useEffect, useState} from "react";
 import { auth } from "../Firebase/firebase-setup";
 import { signOut } from "firebase/auth";
 import PressableButton from "../components/PressableButton";
+import { getUserFromDB } from "../Firebase/firebase-helper";
+import UserNameEditor from "../components/UserNameEditor";
 
 export default function Profile() {
+  const [user, setUser] = useState(null);
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [refreshHandler, setRefreshHandler] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+
+    const fetchUser = async () => {
+      if (active) {
+        const userData = await getUserFromDB(auth.currentUser.uid);
+        setUser(userData);
+      }
+    };
+
+    fetchUser();
+
+    return () => {
+      active = false;
+    };
+  }, [refreshHandler]);
+
+  console.log("user: ", user);
+
   return (
     <View>
-      <Text>email: {auth.currentUser.email}</Text>
-      <Text>uid: {auth.currentUser.uid}</Text>
+      <Image style={{width:100, height:100,}} source={{uri: user?.avatar}}/>
+      <Text>name:</Text>
+      {isEditingName ? (<UserNameEditor currentName={user?.name} confirmHandler={() => {
+        setIsEditingName(false);
+        setRefreshHandler(!refreshHandler);
+      }} cancelHandler={() => setIsEditingName(false)} />):(<Text>{user?.name}</Text>) }
+      <PressableButton onPress={() => setIsEditingName(true)}>
+        <Text>Edit Name</Text>
+      </PressableButton>
+      <Text>email: {user?.email}</Text>
+      <Text>win: {user?.win}</Text>
+      <Text>lose: {user?.lose}</Text>
       <PressableButton
         onPress={async () => {
           try {
             await signOut(auth);
           } catch (error) {
             console.log("error happened while logging out: ", error);
-            Alert.alert("error happened while logging out: ", error);
           }
         }}
       >
