@@ -10,9 +10,13 @@ export async function getRandomImageFromNASA() {
         }
 
         const data = await response.json();
-        const imageUri = data[0].url;
-        return imageUri;
+        let imageUri = data[0].url;
+        if (!imageUri.endsWith("jpg")) {
+            imageUri = await getRandomImageFromNASA();
+        }
         
+        return imageUri;
+
     } catch (e) {
         console.error("Error happened while fetching data from NASA API: ", e);
     }

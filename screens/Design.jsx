@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import PressableButton from "../components/PressableButton";
 import { getPuzzleFromDB, deletePuzzleFromDB } from "../Firebase/firebase-helper";
@@ -56,11 +56,14 @@ export default function Design() {
 
       {puzzleDoc ? (
         <>
+          <Image style={{width:200, height:200}} source={{uri: puzzleDoc.coverImageUri}} />
           <Text>quiz 1:{puzzleDoc.puzzle[0]}</Text>
           <Text>quiz 2:{puzzleDoc.puzzle[1]}</Text>
           <Text>quiz 3:{puzzleDoc.puzzle[2]}</Text>
           <Text>quiz 4:{puzzleDoc.puzzle[3]}</Text>
           <Text>quiz 5:{puzzleDoc.puzzle[4]}</Text>
+          <Text>design win: {puzzleDoc.win}</Text>
+          <Text>design lose: {puzzleDoc.lose}</Text>
           <PressableButton onPress={async () => await deletePuzzle(puzzleDoc.id)}>
             <Text>delete</Text>
           </PressableButton>
