@@ -38,7 +38,7 @@ export default function PuzzleEditor({ puzzleDoc, modalVisible, confirmHandler, 
       return;
     }
 
-    if (!(quiz1.length === 1 && quiz2.length === 1 && quiz3.length === 1 && quiz4.length === 1 && quiz5.length === 1)) {
+    if (!(quiz1.length === 5 && quiz2.length === 10 && quiz3.length === 15 && quiz4.length === 20 && quiz5.length === 30)) {
       Alert.alert("invalid quiz length, please follow the instruction");
       return;
     }
