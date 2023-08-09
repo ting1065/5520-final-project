@@ -38,8 +38,6 @@ export default function Profile() {
     setRefreshHandler(!refreshHandler);
   }
 
-  console.log("user: ", user);
-
   return (
     <View>
       <Image style={{width:100, height:100,}} source={{uri: user?.avatar}}/>
