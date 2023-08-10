@@ -68,6 +68,30 @@ import {
     }
   }
 
+  //increment a user's win in db
+  export async function incrementUserWinInDB(id) {
+    try {
+      const docRef = doc(db, "users", id);
+      await updateDoc(docRef, {
+        win: increment,
+      });
+    } catch (e) {
+      console.error("Error happened while incrementing user's win in db: ", e);
+    }
+  }
+
+  //increment a user's lose in db
+  export async function incrementUserLoseInDB(id) {
+    try {
+      const docRef = doc(db, "users", id);
+      await updateDoc(docRef, {
+        lose: increment,
+      });
+    } catch (e) {
+      console.error("Error happened while incrementing user's lose in db: ", e);
+    }
+  }
+
 
   //puzzles collection
 
@@ -131,3 +155,32 @@ import {
   }
 
   //activities collection
+
+  //add a new activity to db
+  export async function addActivityToDB(title, imageUri, intro, oganizer, participants) {
+    try {
+      await addDoc(collection(db, "activities"), {
+        title: title,
+        imageUri: imageUri,
+        intro: intro,
+        oganizer: oganizer,
+        participants: participants,
+      });
+    } catch (e) {
+      console.error("Error happened while adding activity to db: ", e);
+    }
+  }
+
+  //update an activity in db
+  export async function updateActivityInDB(activityId, title, imageUri, intro) {
+    try {
+      const docRef = doc(db, "activities", activityId);
+      await updateDoc(docRef, {
+        title: title,
+        imageUri: imageUri,
+        intro: intro,
+      });
+    } catch (e) {
+      console.error("Error happened while updating activity in db: ", e);
+    }
+  }

@@ -46,6 +46,11 @@ export default function App() {
                 </PressableButton>
               );
             },
+            headerLeft: () => {
+              return (
+                <></>
+              );
+            }
           };
         }}/>
     </>

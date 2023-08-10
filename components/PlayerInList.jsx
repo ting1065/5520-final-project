@@ -5,7 +5,7 @@ import { auth } from '../Firebase/firebase-setup'
 
 export default function PlayerInList({ clickHandler, player }) {
   return (
-    <PressableButton onPress={()=>clickHandler()}>
+    <PressableButton onPress={async()=> await clickHandler(player)}>
       <Image style={{width:50, height: 50,}} source={{uri: player.avatar}}/>
       {(auth.currentUser.uid === player.id) && (<Text> me! </Text>)}
       <Text>{player.name}</Text>
