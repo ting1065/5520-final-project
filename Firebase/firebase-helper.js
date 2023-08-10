@@ -188,7 +188,7 @@ import {
         imageUri: imageUri,
         intro: intro,
         oganizer: oganizer,
-        participants: participants,
+        participants: [oganizer],
       });
     } catch (e) {
       console.error("Error happened while adding activity to db: ", e);
@@ -206,5 +206,38 @@ import {
       });
     } catch (e) {
       console.error("Error happened while updating activity in db: ", e);
+    }
+  }
+
+  //add a participant to an activity in db
+  export async function addParticipantToActivityInDB(activityId, participantId) {
+    try {
+      const docRef = doc(db, "activities", activityId);
+      await updateDoc(docRef, {
+        participants: arrayUnion(participantId),
+      });
+    } catch (e) {
+      console.error("Error happened while adding participant to activity in db: ", e);
+    }
+  }
+
+  //remove a participant from an activity in db
+  export async function removeParticipantFromActivityInDB(activityId, participantId) {
+    try {
+      const docRef = doc(db, "activities", activityId);
+      await updateDoc(docRef, {
+        participants: arrayRemove(participantId),
+      });
+    } catch (e) {
+      console.error("Error happened while removing participant from activity in db: ", e);
+    }
+  }
+
+  //delete an activity from db
+  export async function deleteActivityFromDB(activityId) {
+    try {
+      await deleteDoc(doc(db, "activities", activityId));
+    } catch (e) {
+      console.error("Error happened while deleting activity from db: ", e);
     }
   }
