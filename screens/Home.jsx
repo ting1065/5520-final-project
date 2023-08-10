@@ -1,10 +1,9 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Find from './Find'
-import Design from './Design'
-import Activity from './Activity'
-import Profile from './Profile'
+import Find from "./Find";
+import Design from "./Design";
+import Activity from "./Activity";
+import Profile from "./Profile";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,5 +15,5 @@ export default function Home() {
       <Tab.Screen name="Activity" component={Activity} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
-  )
+  );
 }

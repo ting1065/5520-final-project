@@ -41,7 +41,6 @@ export default function Activity() {
   }
 
   async function confirmEditHandler(title, imageUri, intro) {
-
     if (!(title && imageUri && intro)) {
       Alert.alert("Please fill in all fields");
       return;
@@ -91,14 +90,29 @@ export default function Activity() {
   return (
     <View>
       <Text>=======</Text>
-      <PressableButton onPress={() => {setModalVisible(true)}}>
+      <PressableButton
+        onPress={() => {
+          setModalVisible(true);
+        }}
+      >
         <Text>add activity</Text>
       </PressableButton>
       <Text>=======</Text>
-      <ActivityEditor modalVisible={modalVisible} editingActivity={editingActivity} confirmEditHandler={confirmEditHandler} cancelEditHandler={cancelEditHandler}/>
+      <ActivityEditor
+        modalVisible={modalVisible}
+        editingActivity={editingActivity}
+        confirmEditHandler={confirmEditHandler}
+        cancelEditHandler={cancelEditHandler}
+      />
       <Text>activity list</Text>
       <Text>=======</Text>
-      <ActivityList activities={activities} editHandler={editHandler} deleteHandler={deleteHandler} joinHandler={joinHandler} leaveHandler={leaveHandler}/>
+      <ActivityList
+        activities={activities}
+        editHandler={editHandler}
+        deleteHandler={deleteHandler}
+        joinHandler={joinHandler}
+        leaveHandler={leaveHandler}
+      />
     </View>
   );
 }
