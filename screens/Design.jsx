@@ -45,6 +45,7 @@ export default function Design() {
     <>
       <View>
         <PuzzleEditor puzzleDoc={puzzleDoc} modalVisible={modalVisible} confirmHandler={editConfirmHandler} cancelHandler={editCancelHandler}/>
+        <Text>=====</Text>
         <PressableButton
           onPress={async () =>
             {setModalVisible(true);}
@@ -52,7 +53,12 @@ export default function Design() {
         >
           <Text>add/update</Text>
         </PressableButton>
+        <Text>=====</Text>
       </View>
+      
+      <Text>=====</Text>
+      <Text>Below is your puzzle</Text>
+      <Text>=====</Text>
 
       {puzzleDoc ? (
         <>
@@ -64,9 +70,11 @@ export default function Design() {
           <Text>quiz 5:{puzzleDoc.puzzle[4]}</Text>
           <Text>design win: {puzzleDoc.win}</Text>
           <Text>design lose: {puzzleDoc.lose}</Text>
+          <Text>=====</Text>
           <PressableButton onPress={async () => await deletePuzzle(puzzleDoc.id)}>
             <Text>delete</Text>
           </PressableButton>
+          <Text>=====</Text>
         </>
       ) : (
         <Text>no puzzle</Text>

@@ -74,6 +74,7 @@ export default function PuzzleEditor({ puzzleDoc, modalVisible, confirmHandler, 
         <TextInput autoCapitalize='characters' value={quiz4} onChangeText={(text)=>{setQuiz4(text)}} />
         <Text>quiz 5:</Text>
         <TextInput autoCapitalize='characters' value={quiz5} onChangeText={(text)=>{setQuiz5(text)}} />
+        <Text>=====</Text>
         <PressableButton onPress={async () => await pushNewPuzzle()}>
           <Text>confirm</Text>
         </PressableButton>
@@ -83,8 +84,8 @@ export default function PuzzleEditor({ puzzleDoc, modalVisible, confirmHandler, 
         <PressableButton onPress={() => cancel()}>
           <Text>cancel</Text>
         </PressableButton>
+        <Text>=====</Text>
       </View>
-
     </Modal>
   )
 }
