@@ -7,9 +7,9 @@ import PressableButton from './PressableButton'
 export default function ActivityInList({ activity, editHandler, deleteHandler, joinHandler, leaveHandler }) {
   return (
     <View>
-      <Text>{activity.title}</Text>
+      <Text>Title: {activity.title}</Text>
       <Image style={{ width: 200, height: 200 }} source={{ uri: activity.imageUri }} />
-      <Text>{activity.intro}</Text>
+      <Text>Introduction: {activity.intro}</Text>
       <Text>organizer: {activity.oganizer}</Text>
       <Text>participant: {activity.participants.length}</Text>
       {(activity.oganizer === auth.currentUser.uid) ?
