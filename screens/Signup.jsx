@@ -47,13 +47,17 @@ export default function Signup({ navigation }) {
       <TextInput autoCapitalize="none" placeholder="Password" secureTextEntry={true} value={password} onChangeText={(newText)=>setPassword(newText)}/>
       <Text>Confirm Password</Text>
       <TextInput autoCapitalize="none" placeholder="Password" secureTextEntry={true} value={confirmedPassword} onChangeText={(newText)=>setConfirmedPassword(newText)}/>
+      <Text>=======</Text>
       <PressableButton onPress={()=>signupHandler()}>
         <Text>Register</Text>
       </PressableButton>
+      <Text>=======</Text>
       <Text>Already Registered?</Text>
+      <Text>=======</Text>
       <PressableButton onPress={()=>navigation.replace("Login")}>
         <Text>Login</Text>
       </PressableButton>
+      <Text>=======</Text>
     </View>
   )
 }

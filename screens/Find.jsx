@@ -10,7 +10,6 @@ import { getPuzzleFromDB } from "../Firebase/firebase-helper";
 export default function Find({ navigation }) {
   const [players, setPlayers] = useState([]);
   const [clickedPlayer, setClickedPlayer] = useState(null);
-  const [refreshHandler, setRefreshHandler] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -26,11 +25,7 @@ export default function Find({ navigation }) {
     });
 
     return () => unsubscribe();
-  }, [refreshHandler]);
-
-  function refresh() {
-    setRefreshHandler(!refreshHandler);
-  }
+  }, []);
 
   async function clickHandler(player) {
     
@@ -71,12 +66,8 @@ export default function Find({ navigation }) {
         challengeHandler={challengeHandler}
         closeHandler={closeHandler}
       />
-      <Text>======</Text>
-      <PressableButton onPress={() => refresh()}>
-        <Text>refresh button</Text>
-      </PressableButton>
-      <Text>======</Text>
       <Text>player list -- clickable</Text>
+      <Text>======</Text>
       <PlayerList players={players} clickHandler={clickHandler} />
     </View>
   );

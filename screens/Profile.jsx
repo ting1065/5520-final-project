@@ -47,9 +47,11 @@ export default function Profile() {
         setIsEditingName(false);
         setRefreshHandler(!refreshHandler);
       }} cancelHandler={() => setIsEditingName(false)} />):(<Text>{user?.name}</Text>) }
+      <Text>=======</Text>
       <PressableButton onPress={() => setIsEditingName(true)}>
         <Text>Edit Name</Text>
       </PressableButton>
+      <Text>=======</Text>
       <Text>email: {user?.email}</Text>
       <Text>win: {user?.win}</Text>
       <Text>lose: {user?.lose}</Text>

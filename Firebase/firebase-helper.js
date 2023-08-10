@@ -9,6 +9,8 @@ import {
     where,
     query,
     getDocs,
+    arrayUnion,
+    arrayRemove,
   } from "firebase/firestore";
   import { db } from "./firebase-setup";
   import { getRandomImageFromNASA } from "../external-api/helper";
@@ -181,7 +183,7 @@ import {
   //activities collection
 
   //add a new activity to db
-  export async function addActivityToDB(title, imageUri, intro, oganizer, participants) {
+  export async function addActivityToDB(title, imageUri, intro, oganizer) {
     try {
       await addDoc(collection(db, "activities"), {
         title: title,

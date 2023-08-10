@@ -39,13 +39,17 @@ export default function Login({ navigation }) {
       <TextInput autoCapitalize="none" placeholder="Email" value={email} onChangeText={(newText)=>setEmail(newText)}/>
       <Text>Password</Text>
       <TextInput autoCapitalize="none" placeholder="Password" secureTextEntry={true} value={password} onChangeText={(newText)=>setPassword(newText)}/>
+      <Text>=======</Text>
       <PressableButton onPress={()=>loginHandler()}>
         <Text>Log In</Text>
       </PressableButton>
+      <Text>=======</Text>
       <Text>New User?</Text>
+      <Text>=======</Text>
       <PressableButton onPress={()=>{navigation.replace("Signup")}}>
         <Text>Create an account</Text>
       </PressableButton>
+      <Text>=======</Text>
     </View>
   )
 }
