@@ -1,8 +1,7 @@
-import { View, Text, Alert } from "react-native";
+import { View, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import PressableButton from "../components/PressableButton";
 import PlayerList from "../components/PlayerList";
-import { auth, db } from "../Firebase/firebase-setup";
+import { db } from "../Firebase/firebase-setup";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import PlayerClicked from "../components/PlayerClicked";
 import { getPuzzleFromDB } from "../Firebase/firebase-helper";
@@ -28,9 +27,8 @@ export default function Find({ navigation }) {
   }, []);
 
   async function clickHandler(player) {
-    
     const puzzleData = await getPuzzleFromDB(player.id);
-    
+
     puzzleExists = puzzleData ? true : false;
 
     setClickedPlayer({

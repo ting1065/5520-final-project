@@ -1,14 +1,16 @@
-import { View, Text, Alert, Image } from "react-native";
-import React, {useEffect, useState} from "react";
+import { View, Text, Image } from "react-native";
+import React, { useEffect, useState } from "react";
 import { auth } from "../Firebase/firebase-setup";
 import { signOut } from "firebase/auth";
 import PressableButton from "../components/PressableButton";
-import { getUserFromDB, updateUserAvatarInDB} from "../Firebase/firebase-helper";
+import {
+  getUserFromDB,
+  updateUserAvatarInDB,
+} from "../Firebase/firebase-helper";
 import UserNameEditor from "../components/UserNameEditor";
 import ImageManager from "../components/ImageManager";
 
 export default function Profile() {
-
   const avatarStorageFolder = "avatars";
   const avatarFileName = auth.currentUser.uid;
 
@@ -40,13 +42,28 @@ export default function Profile() {
 
   return (
     <View>
-      <Image style={{width:100, height:100,}} source={{uri: user?.avatar}}/>
-      <ImageManager storeDownloadUri={updateAvatarUri} folderName={avatarStorageFolder} fileName={avatarFileName} />
+      <Image
+        style={{ width: 100, height: 100 }}
+        source={{ uri: user?.avatar }}
+      />
+      <ImageManager
+        storeDownloadUri={updateAvatarUri}
+        folderName={avatarStorageFolder}
+        fileName={avatarFileName}
+      />
       <Text>name:</Text>
-      {isEditingName ? (<UserNameEditor currentName={user?.name} confirmHandler={() => {
-        setIsEditingName(false);
-        setRefreshHandler(!refreshHandler);
-      }} cancelHandler={() => setIsEditingName(false)} />):(<Text>{user?.name}</Text>) }
+      {isEditingName ? (
+        <UserNameEditor
+          currentName={user?.name}
+          confirmHandler={() => {
+            setIsEditingName(false);
+            setRefreshHandler(!refreshHandler);
+          }}
+          cancelHandler={() => setIsEditingName(false)}
+        />
+      ) : (
+        <Text>{user?.name}</Text>
+      )}
       <Text>=======</Text>
       <PressableButton onPress={() => setIsEditingName(true)}>
         <Text>Edit Name</Text>
@@ -64,7 +81,9 @@ export default function Profile() {
           }
         }}
       >
+        <Text>=======</Text>
         <Text>Sign Out</Text>
+        <Text>=======</Text>
       </PressableButton>
     </View>
   );

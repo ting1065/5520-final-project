@@ -1,9 +1,8 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from "react-native";
+import React from "react";
 
-export default function Game({ navigation, route }) {
-
-  const clickedPlayer = route.params.clickedPlayer
+export default function Game({ route }) {
+  const clickedPlayer = route.params.clickedPlayer;
 
   return (
     <View>
@@ -17,5 +16,5 @@ export default function Game({ navigation, route }) {
       <Text>still building this feature.</Text>
       <Text>coming soon!</Text>
     </View>
-  )
+  );
 }

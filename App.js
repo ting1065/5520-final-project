@@ -1,8 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Firebase/firebase-setup";
 import Signup from "./screens/Signup";
@@ -14,7 +13,6 @@ import PressableButton from "./components/PressableButton";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -36,8 +34,15 @@ export default function App() {
 
   const AppStack = (
     <>
-      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <Stack.Screen name="Game" component={Game} options={({ navigation }) => {
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Game"
+        component={Game}
+        options={({ navigation }) => {
           return {
             headerRight: () => {
               return (
@@ -47,18 +52,17 @@ export default function App() {
               );
             },
             headerLeft: () => {
-              return (
-                <></>
-              );
-            }
+              return <></>;
+            },
           };
-        }}/>
+        }}
+      />
     </>
   );
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login'>
+      <Stack.Navigator initialRouteName="Login">
         {isUserLoggedIn ? AppStack : AuthStack}
       </Stack.Navigator>
     </NavigationContainer>
@@ -68,8 +72,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
