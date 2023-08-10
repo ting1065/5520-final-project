@@ -73,7 +73,7 @@ import {
     try {
       const docRef = doc(db, "users", id);
       await updateDoc(docRef, {
-        win: increment,
+        win: increment(1),
       });
     } catch (e) {
       console.error("Error happened while incrementing user's win in db: ", e);
@@ -85,7 +85,7 @@ import {
     try {
       const docRef = doc(db, "users", id);
       await updateDoc(docRef, {
-        lose: increment,
+        lose: increment(1),
       });
     } catch (e) {
       console.error("Error happened while incrementing user's lose in db: ", e);
@@ -142,6 +142,30 @@ import {
       });
     } catch (e) {
       console.error("Error happened while updating puzzle in db: ", e);
+    }
+  }
+
+  //increment a puzzle's win in db
+  export async function incrementPuzzleWinInDB(id) {
+    try {
+      const docRef = doc(db, "puzzles", id);
+      await updateDoc(docRef, {
+        win: increment(1),
+      });
+    } catch (e) {
+      console.error("Error happened while incrementing puzzle's win in db: ", e);
+    }
+  }
+
+  //increment a puzzle's lose in db
+  export async function incrementPuzzleLoseInDB(id) {
+    try {
+      const docRef = doc(db, "puzzles", id);
+      await updateDoc(docRef, {
+        lose: increment(1),
+      });
+    } catch (e) {
+      console.error("Error happened while incrementing puzzle's lose in db: ", e);
     }
   }
 
