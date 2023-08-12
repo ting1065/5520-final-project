@@ -19,7 +19,7 @@ fields: userId(id from "users" collection), coverImageUri, puzzle, win, lose
 3. activities  
 fields: title, imageUri, intro, organizer(id from "users" collection), participants(list of id from "users collection")  
 
-### storage  
+### Storage  
 used to save users' avatars and cover images of activities  
 folders: avatars, activities
 
