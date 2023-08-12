@@ -14,10 +14,10 @@ To be optimized...
 fields: id, name, avatar, email, win, lose  
 
 2. puzzles  
-fields: userId, coverImageUri, puzzle, win, lose  
+fields: userId(id from "users" collection), coverImageUri, puzzle, win, lose  
 
 3. activities  
-fields: title, imageUri, intro, organizer, participants  
+fields: title, imageUri, intro, organizer(id from "users" collection), participants(list of id from "users collection")  
 
 ### storage  
 used to save users' avatars and cover images of activities  
