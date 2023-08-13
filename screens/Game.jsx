@@ -1,5 +1,5 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, TextInput, Alert } from "react-native";
+import React, { useState } from "react";
 import PressableButton from "../components/PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import {
@@ -8,10 +8,17 @@ import {
   incrementPuzzleWinInDB,
   incrementPuzzleLoseInDB,
 } from "../Firebase/firebase-helper";
+import QuizDisplayer from "../components/QuizDisplayer";
 
 export default function Game({ route, navigation }) {
   const clickedPlayer = route.params.clickedPlayer;
-  console.log("clickedPlayer", clickedPlayer);
+  const clickedPuzzle = clickedPlayer.puzzle;
+
+  const [gameRound, setGameRound] = useState(1);
+  const [answer, setAnswer] = useState("");
+  const [isDisplayed, setIsDisplayed] = useState(false);
+  const [gameStatus, setGameStatus] = useState("playing");
+  const [modalVisible, setModalVisible] = useState(false);
 
   async function winHandler() {
     await incrementUserWinInDB(auth.currentUser.uid);
@@ -28,34 +35,95 @@ export default function Game({ route, navigation }) {
     navigation.replace("Home");
   }
 
+  async function confirmHandler() {
+    if (answer.length !== clickedPuzzle[gameRound - 1].length) {
+      Alert.alert(
+        "invalid length",
+        `${clickedPuzzle[gameRound - 1].length} is needed`
+      );
+    } else if (answer !== clickedPuzzle[gameRound - 1]) {
+      await loseHandler();
+      setGameStatus("lose");
+    } else if (gameRound === 5) {
+      await winHandler();
+      setGameStatus("win");
+    } else {
+      setGameRound(gameRound + 1);
+      setIsDisplayed(false);
+    }
+  }
+
+  function clearHandler() {
+    setAnswer("");
+  }
+
+  function displayHandler() {
+    setIsDisplayed(true);
+    setModalVisible(true);
+  }
+
+  function displayEndHandler() {
+    setModalVisible(false);
+  }
 
   return (
     <View>
-      <Text>challenging {clickedPlayer.name}'s puzzle</Text>
-      <Text>quiz1: {clickedPlayer.puzzle[0]}</Text>
-      <Text>quiz2: {clickedPlayer.puzzle[1]}</Text>
-      <Text>quiz3: {clickedPlayer.puzzle[2]}</Text>
-      <Text>quiz4: {clickedPlayer.puzzle[3]}</Text>
-      <Text>quiz5: {clickedPlayer.puzzle[4]}</Text>
-      <Text>=========</Text>
-      <Text>still building this feature.</Text>
-      <Text>coming soon!</Text>
-      <Text>=========</Text>
-      <Text>=========</Text>
-        <PressableButton onPress={winHandler}>
-          <Text>test win</Text>
-        </PressableButton>
-      <Text>=========</Text>
-      <Text>=========</Text>
-        <PressableButton onPress={loseHandler}>
-          <Text>test lose</Text>
-        </PressableButton>
-      <Text>=========</Text>
-      <Text>=========</Text>
-        <PressableButton onPress={quitHandler}>
-          <Text>quit</Text>
-        </PressableButton>
-      <Text>=========</Text>
+      {modalVisible && <QuizDisplayer
+        quiz={clickedPuzzle[gameRound - 1]}
+        modalVisible={modalVisible}
+        endHandler={displayEndHandler}
+      />}
+      {gameStatus === "playing" ? (
+        <>
+          <Text>challenging {clickedPlayer.name}'s puzzle</Text>
+          <Text>Round: {gameRound}</Text>
+          {isDisplayed ? (
+            <>
+              <TextInput
+                autoCapitalize="characters"
+                value={answer}
+                onChangeText={setAnswer}
+              />
+              <Text>=========</Text>
+              <PressableButton onPress={confirmHandler}>
+                <Text>confirm</Text>
+              </PressableButton>
+              <Text>=========</Text>
+              <Text>=========</Text>
+              <PressableButton onPress={clearHandler}>
+                <Text>clear</Text>
+              </PressableButton>
+              <Text>=========</Text>
+            </>
+          ) : (
+            <>
+              <Text>
+                click the button if you are ready to watch the string to
+                memorize
+              </Text>
+              <Text>=========</Text>
+              <PressableButton onPress={displayHandler}>
+                <Text>display</Text>
+              </PressableButton>
+              <Text>=========</Text>
+            </>
+          )}
+          <Text>=========</Text>
+          <PressableButton onPress={quitHandler}>
+            <Text>quit</Text>
+          </PressableButton>
+          <Text>=========</Text>
+        </>
+      ) : (
+        <>
+          <Text>you {gameStatus}!</Text>
+          <Text>=========</Text>
+          <PressableButton onPress={() => navigation.replace("Home")}>
+            <Text>back to home page</Text>
+          </PressableButton>
+          <Text>=========</Text>
+        </>
+      )}
     </View>
   );
 }
