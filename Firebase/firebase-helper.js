@@ -182,14 +182,14 @@ export async function deletePuzzleFromDB(id) {
 //activities collection
 
 //add a new activity to db
-export async function addActivityToDB(title, imageUri, intro, oganizer) {
+export async function addActivityToDB(title, imageUri, intro, organizer) {
   try {
     await addDoc(collection(db, "activities"), {
       title: title,
       imageUri: imageUri,
       intro: intro,
-      oganizer: oganizer,
-      participants: [oganizer],
+      organizer: organizer,
+      participants: [organizer],
     });
   } catch (e) {
     console.error("Error happened while adding activity to db: ", e);

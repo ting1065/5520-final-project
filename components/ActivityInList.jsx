@@ -18,9 +18,9 @@ export default function ActivityInList({
         source={{ uri: activity.imageUri }}
       />
       <Text>Introduction: {activity.intro}</Text>
-      <Text>organizer: {activity.oganizer}</Text>
+      <Text>organizer: {activity.organizer}</Text>
       <Text>participant: {activity.participants.length}</Text>
-      {activity.oganizer === auth.currentUser.uid ? (
+      {activity.organizer === auth.currentUser.uid ? (
         <>
           <Text>===========</Text>
           <PressableButton

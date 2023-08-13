@@ -17,17 +17,36 @@ export default function Activity() {
   const [activities, setActivities] = useState([]);
   const [editingActivity, setEditingActivity] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [activityAsOrganizer, setActivityAsOrganizer] = useState(null);
 
   useEffect(() => {
     const q = query(collection(db, "activities"));
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (!querySnapshot.empty) {
-        const activities = querySnapshot.docs.map((activity) => {
+        const activitiesFromDB = querySnapshot.docs.map((activity) => {
           return { ...activity.data(), id: activity.id };
         });
-        setActivities(activities);
+
+        const activitiesAsOrganizer = activitiesFromDB.filter(
+          (activity) => activity.organizer === auth.currentUser.uid
+        );
+
+        if (activitiesAsOrganizer.length > 0) {
+          setActivityAsOrganizer(activitiesAsOrganizer[0]);
+          const activitiesNotAsOrganizer = activitiesFromDB.filter(
+            (activity) => activity.organizer !== auth.currentUser.uid
+          );
+          setActivities([
+            ...activitiesAsOrganizer,
+            ...activitiesNotAsOrganizer,
+          ]);
+        } else {
+          setActivityAsOrganizer(null);
+          setActivities(activitiesFromDB);
+        }
       } else {
+        setActivityAsOrganizer(null);
         setActivities([]);
       }
     });
@@ -89,21 +108,26 @@ export default function Activity() {
 
   return (
     <View>
-      <Text>=======</Text>
-      <PressableButton
-        onPress={() => {
-          setModalVisible(true);
-        }}
-      >
-        <Text>add activity</Text>
-      </PressableButton>
-      <Text>=======</Text>
+      {!activityAsOrganizer && (
+        <>
+          <Text>=======</Text>
+          <PressableButton
+            onPress={() => {
+              setModalVisible(true);
+            }}
+          >
+            <Text>add activity</Text>
+          </PressableButton>
+          <Text>=======</Text>
+        </>
+      )}
       <ActivityEditor
         modalVisible={modalVisible}
         editingActivity={editingActivity}
         confirmEditHandler={confirmEditHandler}
         cancelEditHandler={cancelEditHandler}
       />
+      <Text>=======</Text>
       <Text>activity list</Text>
       <Text>=======</Text>
       <ActivityList
