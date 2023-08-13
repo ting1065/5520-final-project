@@ -11,6 +11,7 @@ import {
   getDocs,
   arrayUnion,
   arrayRemove,
+  increment,
 } from "firebase/firestore";
 import { db } from "./firebase-setup";
 import { getRandomImageFromNASA } from "../external-api/helper";

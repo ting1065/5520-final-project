@@ -42,15 +42,8 @@ export default function App() {
       <Stack.Screen
         name="Game"
         component={Game}
-        options={({ navigation }) => {
+        options={() => {
           return {
-            headerRight: () => {
-              return (
-                <PressableButton onPress={() => navigation.replace("Home")}>
-                  <Text>quit</Text>
-                </PressableButton>
-              );
-            },
             headerLeft: () => {
               return <></>;
             },
