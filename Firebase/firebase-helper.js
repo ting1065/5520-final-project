@@ -137,8 +137,15 @@ export async function getPuzzleFromDB(userId) {
 //update a puzzle in db
 export async function updatePuzzleInDB(id, newPuzzle) {
   try {
+    const newCoverImageUri = await getRandomImageFromNASA();
+    if (!newCoverImageUri) {
+      throw new Error("Unable to get random image from NASA API.");
+    }
+
     const docRef = doc(db, "puzzles", id);
+    
     await updateDoc(docRef, {
+      coverImageUri: newCoverImageUri,
       puzzle: newPuzzle,
     });
   } catch (e) {
