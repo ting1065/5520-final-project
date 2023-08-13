@@ -1,14 +1,14 @@
 import { View, Text, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import { auth } from "../Firebase/firebase-setup";
+import { auth, db } from "../Firebase/firebase-setup";
 import { signOut } from "firebase/auth";
 import PressableButton from "../components/PressableButton";
 import {
-  getUserFromDB,
   updateUserAvatarInDB,
 } from "../Firebase/firebase-helper";
 import UserNameEditor from "../components/UserNameEditor";
 import ImageManager from "../components/ImageManager";
+import { doc, onSnapshot } from "firebase/firestore";
 
 export default function Profile() {
   const avatarStorageFolder = "avatars";
@@ -16,28 +16,17 @@ export default function Profile() {
 
   const [user, setUser] = useState(null);
   const [isEditingName, setIsEditingName] = useState(false);
-  const [refreshHandler, setRefreshHandler] = useState(false);
 
   useEffect(() => {
-    let active = true;
+    const unsubscribe = onSnapshot(doc(db, "users", auth.currentUser.uid), (doc) => {
+      setUser(doc.data());
+    });
 
-    const fetchUser = async () => {
-      if (active) {
-        const userData = await getUserFromDB(auth.currentUser.uid);
-        setUser(userData);
-      }
-    };
-
-    fetchUser();
-
-    return () => {
-      active = false;
-    };
-  }, [refreshHandler]);
+    return () => unsubscribe();
+  }, []);
 
   async function updateAvatarUri(uri) {
     await updateUserAvatarInDB(auth.currentUser.uid, uri);
-    setRefreshHandler(!refreshHandler);
   }
 
   return (
@@ -57,7 +46,6 @@ export default function Profile() {
           currentName={user?.name}
           confirmHandler={() => {
             setIsEditingName(false);
-            setRefreshHandler(!refreshHandler);
           }}
           cancelHandler={() => setIsEditingName(false)}
         />
