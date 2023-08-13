@@ -2,42 +2,37 @@ import { View, Text, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import PressableButton from "../components/PressableButton";
 import {
-  getPuzzleFromDB,
   deletePuzzleFromDB,
 } from "../Firebase/firebase-helper";
-import { auth } from "../Firebase/firebase-setup";
+import { auth, db } from "../Firebase/firebase-setup";
 import PuzzleEditor from "../components/PuzzleEditor";
+import { onSnapshot, query, collection, where } from "firebase/firestore";
 
 export default function Design() {
   const [puzzleDoc, setPuzzleDoc] = useState(null);
-  const [refreshHandler, setRefreshHandler] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    let active = true;
+    const q = query(collection(db, "puzzles"), where("userId", "==", auth.currentUser.uid));
 
-    const fetchPuzzle = async () => {
-      if (active) {
-        const puzzle = await getPuzzleFromDB(auth.currentUser.uid);
-        setPuzzleDoc(puzzle);
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      if (!querySnapshot.empty) {
+        const docFromDB = querySnapshot.docs[0];
+        setPuzzleDoc({...docFromDB.data(), id: docFromDB.id});
+      } else {
+        setPuzzleDoc(null);
       }
-    };
+    });
 
-    fetchPuzzle();
-
-    return () => {
-      active = false;
-    };
-  }, [refreshHandler]);
+    return () => unsubscribe();
+  }, []);
 
   async function deletePuzzle(id) {
     await deletePuzzleFromDB(id);
-    setRefreshHandler(!refreshHandler);
   }
 
   function editConfirmHandler() {
     setModalVisible(false);
-    setRefreshHandler(!refreshHandler);
   }
 
   function editCancelHandler() {
@@ -55,7 +50,7 @@ export default function Design() {
         />
         <Text>=====</Text>
         <PressableButton
-          onPress={async () => {
+          onPress={() => {
             setModalVisible(true);
           }}
         >
