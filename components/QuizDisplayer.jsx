@@ -8,8 +8,7 @@ export default function QuizDisplayer({ quiz, modalVisible, endHandler }) {
     "...",
     "ARE",
     "YOU",
-    "READY",
-    "?",
+    "READY?",
     ".",
     "..",
     "...",
@@ -21,7 +20,6 @@ export default function QuizDisplayer({ quiz, modalVisible, endHandler }) {
     ...quiz.split(""),
     "END"
   ];
-  console.log(listToDisplay);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentContent, setCurrentContent] = useState("");
 
@@ -29,8 +27,11 @@ export default function QuizDisplayer({ quiz, modalVisible, endHandler }) {
     if (currentIndex < listToDisplay.length) {
       setTimeout(() => {
         setCurrentContent(listToDisplay[currentIndex]);
+      }, 400);
+      setTimeout(() => {
+        setCurrentContent(" ");
         setCurrentIndex(currentIndex + 1);
-      }, 300);
+      }, 800);
     } else {
       setTimeout(() => {endHandler();}, 300);
     }
