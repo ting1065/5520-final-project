@@ -31,6 +31,7 @@ export async function addUserToDB(id, email) {
       win: 0,
       lose: 0,
       id: id,
+      location: null,
     });
   } catch (e) {
     console.error("Error happened while adding user to db: ", e);
@@ -93,6 +94,18 @@ export async function incrementUserLoseInDB(id) {
     });
   } catch (e) {
     console.error("Error happened while incrementing user's lose in db: ", e);
+  }
+}
+
+//update a user's location in db
+export async function updateUserLocationInDB(id, newLocation) {
+  try {
+    const docRef = doc(db, "users", id);
+    await updateDoc(docRef, {
+      location: newLocation,
+    });
+  } catch (e) {
+    console.error("Error happened while updating user's location in db: ", e);
   }
 }
 
