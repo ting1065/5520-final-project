@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Alert } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 import { auth } from "../Firebase/firebase-setup";
@@ -14,13 +14,7 @@ export default function Map({
   playerClickHandler,
 }) {
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [currentRegion, setCurrentRegion] = useState({
-    latitude: 49.2827,
-    longitude: -123.1207,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
+  const mapRef = useRef(null);
 
   useEffect(() => {
     if (!selectedLocation) {
@@ -45,16 +39,31 @@ export default function Map({
     ]);
   }, [selectedLocation]);
 
+  function moveToBaseHandler() {
+    const currentUser = players.find((player) => player.id === auth.currentUser.uid);
+    if (!currentUser.location) {
+      Alert.alert("No base", "You don't have a base yet. Click on the map to set your base.");
+      return;
+    }
+    mapRef.current.animateToRegion({
+      latitude: currentUser.location.latitude,
+      longitude: currentUser.location.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
+  }
+
   return (
     <>
       {hasPermission ? (
         <>
           <Text>=====</Text>
-          <PressableButton>
+          <PressableButton onPress={moveToBaseHandler}>
             <Text>go to my base</Text>
           </PressableButton>
           <Text>=====</Text>
           <MapView
+            ref={mapRef}
             style={{ flex: 1 }}
             initialRegion={initialRegion}
             provider="google"
