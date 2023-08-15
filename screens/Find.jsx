@@ -9,7 +9,7 @@ import Map from "../components/Map";
 import PressableButton from "../components/PressableButton";
 import * as Location from "expo-location";
 
-export default function Find({ navigation }) {
+export default function Find({ navigation, route }) {
   const [players, setPlayers] = useState([]);
   const [clickedPlayer, setClickedPlayer] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -34,6 +34,12 @@ export default function Find({ navigation }) {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (route.params?.isMapMode) {
+      setIsMapMode(true);
+    }
+  }, []);
+
   async function clickHandler(player) {
     setModalVisible(true);
     const puzzleData = await getPuzzleFromDB(player.id);
@@ -55,7 +61,7 @@ export default function Find({ navigation }) {
     //using navigation.replace leads to app crash
     //due to a bug in react-navigation
     //i.e. using replace on modal leads to app crash
-    navigation.navigate("Game", { clickedPlayer });
+    navigation.navigate("Game", { clickedPlayer, isMapMode });
     closeHandler();
   }
 

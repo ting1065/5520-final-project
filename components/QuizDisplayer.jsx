@@ -3,15 +3,9 @@ import React, { useState, useEffect } from "react";
 
 export default function QuizDisplayer({ quiz, modalVisible, endHandler }) {
   const listToDisplay = [
-    ".",
-    "..",
-    "...",
     "ARE",
     "YOU",
     "READY?",
-    ".",
-    "..",
-    "...",
     "3",
     "2",
     "1",

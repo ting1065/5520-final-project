@@ -12,6 +12,7 @@ import QuizDisplayer from "../components/QuizDisplayer";
 
 export default function Game({ route, navigation }) {
   const clickedPlayer = route.params.clickedPlayer;
+  const isMapMode = route.params.isMapMode;
   const clickedPuzzle = clickedPlayer.puzzle;
 
   const [gameRound, setGameRound] = useState(1);
@@ -32,7 +33,7 @@ export default function Game({ route, navigation }) {
 
   async function quitHandler() {
     await loseHandler();
-    navigation.replace("Home");
+    navigation.navigate("Home", { isMapMode });
   }
 
   async function confirmHandler() {
@@ -118,7 +119,7 @@ export default function Game({ route, navigation }) {
         <>
           <Text>you {gameStatus}!</Text>
           <Text>=========</Text>
-          <PressableButton onPress={() => navigation.replace("Home")}>
+          <PressableButton onPress={() => navigation.navigate("Home", {isMapMode})}>
             <Text>back to home page</Text>
           </PressableButton>
           <Text>=========</Text>
