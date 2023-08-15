@@ -35,6 +35,7 @@ export default function Find({ navigation }) {
   }, []);
 
   async function clickHandler(player) {
+    setModalVisible(true);
     const puzzleData = await getPuzzleFromDB(player.id);
 
     puzzleExists = puzzleData ? true : false;
@@ -48,7 +49,6 @@ export default function Find({ navigation }) {
       puzzleCover: puzzleData?.coverImageUri,
       puzzleExists: puzzleExists,
     });
-    setModalVisible(true);
   }
 
   function challengeHandler(clickedPlayer) {
@@ -125,7 +125,7 @@ export default function Find({ navigation }) {
       {
         isMapMode ?
         <>
-          <Map hasPermission={hasPermission} initialRegion={initialRegion} />
+          <Map hasPermission={hasPermission} initialRegion={initialRegion} players={players} playerClickHandler={clickHandler} />
         </>
         :
         <>
