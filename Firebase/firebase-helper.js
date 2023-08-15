@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase-setup";
 import { getRandomImageFromNASA } from "../external-api/helper";
+import { Alert } from "react-native";
 
 const defaultAvatar =
   "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/1200px-SpongeBob_SquarePants_character.svg.png";
