@@ -158,7 +158,7 @@ export async function updatePuzzleInDB(id, newPuzzle) {
     }
 
     const docRef = doc(db, "puzzles", id);
-    
+
     await updateDoc(docRef, {
       coverImageUri: newCoverImageUri,
       puzzle: newPuzzle,

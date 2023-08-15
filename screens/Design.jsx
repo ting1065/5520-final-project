@@ -1,9 +1,7 @@
 import { View, Text, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import PressableButton from "../components/PressableButton";
-import {
-  deletePuzzleFromDB,
-} from "../Firebase/firebase-helper";
+import { deletePuzzleFromDB } from "../Firebase/firebase-helper";
 import { auth, db } from "../Firebase/firebase-setup";
 import PuzzleEditor from "../components/PuzzleEditor";
 import { onSnapshot, query, collection, where } from "firebase/firestore";
@@ -13,12 +11,15 @@ export default function Design() {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    const q = query(collection(db, "puzzles"), where("userId", "==", auth.currentUser.uid));
+    const q = query(
+      collection(db, "puzzles"),
+      where("userId", "==", auth.currentUser.uid)
+    );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (!querySnapshot.empty) {
         const docFromDB = querySnapshot.docs[0];
-        setPuzzleDoc({...docFromDB.data(), id: docFromDB.id});
+        setPuzzleDoc({ ...docFromDB.data(), id: docFromDB.id });
       } else {
         setPuzzleDoc(null);
       }

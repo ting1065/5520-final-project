@@ -90,7 +90,10 @@ export default function PuzzleEditor({
     <Modal visible={modalVisible} animationType="slide">
       <View style={styles.container}>
         <Text>quiz 1:</Text>
-        <Text>{"("}length of {quizLengths[0]}{")"}</Text>
+        <Text>
+          {"("}length of {quizLengths[0]}
+          {")"}
+        </Text>
         <TextInput
           autoCapitalize="characters"
           value={quiz1}
@@ -99,7 +102,10 @@ export default function PuzzleEditor({
           }}
         />
         <Text>quiz 2:</Text>
-        <Text>{"("}length of {quizLengths[1]}{")"}</Text>
+        <Text>
+          {"("}length of {quizLengths[1]}
+          {")"}
+        </Text>
         <TextInput
           autoCapitalize="characters"
           value={quiz2}
@@ -108,7 +114,10 @@ export default function PuzzleEditor({
           }}
         />
         <Text>quiz 3:</Text>
-        <Text>{"("}length of {quizLengths[2]}{")"}</Text>
+        <Text>
+          {"("}length of {quizLengths[2]}
+          {")"}
+        </Text>
         <TextInput
           autoCapitalize="characters"
           value={quiz3}
@@ -117,7 +126,10 @@ export default function PuzzleEditor({
           }}
         />
         <Text>quiz 4:</Text>
-        <Text>{"("}length of {quizLengths[3]}{")"}</Text>
+        <Text>
+          {"("}length of {quizLengths[3]}
+          {")"}
+        </Text>
         <TextInput
           autoCapitalize="characters"
           value={quiz4}
@@ -126,7 +138,10 @@ export default function PuzzleEditor({
           }}
         />
         <Text>quiz 5:</Text>
-        <Text>{"("}length of {quizLengths[4]}{")"}</Text>
+        <Text>
+          {"("}length of {quizLengths[4]}
+          {")"}
+        </Text>
         <TextInput
           autoCapitalize="characters"
           value={quiz5}

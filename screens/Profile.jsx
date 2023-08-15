@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "../Firebase/firebase-setup";
 import { signOut } from "firebase/auth";
 import PressableButton from "../components/PressableButton";
-import {
-  updateUserAvatarInDB,
-} from "../Firebase/firebase-helper";
+import { updateUserAvatarInDB } from "../Firebase/firebase-helper";
 import UserNameEditor from "../components/UserNameEditor";
 import ImageManager from "../components/ImageManager";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -18,9 +16,12 @@ export default function Profile() {
   const [isEditingName, setIsEditingName] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(doc(db, "users", auth.currentUser.uid), (doc) => {
-      setUser(doc.data());
-    });
+    const unsubscribe = onSnapshot(
+      doc(db, "users", auth.currentUser.uid),
+      (doc) => {
+        setUser(doc.data());
+      }
+    );
 
     return () => unsubscribe();
   }, []);

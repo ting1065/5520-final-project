@@ -12,7 +12,7 @@ export default function QuizDisplayer({ quiz, modalVisible, endHandler }) {
     "GO!",
     "->",
     ...quiz.split(""),
-    "END"
+    "END",
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentContent, setCurrentContent] = useState("");
@@ -27,7 +27,9 @@ export default function QuizDisplayer({ quiz, modalVisible, endHandler }) {
         setCurrentIndex(currentIndex + 1);
       }, 800);
     } else {
-      setTimeout(() => {endHandler();}, 300);
+      setTimeout(() => {
+        endHandler();
+      }, 300);
     }
   }, [currentIndex]);
 

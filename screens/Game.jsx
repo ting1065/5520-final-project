@@ -43,8 +43,8 @@ export default function Game({ route, navigation }) {
         `${clickedPuzzle[gameRound - 1].length} is needed`
       );
       return;
-    };
-    
+    }
+
     if (answer !== clickedPuzzle[gameRound - 1]) {
       await loseHandler();
       setAnswer("");
@@ -75,11 +75,13 @@ export default function Game({ route, navigation }) {
 
   return (
     <View>
-      {modalVisible && <QuizDisplayer
-        quiz={clickedPuzzle[gameRound - 1]}
-        modalVisible={modalVisible}
-        endHandler={displayEndHandler}
-      />}
+      {modalVisible && (
+        <QuizDisplayer
+          quiz={clickedPuzzle[gameRound - 1]}
+          modalVisible={modalVisible}
+          endHandler={displayEndHandler}
+        />
+      )}
       {gameStatus === "playing" ? (
         <>
           <Text>challenging {clickedPlayer.name}'s puzzle</Text>
@@ -125,7 +127,9 @@ export default function Game({ route, navigation }) {
         <>
           <Text>you {gameStatus}!</Text>
           <Text>=========</Text>
-          <PressableButton onPress={() => navigation.navigate("Home", {isMapMode})}>
+          <PressableButton
+            onPress={() => navigation.navigate("Home", { isMapMode })}
+          >
             <Text>back to home page</Text>
           </PressableButton>
           <Text>=========</Text>

@@ -101,7 +101,7 @@ export default function Find({ navigation, route }) {
   };
 
   return (
-    <View style={{flex: 1}} >
+    <View style={{ flex: 1 }}>
       <PlayerClicked
         clickedPlayer={clickedPlayer}
         modalVisible={modalVisible}
@@ -128,19 +128,23 @@ export default function Find({ navigation, route }) {
       </PressableButton>
       <Text>======</Text>
 
-      {
-        isMapMode ?
+      {isMapMode ? (
         <>
-          <Map hasPermission={hasPermission} initialRegion={initialRegion} players={players} playerClickHandler={clickHandler} />
+          <Map
+            hasPermission={hasPermission}
+            initialRegion={initialRegion}
+            players={players}
+            playerClickHandler={clickHandler}
+          />
         </>
-        :
+      ) : (
         <>
           <Text>player list -- clickable</Text>
           <Text>======</Text>
           <PlayerList players={players} clickHandler={clickHandler} />
           <Text>======</Text>
         </>
-      }
+      )}
     </View>
   );
 }

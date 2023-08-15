@@ -19,30 +19,38 @@ export default function Map({
   useEffect(() => {
     if (!selectedLocation) {
       return;
-    };
+    }
 
     Alert.alert("Base Change", "Change your base to this spot?", [
       {
         text: "Cancel",
         onPress: () => {
           setSelectedLocation(null);
-        }
+        },
       },
       {
         text: "Confirm",
         onPress: async () => {
           const locationToBeUpdated = selectedLocation;
           setSelectedLocation(null);
-          await updateUserLocationInDB(auth.currentUser.uid, locationToBeUpdated);
+          await updateUserLocationInDB(
+            auth.currentUser.uid,
+            locationToBeUpdated
+          );
         },
       },
     ]);
   }, [selectedLocation]);
 
   function moveToBaseHandler() {
-    const currentUser = players.find((player) => player.id === auth.currentUser.uid);
+    const currentUser = players.find(
+      (player) => player.id === auth.currentUser.uid
+    );
     if (!currentUser.location) {
-      Alert.alert("No base", "You don't have a base yet. Click on the map to set your base.");
+      Alert.alert(
+        "No base",
+        "You don't have a base yet. Click on the map to set your base."
+      );
       return;
     }
     mapRef.current.animateToRegion({
