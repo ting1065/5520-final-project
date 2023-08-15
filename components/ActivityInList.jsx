@@ -5,11 +5,13 @@ import PressableButton from "./PressableButton";
 
 export default function ActivityInList({
   activity,
+  players,
   editHandler,
   deleteHandler,
   joinHandler,
   leaveHandler,
 }) {
+  const organizer = players.find((player) => player.id === activity.organizer);
   return (
     <View>
       <Text>Title: {activity.title}</Text>
@@ -18,7 +20,7 @@ export default function ActivityInList({
         source={{ uri: activity.imageUri }}
       />
       <Text>Introduction: {activity.intro}</Text>
-      <Text>organizer: {activity.organizer}</Text>
+      <Text>organizer: {organizer.name}</Text>
       <Text>participant: {activity.participants.length}</Text>
       {activity.organizer === auth.currentUser.uid ? (
         <>

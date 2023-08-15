@@ -4,6 +4,7 @@ import ActivityInList from "./ActivityInList";
 
 export default function ActivityList({
   activities,
+  players,
   editHandler,
   deleteHandler,
   joinHandler,
@@ -15,6 +16,7 @@ export default function ActivityList({
       renderItem={({ item }) => (
         <ActivityInList
           activity={item}
+          players={players}
           editHandler={editHandler}
           deleteHandler={deleteHandler}
           joinHandler={joinHandler}

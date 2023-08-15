@@ -18,6 +18,7 @@ export default function Activity() {
   const [editingActivity, setEditingActivity] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [activityAsOrganizer, setActivityAsOrganizer] = useState(null);
+  const [players, setPlayers] = useState([]);
 
   useEffect(() => {
     const q = query(collection(db, "activities"));
@@ -48,6 +49,21 @@ export default function Activity() {
       } else {
         setActivityAsOrganizer(null);
         setActivities([]);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const q = query(collection(db, "users"));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      if (!querySnapshot.empty) {
+        const players = querySnapshot.docs.map((player) => player.data());
+        setPlayers(players);
+      } else {
+        setPlayers([]);
       }
     });
 
@@ -132,6 +148,7 @@ export default function Activity() {
       <Text>=======</Text>
       <ActivityList
         activities={activities}
+        players={players}
         editHandler={editHandler}
         deleteHandler={deleteHandler}
         joinHandler={joinHandler}
