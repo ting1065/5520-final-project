@@ -42,13 +42,19 @@ export default function Game({ route, navigation }) {
         "invalid length",
         `${clickedPuzzle[gameRound - 1].length} is needed`
       );
-    } else if (answer !== clickedPuzzle[gameRound - 1]) {
+      return;
+    };
+    
+    if (answer !== clickedPuzzle[gameRound - 1]) {
       await loseHandler();
+      setAnswer("");
       setGameStatus("lose");
     } else if (gameRound === 5) {
       await winHandler();
+      setAnswer("");
       setGameStatus("win");
     } else {
+      setAnswer("");
       setGameRound(gameRound + 1);
       setIsDisplayed(false);
     }
