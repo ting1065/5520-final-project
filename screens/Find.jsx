@@ -82,7 +82,7 @@ export default function Find({ navigation }) {
         return;
       }
       setHasPermission(true);
-      const currentLocation = await Location.getCurrentPositionAsync();
+      const currentLocation = await Location.getLastKnownPositionAsync();
       setInitialRegion({
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
@@ -105,8 +105,8 @@ export default function Find({ navigation }) {
       <Text>======</Text>
       <PressableButton
         onPress={() => {
-          locateUserHandler();
           setIsMapMode(true);
+          locateUserHandler();
         }}
       >
         <Text>map mode</Text>

@@ -30,6 +30,9 @@ export default function Map({
     Alert.alert("Base Change", "Change your base to this spot?", [
       {
         text: "Cancel",
+        onPress: () => {
+          setSelectedLocation(null);
+        }
       },
       {
         text: "Confirm",
