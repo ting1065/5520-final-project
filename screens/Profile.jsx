@@ -7,6 +7,7 @@ import { updateUserAvatarInDB } from "../Firebase/firebase-helper";
 import UserNameEditor from "../components/UserNameEditor";
 import ImageManager from "../components/ImageManager";
 import { doc, onSnapshot } from "firebase/firestore";
+import GradientBackground from "../components/GradientBackground";
 
 export default function Profile() {
   const avatarStorageFolder = "avatars";
@@ -31,49 +32,51 @@ export default function Profile() {
   }
 
   return (
-    <View>
-      <Image
-        style={{ width: 100, height: 100 }}
-        source={{ uri: user?.avatar }}
-      />
-      <ImageManager
-        storeDownloadUri={updateAvatarUri}
-        folderName={avatarStorageFolder}
-        fileName={avatarFileName}
-      />
-      <Text>name:</Text>
-      {isEditingName ? (
-        <UserNameEditor
-          currentName={user?.name}
-          confirmHandler={() => {
-            setIsEditingName(false);
-          }}
-          cancelHandler={() => setIsEditingName(false)}
+    <GradientBackground>
+      <View>
+        <Image
+          style={{ width: 100, height: 100 }}
+          source={{ uri: user?.avatar }}
         />
-      ) : (
-        <Text>{user?.name}</Text>
-      )}
-      <Text>=======</Text>
-      <PressableButton onPress={() => setIsEditingName(true)}>
-        <Text>Edit Name</Text>
-      </PressableButton>
-      <Text>=======</Text>
-      <Text>email: {user?.email}</Text>
-      <Text>win: {user?.win}</Text>
-      <Text>lose: {user?.lose}</Text>
-      <PressableButton
-        onPress={async () => {
-          try {
-            await signOut(auth);
-          } catch (error) {
-            console.log("error happened while logging out: ", error);
-          }
-        }}
-      >
+        <ImageManager
+          storeDownloadUri={updateAvatarUri}
+          folderName={avatarStorageFolder}
+          fileName={avatarFileName}
+        />
+        <Text>name:</Text>
+        {isEditingName ? (
+          <UserNameEditor
+            currentName={user?.name}
+            confirmHandler={() => {
+              setIsEditingName(false);
+            }}
+            cancelHandler={() => setIsEditingName(false)}
+          />
+        ) : (
+          <Text>{user?.name}</Text>
+        )}
         <Text>=======</Text>
-        <Text>Sign Out</Text>
+        <PressableButton onPress={() => setIsEditingName(true)}>
+          <Text>Edit Name</Text>
+        </PressableButton>
         <Text>=======</Text>
-      </PressableButton>
-    </View>
+        <Text>email: {user?.email}</Text>
+        <Text>win: {user?.win}</Text>
+        <Text>lose: {user?.lose}</Text>
+        <PressableButton
+          onPress={async () => {
+            try {
+              await signOut(auth);
+            } catch (error) {
+              console.log("error happened while logging out: ", error);
+            }
+          }}
+        >
+          <Text>=======</Text>
+          <Text>Sign Out</Text>
+          <Text>=======</Text>
+        </PressableButton>
+      </View>
+    </GradientBackground>
   );
 }

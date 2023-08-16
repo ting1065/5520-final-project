@@ -5,6 +5,7 @@ import { deletePuzzleFromDB } from "../Firebase/firebase-helper";
 import { auth, db } from "../Firebase/firebase-setup";
 import PuzzleEditor from "../components/PuzzleEditor";
 import { onSnapshot, query, collection, where } from "firebase/firestore";
+import GradientBackground from "../components/GradientBackground";
 
 export default function Design() {
   const [puzzleDoc, setPuzzleDoc] = useState(null);
@@ -41,7 +42,7 @@ export default function Design() {
   }
 
   return (
-    <>
+    <GradientBackground>
       <View>
         <PuzzleEditor
           puzzleDoc={puzzleDoc}
@@ -88,6 +89,6 @@ export default function Design() {
       ) : (
         <Text>no puzzle</Text>
       )}
-    </>
+    </GradientBackground>
   );
 }

@@ -8,6 +8,7 @@ import { getPuzzleFromDB } from "../Firebase/firebase-helper";
 import Map from "../components/Map";
 import PressableButton from "../components/PressableButton";
 import * as Location from "expo-location";
+import GradientBackground from "../components/GradientBackground";
 
 export default function Find({ navigation, route }) {
   const [players, setPlayers] = useState([]);
@@ -101,50 +102,52 @@ export default function Find({ navigation, route }) {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <PlayerClicked
-        clickedPlayer={clickedPlayer}
-        modalVisible={modalVisible}
-        challengeHandler={challengeHandler}
-        closeHandler={closeHandler}
-      />
-      <Text>======</Text>
-      <PressableButton
-        onPress={() => {
-          setIsMapMode(true);
-          locateUserHandler();
-        }}
-      >
-        <Text>map mode</Text>
-      </PressableButton>
-      <Text>======</Text>
-      <Text>======</Text>
-      <PressableButton
-        onPress={() => {
-          setIsMapMode(false);
-        }}
-      >
-        <Text>list mode</Text>
-      </PressableButton>
-      <Text>======</Text>
+    <GradientBackground>
+      <View style={{ flex: 1 }}>
+        <PlayerClicked
+          clickedPlayer={clickedPlayer}
+          modalVisible={modalVisible}
+          challengeHandler={challengeHandler}
+          closeHandler={closeHandler}
+        />
+        <Text>======</Text>
+        <PressableButton
+          onPress={() => {
+            setIsMapMode(true);
+            locateUserHandler();
+          }}
+        >
+          <Text>map mode</Text>
+        </PressableButton>
+        <Text>======</Text>
+        <Text>======</Text>
+        <PressableButton
+          onPress={() => {
+            setIsMapMode(false);
+          }}
+        >
+          <Text>list mode</Text>
+        </PressableButton>
+        <Text>======</Text>
 
-      {isMapMode ? (
-        <>
-          <Map
-            hasPermission={hasPermission}
-            initialRegion={initialRegion}
-            players={players}
-            playerClickHandler={clickHandler}
-          />
-        </>
-      ) : (
-        <>
-          <Text>player list -- clickable</Text>
-          <Text>======</Text>
-          <PlayerList players={players} clickHandler={clickHandler} />
-          <Text>======</Text>
-        </>
-      )}
-    </View>
+        {isMapMode ? (
+          <>
+            <Map
+              hasPermission={hasPermission}
+              initialRegion={initialRegion}
+              players={players}
+              playerClickHandler={clickHandler}
+            />
+          </>
+        ) : (
+          <>
+            <Text>player list -- clickable</Text>
+            <Text>======</Text>
+            <PlayerList players={players} clickHandler={clickHandler} />
+            <Text>======</Text>
+          </>
+        )}
+      </View>
+    </GradientBackground>
   );
 }

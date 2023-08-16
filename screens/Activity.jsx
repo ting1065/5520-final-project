@@ -12,6 +12,7 @@ import {
   removeParticipantFromActivityInDB,
   deleteActivityFromDB,
 } from "../Firebase/firebase-helper";
+import GradientBackground from "../components/GradientBackground";
 
 export default function Activity() {
   const [activities, setActivities] = useState([]);
@@ -123,37 +124,39 @@ export default function Activity() {
   }
 
   return (
-    <View>
-      {!activityAsOrganizer && (
-        <>
-          <Text>=======</Text>
-          <PressableButton
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
-            <Text>add activity</Text>
-          </PressableButton>
-          <Text>=======</Text>
-        </>
-      )}
-      <ActivityEditor
-        modalVisible={modalVisible}
-        editingActivity={editingActivity}
-        confirmEditHandler={confirmEditHandler}
-        cancelEditHandler={cancelEditHandler}
-      />
-      <Text>=======</Text>
-      <Text>activity list</Text>
-      <Text>=======</Text>
-      <ActivityList
-        activities={activities}
-        players={players}
-        editHandler={editHandler}
-        deleteHandler={deleteHandler}
-        joinHandler={joinHandler}
-        leaveHandler={leaveHandler}
-      />
-    </View>
+    <GradientBackground>
+      <View>
+        {!activityAsOrganizer && (
+          <>
+            <Text>=======</Text>
+            <PressableButton
+              onPress={() => {
+                setModalVisible(true);
+              }}
+            >
+              <Text>add activity</Text>
+            </PressableButton>
+            <Text>=======</Text>
+          </>
+        )}
+        <ActivityEditor
+          modalVisible={modalVisible}
+          editingActivity={editingActivity}
+          confirmEditHandler={confirmEditHandler}
+          cancelEditHandler={cancelEditHandler}
+        />
+        <Text>=======</Text>
+        <Text>activity list</Text>
+        <Text>=======</Text>
+        <ActivityList
+          activities={activities}
+          players={players}
+          editHandler={editHandler}
+          deleteHandler={deleteHandler}
+          joinHandler={joinHandler}
+          leaveHandler={leaveHandler}
+        />
+      </View>
+    </GradientBackground>
   );
 }
