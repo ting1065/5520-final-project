@@ -3,13 +3,13 @@ import React from "react";
 
 export default function PressableButton({
   children,
-  pressableFunction,
+  onPress,
   defaultStyle,
   pressedStyle,
 }) {
   return (
     <Pressable
-      onPress={pressableFunction}
+      onPress={onPress}
       style={({ pressed }) => {
         return [styles.styleByDefault, defaultStyle, pressed && pressedStyle];
       }}
