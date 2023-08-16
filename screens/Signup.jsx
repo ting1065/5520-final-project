@@ -1,9 +1,15 @@
-import { View, Text, TextInput, Alert } from "react-native";
+import { View, Text, TextInput, Alert, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import PressableButton from "../components/PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addUserToDB } from "../Firebase/firebase-helper";
+import Card from "../components/Card";
+import { colors } from '../Colors';
+import {LinearGradient}  from 'expo-linear-gradient';
+import { AntDesign } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Signup({ navigation }) {
   //regex for email validation
@@ -38,7 +44,11 @@ export default function Signup({ navigation }) {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
+      <LinearGradient
+        colors={[colors.gradient1, colors.gradient2, colors.gradient3]}
+        style={StyleSheet.absoluteFill}
+      />
       <Text>Welcome</Text>
       <Text>Signup into your account</Text>
       <Text>Email Address</Text>
@@ -74,7 +84,106 @@ export default function Signup({ navigation }) {
       <PressableButton onPress={() => navigation.replace("Login")}>
         <Text>Login</Text>
       </PressableButton>
-      <Text>=======</Text>
+
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+  },
+  // welcomeContainer : {
+  //   width: 300,
+  //   alignSelf: 'center',
+  //   marginBottom: 40,
+  // },
+  // welcomeBigWrods: {
+  //   fontSize: 30,
+  //   color: colors.whiteWords,
+  // },
+  // welcomesmallWrods: {
+  //   color: colors.whiteWords,
+  // },
+  // appName: {
+  //   fontSize: 45,
+  //   color: colors.appName,
+  //   marginBottom: 20,
+  //   fontFamily: 'Cochin',
+  //   fontWeight: 'bold'
+  // },
+  // inputTitle: {
+  //   fontSize: 20,
+  //   marginVertical: 20,
+  // },
+  // textInput: {
+  //   fontSize: 20,
+  //   height: 40,
+  //   width: '90%',
+  //   paddingLeft: 5,
+  // },
+  // user: {
+  //   marginTop: 10,
+  //   alignSelf: 'center',
+  // },
+  // inputContainer: {
+  //   flexDirection: 'row',
+  //   backgroundColor: colors.inputBackground,
+  //   borderRadius: 5,
+  // }, 
+  // iconContainer: {
+  //   marginHorizontal: 5,
+  //   marginTop: 8,
+  // },
+  // loginButtonText: {
+  //   color: colors.whiteWords,
+  //   fontSize: 20,
+  //   alignSelf: 'center',
+
+  // },
+  // defaultStyle: {
+  //   width: 200,
+  //   height: 45,
+  //   marginTop: 30,
+  //   alignSelf: 'center',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   borderRadius: 5,
+  //   backgroundColor: colors.loginButton,
+  //   // Add platform-specific shadow
+  //   ...Platform.select({
+  //     ios: {
+  //       shadowColor: colors.shadowColor,
+  //       shadowOffset: { width: 0, height: 3 },
+  //       shadowOpacity: 0.27,
+  //       shadowRadius: 4.65,
+        
+  //     },
+  //     android: {
+  //       elevation: 6,
+  //     },
+  //   }),
+  // },
+  // pressedStyle: {
+  //   backgroundColor: colors.pressedLoginButton,
+  //   opacity: 0.5,
+  // },
+  // bottomContainer: {
+  //   marginTop: 30,
+  //   flexDirection: 'row',
+  // },
+  // // defaultStyleBottom: {
+
+  // // },
+  // pressedStyleBottom: {
+  //   opacity: 0.2,
+  // },
+  // createAccountText: {
+  //   color: colors.redWords,
+  // }
+  
+});
