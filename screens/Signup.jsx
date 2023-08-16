@@ -57,7 +57,7 @@ export default function Signup({ navigation }) {
 
       <Card 
         width={300}
-        height={440}
+        height={460}
         backgroundColor={colors.whiteWords}
       >
         <AntDesign name="user" size={24} style={styles.user}/>
@@ -103,8 +103,12 @@ export default function Signup({ navigation }) {
           />
         </View>
 
-        <PressableButton onPress={() => signupHandler()}>
-          <Text>Register</Text>
+        <PressableButton 
+          defaultStyle={styles.defaultStyle}
+          pressedStyle={styles.pressedStyle}
+          onPress={() => signupHandler()}
+        >
+          <Text style={styles.loginButtonText}>Register</Text>
         </PressableButton>
       </Card>
       <Text>=======</Text>
@@ -168,39 +172,39 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginTop: 8,
   },
-  // loginButtonText: {
-  //   color: colors.whiteWords,
-  //   fontSize: 20,
-  //   alignSelf: 'center',
+  loginButtonText: {
+    color: colors.whiteWords,
+    fontSize: 20,
+    alignSelf: 'center',
 
-  // },
-  // defaultStyle: {
-  //   width: 200,
-  //   height: 45,
-  //   marginTop: 30,
-  //   alignSelf: 'center',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   borderRadius: 5,
-  //   backgroundColor: colors.loginButton,
-  //   // Add platform-specific shadow
-  //   ...Platform.select({
-  //     ios: {
-  //       shadowColor: colors.shadowColor,
-  //       shadowOffset: { width: 0, height: 3 },
-  //       shadowOpacity: 0.27,
-  //       shadowRadius: 4.65,
+  },
+  defaultStyle: {
+    width: 200,
+    height: 45,
+    marginTop: 30,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    backgroundColor: colors.loginButton,
+    // Add platform-specific shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.shadowColor,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
         
-  //     },
-  //     android: {
-  //       elevation: 6,
-  //     },
-  //   }),
-  // },
-  // pressedStyle: {
-  //   backgroundColor: colors.pressedLoginButton,
-  //   opacity: 0.5,
-  // },
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  pressedStyle: {
+    backgroundColor: colors.pressedLoginButton,
+    opacity: 0.5,
+  },
   // bottomContainer: {
   //   marginTop: 30,
   //   flexDirection: 'row',
