@@ -6,6 +6,9 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import Card from "../components/Card";
 import { colors } from '../Colors';
 import {LinearGradient}  from 'expo-linear-gradient';
+import { AntDesign } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Login({ navigation }) {
   //regex for email validation
@@ -51,7 +54,9 @@ export default function Login({ navigation }) {
         height={350}
         backgroundColor={'white'}
       >
+        <AntDesign name="user" size={24} color="black" />
         <Text style={styles.inputTitle}>Email</Text>
+        <MaterialCommunityIcons name="email-outline" size={24} color="black" />
         <TextInput
           autoCapitalize="none"
           placeholder="Email"
@@ -60,6 +65,7 @@ export default function Login({ navigation }) {
           style={styles.textInput}
         />
         <Text style={styles.inputTitle}>Password</Text>
+        <Ionicons name="ios-lock-closed-outline" size={24} color="black" />
         <TextInput
           autoCapitalize="none"
           placeholder="Password"
