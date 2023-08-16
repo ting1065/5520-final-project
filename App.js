@@ -29,6 +29,12 @@ export default function App() {
     <>
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Login" component={Login} />
+      {/* <Stack.Screen name="Signup">
+        {props => <Signup {...props} onLayoutRootView={onLayoutRootView} />} */}
+      {/* </Stack.Screen>
+      <Stack.Screen name="Login">
+        {props => <Login {...props} onLayoutRootView={onLayoutRootView} />}
+      </Stack.Screen> */}
     </>
   );
 
