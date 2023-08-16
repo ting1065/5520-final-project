@@ -51,7 +51,7 @@ export default function Login({ navigation }) {
       
       <Card 
         width={300}
-        height={350}
+        height={360}
         backgroundColor={'white'}
       >
         <AntDesign name="user" size={24} color="black" style={styles.user}/>
@@ -83,10 +83,16 @@ export default function Login({ navigation }) {
             style={styles.textInput}
           />
         </View>
+          <PressableButton 
+            defaultStyle={styles.defaultStyle}
+            pressedStyle={styles.pressedStyle}
+            onPress={() => loginHandler()}
+          >
 
-        <PressableButton onPress={() => loginHandler()}>
-          <Text>Log In</Text>
-        </PressableButton>
+            <Text style={styles.loginButtonText}>Login</Text>
+
+          </PressableButton>
+
       </Card>
         
       <Text>=======</Text>
@@ -134,7 +140,7 @@ const styles = StyleSheet.create({
   },
   inputTitle: {
     fontSize: 20,
-    marginVertical: 5,
+    marginVertical: 20,
   },
   textInput: {
     fontSize: 20,
@@ -143,6 +149,7 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
   },
   user: {
+    marginTop: 10,
     alignSelf: 'center',
   },
   inputContainer: {
@@ -153,5 +160,41 @@ const styles = StyleSheet.create({
   iconContainer: {
     marginHorizontal: 5,
     marginTop: 8,
-  }
+  },
+  loginButtonText: {
+    color: 'white',
+    fontSize: 20,
+    alignSelf: 'center',
+
+  },
+
+  defaultStyle: {
+    width: 200,
+    height: 45,
+    marginTop: 30,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    backgroundColor: '#87CBB9',
+    // Add platform-specific shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.shadowColor,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  pressedStyle: {
+
+
+    backgroundColor: '#B9EDDD',
+    opacity: 0.5,
+  },
 });
