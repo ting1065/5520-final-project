@@ -98,7 +98,7 @@ export default function Login({ navigation }) {
       <View style={styles.bottomContainer}>
         <Text>New User?   </Text>
         <PressableButton
-          defaultStyle={styles.defaultStyleBottom}
+          // defaultStyle={styles.defaultStyleBottom}
           pressedStyle={styles.pressedStyleBottom}
           onPress={() => {
             navigation.replace("Signup");
