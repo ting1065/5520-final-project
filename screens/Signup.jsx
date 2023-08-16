@@ -49,6 +49,7 @@ export default function Signup({ navigation }) {
         colors={[colors.gradient1, colors.gradient2, colors.gradient3]}
         style={StyleSheet.absoluteFill}
       />
+      <Text style={styles.appName}>Memory Master</Text>
       <Text>Welcome</Text>
       <Text>Signup into your account</Text>
       <Text>Email Address</Text>
@@ -109,13 +110,13 @@ const styles = StyleSheet.create({
   // welcomesmallWrods: {
   //   color: colors.whiteWords,
   // },
-  // appName: {
-  //   fontSize: 45,
-  //   color: colors.appName,
-  //   marginBottom: 20,
-  //   fontFamily: 'Cochin',
-  //   fontWeight: 'bold'
-  // },
+  appName: {
+    fontSize: 45,
+    color: colors.appName,
+    marginBottom: 20,
+    fontFamily: 'Cochin',
+    fontWeight: 'bold'
+  },
   // inputTitle: {
   //   fontSize: 20,
   //   marginVertical: 20,
