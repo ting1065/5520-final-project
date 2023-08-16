@@ -10,6 +10,7 @@ import {LinearGradient}  from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import GradientBackground from "../components/GradientBackground";
 
 export default function Signup({ navigation }) {
   //regex for email validation
@@ -44,10 +45,7 @@ export default function Signup({ navigation }) {
   }
 
   return (
-    <LinearGradient
-        colors={[colors.gradient1, colors.gradient2, colors.gradient3]}
-        style={StyleSheet.absoluteFill}
-      >
+    <GradientBackground>
       <KeyboardAvoidingView 
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -126,7 +124,7 @@ export default function Signup({ navigation }) {
           </PressableButton>
         </View>
       </KeyboardAvoidingView>
-    </LinearGradient>
+    </GradientBackground>
   );
 }
 
