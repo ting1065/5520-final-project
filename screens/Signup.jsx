@@ -39,6 +39,8 @@ export default function Signup({ navigation }) {
 
   return (
     <View>
+      <Text>Welcome</Text>
+      <Text>Signup into your account</Text>
       <Text>Email Address</Text>
       <TextInput
         autoCapitalize="none"
