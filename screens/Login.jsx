@@ -1,10 +1,11 @@
-import { View, Text, TextInput, Alert } from "react-native";
+import { View, Text, TextInput, Alert, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import PressableButton from "../components/PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Card from "../components/Card";
-import { colors } from '../Colors'
+import { colors } from '../Colors';
+import {LinearGradient}  from 'expo-linear-gradient';
 
 export default function Login({ navigation }) {
   //regex for email validation
@@ -33,7 +34,11 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <View>
+    <View style={{height: '100%'}}>
+      <LinearGradient
+        colors={[colors.gradient1, colors.gradient2, colors.gradient3]}
+        style={StyleSheet.absoluteFill}
+      />
       <Text>Welcome</Text>
       <Text>Back!</Text>
       <Text>Login back into your account</Text>
