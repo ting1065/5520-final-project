@@ -7,6 +7,7 @@ import Activity from "./Activity";
 import Profile from "./Profile";
 import { colors } from '../Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -46,7 +47,16 @@ export default function Home() {
           ),
         }}
       />
-      <Tab.Screen name="Activity" component={Activity} />
+      <Tab.Screen 
+        name="Activity" 
+        component={Activity} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="activity" size={size} color={color} />
+          ),
+        }}
+
+      />
       <Tab.Screen 
         name="Profile" 
         component={Profile} 
