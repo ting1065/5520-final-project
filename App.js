@@ -9,6 +9,7 @@ import Login from "./screens/Login";
 import Home from "./screens/Home";
 import Game from "./screens/Game";
 import PressableButton from "./components/PressableButton";
+import { colors } from './Colors';
 
 const Stack = createNativeStackNavigator();
 
