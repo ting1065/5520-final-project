@@ -120,12 +120,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   welcomeContainer : {
-    alignSelf: 'flex-start',
-    marginLeft: 40,
+    width: 300,
+    alignSelf: 'center',
     marginBottom: 40,
   },
   welcomeBigWrods: {
-    // fontWeight: 'bold',
     fontSize: 30,
     color: 'white',
   },
