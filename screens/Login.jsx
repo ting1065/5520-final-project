@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Alert, StyleSheet } from "react-native";
+import { View, Text, TextInput, Alert, StyleSheet, KeyboardAvoidingView } from "react-native";
 import React, { useState } from "react";
 import PressableButton from "../components/PressableButton";
 import { auth } from "../Firebase/firebase-setup";
@@ -37,77 +37,81 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <LinearGradient
+    <LinearGradient
         colors={[colors.gradient1, colors.gradient2, colors.gradient3]}
         style={StyleSheet.absoluteFill}
-      />
-      <Text style={styles.appName}>Memory Master</Text>
-      <View style={styles.welcomeContainer}>
-        <Text style={styles.welcomeBigWrods}>Welcome</Text>
-        <Text style={styles.welcomeBigWrods}>Back!</Text>
-        <Text style={styles.welcomesmallWrods}>Login back into your account</Text>
-      </View>
-      
-      <Card 
-        width={300}
-        height={360}
-        backgroundColor={colors.whiteWords}
+    >
+      <KeyboardAvoidingView 
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <AntDesign name="user" size={24} style={styles.user}/>
-        <Text style={styles.inputTitle}>Email</Text>
-        <View style={styles.inputContainer}>
-          <View style={styles.iconContainer}>
-            <MaterialCommunityIcons name="email-outline" size={24} />
-          </View>
-          <TextInput
-            autoCapitalize="none"
-            // placeholder="Email"
-            value={email}
-            onChangeText={(newText) => setEmail(newText)}
-            style={styles.textInput}
-          />
+        <Text style={styles.appName}>Memory Master</Text>
+        <View style={styles.welcomeContainer}>
+          <Text style={styles.welcomeBigWrods}>Welcome</Text>
+          <Text style={styles.welcomeBigWrods}>Back!</Text>
+          <Text style={styles.welcomesmallWrods}>Login back into your account</Text>
         </View>
-
-        <Text style={styles.inputTitle}>Password</Text>
-        <View style={styles.inputContainer}>
-          <View style={styles.iconContainer}>
-            <Ionicons name="ios-lock-closed-outline" size={24}/>
-          </View>
-          <TextInput
-            autoCapitalize="none"
-            // placeholder="Password"
-            secureTextEntry={true}
-            value={password}
-            onChangeText={(newText) => setPassword(newText)}
-            style={styles.textInput}
-          />
-        </View>
-          <PressableButton 
-            defaultStyle={styles.defaultStyle}
-            pressedStyle={styles.pressedStyle}
-            onPress={() => loginHandler()}
-          >
-
-            <Text style={styles.loginButtonText}>Login</Text>
-
-          </PressableButton>
-
-      </Card>
         
-      <View style={styles.bottomContainer}>
-        <Text>New User?   </Text>
-        <PressableButton
-          // defaultStyle={styles.defaultStyleBottom}
-          pressedStyle={styles.pressedStyleBottom}
-          onPress={() => {
-            navigation.replace("Signup");
-          }}
+        <Card 
+          width={300}
+          height={360}
+          backgroundColor={colors.whiteWords}
         >
-          <Text style={styles.createAccountText}>Create an account</Text>
-        </PressableButton>
-      </View>
-    </View>
+          <AntDesign name="user" size={24} style={styles.user}/>
+          <Text style={styles.inputTitle}>Email</Text>
+          <View style={styles.inputContainer}>
+            <View style={styles.iconContainer}>
+              <MaterialCommunityIcons name="email-outline" size={24} />
+            </View>
+            <TextInput
+              autoCapitalize="none"
+              // placeholder="Email"
+              value={email}
+              onChangeText={(newText) => setEmail(newText)}
+              style={styles.textInput}
+            />
+          </View>
+
+          <Text style={styles.inputTitle}>Password</Text>
+          <View style={styles.inputContainer}>
+            <View style={styles.iconContainer}>
+              <Ionicons name="ios-lock-closed-outline" size={24}/>
+            </View>
+            <TextInput
+              autoCapitalize="none"
+              // placeholder="Password"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={(newText) => setPassword(newText)}
+              style={styles.textInput}
+            />
+          </View>
+            <PressableButton 
+              defaultStyle={styles.defaultStyle}
+              pressedStyle={styles.pressedStyle}
+              onPress={() => loginHandler()}
+            >
+
+              <Text style={styles.loginButtonText}>Login</Text>
+
+            </PressableButton>
+
+        </Card>
+          
+        <View style={styles.bottomContainer}>
+          <Text>New User?   </Text>
+          <PressableButton
+            // defaultStyle={styles.defaultStyleBottom}
+            pressedStyle={styles.pressedStyleBottom}
+            onPress={() => {
+              navigation.replace("Signup");
+            }}
+          >
+            <Text style={styles.createAccountText}>Create an account</Text>
+          </PressableButton>
+        </View>
+      </KeyboardAvoidingView>
+    </LinearGradient> 
   );
 }
 
