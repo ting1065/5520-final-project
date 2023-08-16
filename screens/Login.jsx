@@ -39,10 +39,13 @@ export default function Login({ navigation }) {
         colors={[colors.gradient1, colors.gradient2, colors.gradient3]}
         style={StyleSheet.absoluteFill}
       />
-      <Text>Memory Master</Text>
-      <Text>Welcome</Text>
-      <Text>Back!</Text>
-      <Text>Login back into your account</Text>
+      <Text style={styles.appName}>Memory Master</Text>
+      <View style={styles.welcomeContainer}>
+        <Text style={styles.welcomeBigWrods}>Welcome</Text>
+        <Text style={styles.welcomeBigWrods}>Back!</Text>
+        <Text style={styles.welcomesmallWrods}>Login back into your account</Text>
+      </View>
+      
       <Card 
         width={300}
         height={300}
@@ -92,4 +95,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  welcomeContainer : {
+    alignSelf: 'flex-start',
+    marginLeft: 40,
+    marginVertical: 40,
+  },
+  welcomeBigWrods: {
+    // fontWeight: 'bold',
+    fontSize: '30',
+    color: 'white',
+  },
+  welcomesmallWrods: {
+    color: 'white',
+  },
+  appName: {
+    fontSize: '45',
+    color: 'darkblue',
+  }
 });
