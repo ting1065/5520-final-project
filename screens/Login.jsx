@@ -34,11 +34,12 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <View style={{height: '100%'}}>
+    <View style={[{height: '100%'}, {paddingVertical: 50}]}>
       <LinearGradient
         colors={[colors.gradient1, colors.gradient2, colors.gradient3]}
         style={StyleSheet.absoluteFill}
       />
+      <Text>Memory Master</Text>
       <Text>Welcome</Text>
       <Text>Back!</Text>
       <Text>Login back into your account</Text>
