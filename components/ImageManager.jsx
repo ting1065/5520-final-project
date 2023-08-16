@@ -4,6 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import PressableButton from "./PressableButton";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../Firebase/firebase-setup";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function ImageManager({
   storeDownloadUri,
@@ -55,7 +56,7 @@ export default function ImageManager({
   return (
     <View>
       <PressableButton onPress={() => takeImageHandler()}>
-        <Text>edit pic</Text>
+        <MaterialCommunityIcons name="camera-retake" size={30} color="black" />
       </PressableButton>
     </View>
   );
