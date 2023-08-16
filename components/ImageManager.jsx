@@ -56,9 +56,11 @@ export default function ImageManager({
   return (
     <View style={styles.editButton}>
       <PressableButton 
+        defaultStyle={styles.defaultStyle}
+        pressedStyle={styles.pressedStyle}
         onPress={() => takeImageHandler()}
       >
-        <MaterialCommunityIcons name="camera-retake" size={30} color="grey"/>
+        <MaterialCommunityIcons name="camera-retake" size={30} color="black"/>
       </PressableButton>
     </View>
   );
@@ -74,6 +76,12 @@ const styles = StyleSheet.create({
     right: -5,
     backgroundColor: 'white',
     padding: 10,
+  },
+  defaultStyle: {
+
+  },
+  pressedStyle: {
+    opacity: 0.5,
   },
 
 })
