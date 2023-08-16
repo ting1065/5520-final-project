@@ -34,7 +34,7 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <View style={[{height: '100%'}, {paddingVertical: 50}]}>
+    <View style={styles.container}>
       <LinearGradient
         colors={[colors.gradient1, colors.gradient2, colors.gradient3]}
         style={StyleSheet.absoluteFill}
@@ -83,3 +83,13 @@ export default function Login({ navigation }) {
     </View>
   );
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
