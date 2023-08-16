@@ -60,7 +60,6 @@ export default function Login({ navigation }) {
           <View style={styles.iconContainer}>
             <MaterialCommunityIcons name="email-outline" size={24} color="black" />
           </View>
-            
           <TextInput
             autoCapitalize="none"
             placeholder="Email"
@@ -69,6 +68,7 @@ export default function Login({ navigation }) {
             style={styles.textInput}
           />
         </View>
+
         <Text style={styles.inputTitle}>Password</Text>
         <View style={styles.inputContainer}>
           <View style={styles.iconContainer}>
@@ -129,6 +129,8 @@ const styles = StyleSheet.create({
     fontSize: 45,
     color: 'darkblue',
     marginBottom: 20,
+    fontFamily: 'Cochin',
+    fontWeight: 'bold'
   },
   inputTitle: {
     fontSize: 20,
