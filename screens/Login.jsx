@@ -34,6 +34,7 @@ export default function Login({ navigation }) {
     <View>
       <Text>Welcome</Text>
       <Text>Back!</Text>
+      <Text>Login back into your account</Text>
       <Text>Email Address</Text>
       <TextInput
         autoCapitalize="none"
