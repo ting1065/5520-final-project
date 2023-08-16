@@ -57,33 +57,52 @@ export default function Signup({ navigation }) {
 
       <Card 
         width={300}
-        height={360}
+        height={440}
         backgroundColor={colors.whiteWords}
       >
-        <Text>Email Address</Text>
-        <TextInput
-          autoCapitalize="none"
-          placeholder="Email"
-          value={email}
-          onChangeText={(newText) => setEmail(newText)}
-        />
-        <Text>Password</Text>
-        <TextInput
-          autoCapitalize="none"
-          placeholder="Password"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={(newText) => setPassword(newText)}
-        />
-        <Text>Confirm Password</Text>
-        <TextInput
-          autoCapitalize="none"
-          placeholder="Password"
-          secureTextEntry={true}
-          value={confirmedPassword}
-          onChangeText={(newText) => setConfirmedPassword(newText)}
-        />
-        <Text>=======</Text>
+        <AntDesign name="user" size={24} style={styles.user}/>
+        <Text style={styles.inputTitle}>Email</Text>
+        <View style={styles.inputContainer}>
+          <View style={styles.iconContainer}>
+            <MaterialCommunityIcons name="email-outline" size={24} />
+          </View>
+          <TextInput
+            autoCapitalize="none"
+            placeholder="Email"
+            value={email}
+            onChangeText={(newText) => setEmail(newText)}
+            style={styles.textInput}
+          />
+        </View>
+        <Text style={styles.inputTitle}>Password</Text>
+        <View style={styles.inputContainer}>
+          <View style={styles.iconContainer}>
+            <Ionicons name="ios-lock-closed-outline" size={24}/>
+          </View>
+          <TextInput
+            autoCapitalize="none"
+            placeholder="Password"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(newText) => setPassword(newText)}
+            style={styles.textInput}
+          />
+        </View>
+        <Text style={styles.inputTitle}>Confirm Password</Text>
+        <View style={styles.inputContainer}>
+          <View style={styles.iconContainer}>
+            <Ionicons name="ios-lock-closed-outline" size={24}/>
+          </View>
+          <TextInput
+            autoCapitalize="none"
+            placeholder="Password"
+            secureTextEntry={true}
+            value={confirmedPassword}
+            onChangeText={(newText) => setConfirmedPassword(newText)}
+            style={styles.textInput}
+          />
+        </View>
+
         <PressableButton onPress={() => signupHandler()}>
           <Text>Register</Text>
         </PressableButton>
@@ -126,29 +145,29 @@ const styles = StyleSheet.create({
     fontFamily: 'Cochin',
     fontWeight: 'bold'
   },
-  // inputTitle: {
-  //   fontSize: 20,
-  //   marginVertical: 20,
-  // },
-  // textInput: {
-  //   fontSize: 20,
-  //   height: 40,
-  //   width: '90%',
-  //   paddingLeft: 5,
-  // },
-  // user: {
-  //   marginTop: 10,
-  //   alignSelf: 'center',
-  // },
-  // inputContainer: {
-  //   flexDirection: 'row',
-  //   backgroundColor: colors.inputBackground,
-  //   borderRadius: 5,
-  // }, 
-  // iconContainer: {
-  //   marginHorizontal: 5,
-  //   marginTop: 8,
-  // },
+  inputTitle: {
+    fontSize: 20,
+    marginVertical: 20,
+  },
+  textInput: {
+    fontSize: 20,
+    height: 40,
+    width: '90%',
+    paddingLeft: 5,
+  },
+  user: {
+    marginTop: 10,
+    alignSelf: 'center',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    backgroundColor: colors.inputBackground,
+    borderRadius: 5,
+  }, 
+  iconContainer: {
+    marginHorizontal: 5,
+    marginTop: 8,
+  },
   // loginButtonText: {
   //   color: colors.whiteWords,
   //   fontSize: 20,
