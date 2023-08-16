@@ -52,13 +52,13 @@ export default function Login({ navigation }) {
       <Card 
         width={300}
         height={360}
-        backgroundColor={'white'}
+        backgroundColor={colors.whiteWords}
       >
-        <AntDesign name="user" size={24} color="black" style={styles.user}/>
+        <AntDesign name="user" size={24} style={styles.user}/>
         <Text style={styles.inputTitle}>Email</Text>
         <View style={styles.inputContainer}>
           <View style={styles.iconContainer}>
-            <MaterialCommunityIcons name="email-outline" size={24} color="black" />
+            <MaterialCommunityIcons name="email-outline" size={24} />
           </View>
           <TextInput
             autoCapitalize="none"
@@ -72,7 +72,7 @@ export default function Login({ navigation }) {
         <Text style={styles.inputTitle}>Password</Text>
         <View style={styles.inputContainer}>
           <View style={styles.iconContainer}>
-            <Ionicons name="ios-lock-closed-outline" size={24} color="black" />
+            <Ionicons name="ios-lock-closed-outline" size={24}/>
           </View>
           <TextInput
             autoCapitalize="none"
@@ -126,14 +126,14 @@ const styles = StyleSheet.create({
   },
   welcomeBigWrods: {
     fontSize: 30,
-    color: 'white',
+    color: colors.whiteWords,
   },
   welcomesmallWrods: {
-    color: 'white',
+    color: colors.whiteWords,
   },
   appName: {
     fontSize: 45,
-    color: 'darkblue',
+    color: colors.appName,
     marginBottom: 20,
     fontFamily: 'Cochin',
     fontWeight: 'bold'
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    backgroundColor: '#FFF6E0',
+    backgroundColor: colors.inputBackground,
     borderRadius: 5,
   }, 
   iconContainer: {
@@ -162,12 +162,11 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   loginButtonText: {
-    color: 'white',
+    color: colors.whiteWords,
     fontSize: 20,
     alignSelf: 'center',
 
   },
-
   defaultStyle: {
     width: 200,
     height: 45,
@@ -176,7 +175,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    backgroundColor: '#87CBB9',
+    backgroundColor: colors.loginButton,
     // Add platform-specific shadow
     ...Platform.select({
       ios: {
@@ -192,7 +191,7 @@ const styles = StyleSheet.create({
     }),
   },
   pressedStyle: {
-    backgroundColor: '#B9EDDD',
+    backgroundColor: colors.pressedLoginButton,
     opacity: 0.5,
   },
   bottomContainer: {
@@ -206,7 +205,7 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   createAccountText: {
-    color: 'red',
+    color: colors.redWords,
   }
   
 });
