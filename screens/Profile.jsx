@@ -54,7 +54,9 @@ export default function Profile() {
           backgroundColor={colors.whiteWords}
         
         >
-          <Text>Your name:</Text>
+          <Text style={styles.inputTitle}>Your name:</Text>
+          <View style={styles.nameContainer}>
+            
           {isEditingName ? (
             <UserNameEditor
               currentName={user?.name}
@@ -64,12 +66,14 @@ export default function Profile() {
               cancelHandler={() => setIsEditingName(false)}
             />
           ) : (
-            <Text>{user?.name}</Text>
+            <Text style={styles.inputDisplay}>{user?.name}</Text>
           )}
-          <Text>=======</Text>
-          <PressableButton onPress={() => setIsEditingName(true)}>
+          
+            <PressableButton onPress={() => setIsEditingName(true)}>
             <Text>Edit Name</Text>
-          </PressableButton>
+            </PressableButton>
+          </View>
+          
         </Card>
           
         <Text>=======</Text>
@@ -147,6 +151,19 @@ const styles = StyleSheet.create({
 
     resizeMode: 'cover',
   },
+  nameContainer: {
+    flexDirection: 'row',
+
+  },
+  inputTitle: {
+    fontSize: 20,
+    color: 'grey',
+    // marginVertical: 20,
+  },
+  inputDisplay: {
+    fontSize: 20,
+
+  }
 
 
 });
