@@ -48,23 +48,25 @@ export default function Login({ navigation }) {
       
       <Card 
         width={300}
-        height={300}
+        height={350}
         backgroundColor={'white'}
       >
-        <Text>Email Address</Text>
+        <Text style={styles.inputTitle}>Email</Text>
         <TextInput
           autoCapitalize="none"
           placeholder="Email"
           value={email}
           onChangeText={(newText) => setEmail(newText)}
+          style={styles.textInput}
         />
-        <Text>Password</Text>
+        <Text style={styles.inputTitle}>Password</Text>
         <TextInput
           autoCapitalize="none"
           placeholder="Password"
           secureTextEntry={true}
           value={password}
           onChangeText={(newText) => setPassword(newText)}
+          style={styles.textInput}
         />
         <Text>=======</Text>
         <PressableButton onPress={() => loginHandler()}>
@@ -98,18 +100,33 @@ const styles = StyleSheet.create({
   welcomeContainer : {
     alignSelf: 'flex-start',
     marginLeft: 40,
-    marginVertical: 40,
+    marginBottom: 40,
   },
   welcomeBigWrods: {
     // fontWeight: 'bold',
-    fontSize: '30',
+    fontSize: 30,
     color: 'white',
   },
   welcomesmallWrods: {
     color: 'white',
   },
   appName: {
-    fontSize: '45',
+    fontSize: 45,
     color: 'darkblue',
+    marginBottom: 20,
+  },
+  inputTitle: {
+    fontSize: 20,
+    marginVertical: 5,
+  },
+  textInput: {
+    fontSize: 20,
+    // borderWidth: 1,
+    borderRadius: 5,
+    borderColor: 'black',
+    height: 40,
+    marginVertical: 5,
+    paddingLeft: 5,
+    backgroundColor: '#FFF6E0',
   }
 });
