@@ -88,13 +88,21 @@ export default function Profile() {
           <Text style={styles.inputDisplay}>{user?.email}</Text>
           
         </Card>
+        <View style={styles.combatContainer}>
+
         
+          <Card
+            width={300}
+            height={130}
+            backgroundColor={colors.loginButton}
           
-  
-        
-        <Text>Combat record</Text>
-        <Text>win: {user?.win}</Text>
-        <Text>lose: {user?.lose}</Text>
+          >
+            <Text style={[styles.combatWords, styles.personalInfo]}>Combat Record</Text>
+            <Text style={[styles.inputTitle, styles.winLoseStyle]}>Win: {user?.win}</Text>
+            <Text style={[styles.inputTitle, styles.winLoseStyle]}>Lose: {user?.lose}</Text>
+          </Card>
+        </View>
+          
         <PressableButton
           defaultStyle={styles.defaultStyle}
           pressedStyle={styles.pressedStyle}
@@ -127,9 +135,9 @@ const styles = StyleSheet.create({
 
   },
   defaultStyle: {
-    width: 200,
+    width: 120,
     height: 45,
-    marginTop: 30,
+    marginTop: 20,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
@@ -199,6 +207,15 @@ const styles = StyleSheet.create({
   editNamePressedStyle: {
     opacity: 0.5,
   },
+  combatContainer: {
+    marginTop: 10,
+  },
+  combatWords: {
+    color: colors.whiteWords,
+  }, 
+  winLoseStyle: {
+    alignSelf: 'center',
+  }
 
 
 });
