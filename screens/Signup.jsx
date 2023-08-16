@@ -50,8 +50,11 @@ export default function Signup({ navigation }) {
         style={StyleSheet.absoluteFill}
       />
       <Text style={styles.appName}>Memory Master</Text>
-      <Text>Welcome</Text>
-      <Text>Signup into your account</Text>
+      <View style={styles.welcomeContainer}>
+        <Text style={styles.welcomeBigWrods}>Welcome!</Text>
+        <Text style={styles.welcomesmallWrods}>Signup into your account</Text>
+      </View>
+      
       <Text>Email Address</Text>
       <TextInput
         autoCapitalize="none"
@@ -98,18 +101,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 2,
   },
-  // welcomeContainer : {
-  //   width: 300,
-  //   alignSelf: 'center',
-  //   marginBottom: 40,
-  // },
-  // welcomeBigWrods: {
-  //   fontSize: 30,
-  //   color: colors.whiteWords,
-  // },
-  // welcomesmallWrods: {
-  //   color: colors.whiteWords,
-  // },
+  welcomeContainer : {
+    width: 300,
+    alignSelf: 'center',
+    marginBottom: 40,
+  },
+  welcomeBigWrods: {
+    fontSize: 30,
+    color: colors.whiteWords,
+  },
+  welcomesmallWrods: {
+    color: colors.whiteWords,
+  },
   appName: {
     fontSize: 45,
     color: colors.appName,
