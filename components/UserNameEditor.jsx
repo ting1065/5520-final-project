@@ -17,26 +17,37 @@ export default function UserNameEditor({
     <View>
       
       <View style={styles.checkcrossContainer}>
-        <TextInput
-          autoCapitalize="none"
-          value={text}
-          onChangeText={(text) => {
-            setText(text);
-          }}
-        />
-      
-        <PressableButton
-          onPress={async () => {
-            await updateUserNameInDB(auth.currentUser.uid, text);
-            confirmHandler();
-          }}
-        >
-          <FontAwesome name="check-square" size={24} color="black" />
-        </PressableButton>
+        <View>
+          <TextInput
+            autoCapitalize="none"
+            value={text}
+            onChangeText={(text) => {
+              setText(text);
+            }}
+            style={styles.textInput}
+          />
+        </View>
+        
+        <View style={styles.checkcrossButtons}>
+          <PressableButton
+            defaultStyle={styles.checkDefaultStyle}
+            pressedStyle={styles.pressedStyle}
+            onPress={async () => {
+              await updateUserNameInDB(auth.currentUser.uid, text);
+              confirmHandler();
+            }}
+          >
+            <FontAwesome name="check-square" size={30} color="green" />
+          </PressableButton>
 
-        <PressableButton onPress={cancelHandler}>
-          <Entypo name="squared-cross" size={26} color="black" />
-        </PressableButton>
+          <PressableButton 
+            defaultStyle={styles.crossDefaultStyle}
+            pressedStyle={styles.pressedStyle}
+            onPress={cancelHandler}>
+            <Entypo name="squared-cross" size={31} color="darkred" />
+          </PressableButton>
+        </View>
+          
       </View>
     </View>
   );
@@ -45,6 +56,30 @@ export default function UserNameEditor({
 const styles = StyleSheet.create({
   checkcrossContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
+  },
+  textInput: {
+    fontSize: 20,
+    width: 200,
+    borderWidth: 2,
+    borderColor: 'grey',
+    borderRadius: 5,
+    paddingLeft: 5,
+    height: 35,
+  },
+  checkcrossButtons: {
+    flexDirection: 'row',
+    marginHorizontal: 20,
+    // width: 200,
+    justifyContent: 'flex-end',
+
+  },
+  checkDefaultStyle: {
+    marginRight: 10,
+
+  },
+  pressedStyle: {
+    opacity: 0.5,
   }
 
 })
