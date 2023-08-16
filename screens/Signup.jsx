@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Alert, StyleSheet, KeyboardAvoidingView } from "react-native";
+import { View, Text, TextInput, Alert, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import React, { useState } from "react";
 import PressableButton from "../components/PressableButton";
 import { auth } from "../Firebase/firebase-setup";
@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
     fontSize: 45,
     color: colors.appName,
     marginBottom: 20,
-    fontFamily: 'Cochin',
-    fontWeight: 'bold'
+    fontFamily: Platform.OS === 'ios' ? 'Cochin' : 'Roboto',
+    fontWeight: 'bold',
   },
   inputTitle: {
     fontSize: 20,
