@@ -51,10 +51,11 @@ export default function Profile() {
         </View>
         <Card
           width={300}
-          height={300}
+          height={200}
           backgroundColor={colors.whiteWords}
         
         >
+          <Text style={styles.personalInfo}>Personal Info</Text>
           <Text style={styles.inputTitle}>Your name:</Text>
           <View style={styles.nameContainer}>
             
@@ -83,11 +84,14 @@ export default function Profile() {
             </PressableButton>}
             
           </View>
+          <Text style={styles.inputTitle}>Your email:</Text>
+          <Text style={styles.inputDisplay}>{user?.email}</Text>
           
         </Card>
+        
           
-        <Text>=======</Text>
-        <Text>Your email: {user?.email}</Text>
+  
+        
         <Text>Combat record</Text>
         <Text>win: {user?.win}</Text>
         <Text>lose: {user?.lose}</Text>
@@ -151,6 +155,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     position: 'relative',
+    marginBottom: 20,
   },
   image: {
     width: 200,
@@ -167,19 +172,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
   },
+  personalInfo: {
+    fontSize: 25,
+    alignSelf: 'center',
+  },
   inputTitle: {
     fontSize: 20,
     color: 'grey',
-    // marginVertical: 20,
+    marginVertical: 10,
   },
   inputDisplay: {
     fontSize: 20,
-
   },
   editNameButton: {
     flexDirection: 'row',
-
-
   },
   editNameDefaultStyle: {
     width: 80,
