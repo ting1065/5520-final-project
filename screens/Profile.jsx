@@ -69,7 +69,7 @@ export default function Profile() {
           ) : (
             <Text style={styles.inputDisplay}>{user?.name}</Text>
           )}
-          
+            {!isEditingName &&
             <PressableButton 
               defaultStyle={styles.editNameDefaultStyle}
               pressedStyle={styles.editNamePressedStyle}
@@ -80,7 +80,8 @@ export default function Profile() {
                 <Text style={styles.inputDisplay}> Edit </Text>
               </View>
               
-            </PressableButton>
+            </PressableButton>}
+            
           </View>
           
         </Card>
