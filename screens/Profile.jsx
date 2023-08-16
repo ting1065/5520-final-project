@@ -10,6 +10,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import GradientBackground from "../components/GradientBackground";
 import { colors } from '../Colors';
 import Card from "../components/Card";
+import { AntDesign } from '@expo/vector-icons';
 
 export default function Profile() {
   const avatarStorageFolder = "avatars";
@@ -69,8 +70,16 @@ export default function Profile() {
             <Text style={styles.inputDisplay}>{user?.name}</Text>
           )}
           
-            <PressableButton onPress={() => setIsEditingName(true)}>
-            <Text>Edit Name</Text>
+            <PressableButton 
+              defaultStyle={styles.editNameDefaultStyle}
+              pressedStyle={styles.editNamePressedStyle}
+              onPress={() => setIsEditingName(true)}
+            >
+              <View style={styles.editNameButton}>
+                <AntDesign name="edit" size={24} color="black" />
+                <Text style={styles.inputDisplay}> Edit </Text>
+              </View>
+              
             </PressableButton>
           </View>
           
@@ -153,6 +162,8 @@ const styles = StyleSheet.create({
   },
   nameContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
 
   },
   inputTitle: {
@@ -163,7 +174,24 @@ const styles = StyleSheet.create({
   inputDisplay: {
     fontSize: 20,
 
-  }
+  },
+  editNameButton: {
+    flexDirection: 'row',
+
+
+  },
+  editNameDefaultStyle: {
+    width: 80,
+    height: 30,
+    borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    marginRight: 5,
+  },
+  editNamePressedStyle: {
+    opacity: 0.5,
+  },
 
 
 });
