@@ -37,7 +37,15 @@ export default function Home() {
           ),
         }}
       />
-      <Tab.Screen name="Design" component={Design} />
+      <Tab.Screen 
+        name="Design" 
+        component={Design} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome5 name="pencil-ruler" size={size} color={color} />
+          ),
+        }}
+      />
       <Tab.Screen name="Activity" component={Activity} />
       <Tab.Screen 
         name="Profile" 
