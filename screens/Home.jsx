@@ -1,15 +1,32 @@
+import { View, Text, TextInput, Alert, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Find from "./Find";
 import Design from "./Design";
 import Activity from "./Activity";
 import Profile from "./Profile";
+import { colors } from '../Colors';
 
 const Tab = createBottomTabNavigator();
 
 export default function Home() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        headerStyle: { backgroundColor: colors.topheader },
+        headerTintColor: colors.whiteWords,
+        tabBarStyle: { 
+          backgroundColor: colors.bottomheader,
+          paddingBottom: 15,
+          height: 70,
+        },
+        headerTitleAlign: 'center',
+        tabBarActiveTintColor: colors.tabBarPressed,
+        tabBarLabel: ({ focused }) => (
+          <Text style={{ color: focused ? colors.tabBarPressed : colors.tabBarNotPressed}}>{route.name}</Text>
+        ),
+      })}
+    >
       <Tab.Screen name="Find" component={Find} />
       <Tab.Screen name="Design" component={Design} />
       <Tab.Screen name="Activity" component={Activity} />
