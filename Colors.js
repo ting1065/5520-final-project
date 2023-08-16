@@ -33,15 +33,15 @@ export const colors = {
     // gradient2: '#FFE17B',
     // gradient3: '#FD8D14',
 
-    topheader: '#C07F00',
-    bottomheader: '#557A46',
+    topheader: '#FFDD83',
+    bottomheader: '#98D8AA',
 
     contentBackground: '#807BC2',
     // textInput: "#9996E2",
     pressedColor: "#483d8b",
     shadowColor: '#000',
-    tabBarPressed: '#B9EDDD',
-    tabBarNotPressed: `white`,
+    tabBarPressed: '#557A46',
+    tabBarNotPressed: `grey`,
     text: 'white',
 
 };
