@@ -54,34 +54,40 @@ export default function Signup({ navigation }) {
         <Text style={styles.welcomeBigWrods}>Welcome!</Text>
         <Text style={styles.welcomesmallWrods}>Signup into your account</Text>
       </View>
-      
-      <Text>Email Address</Text>
-      <TextInput
-        autoCapitalize="none"
-        placeholder="Email"
-        value={email}
-        onChangeText={(newText) => setEmail(newText)}
-      />
-      <Text>Password</Text>
-      <TextInput
-        autoCapitalize="none"
-        placeholder="Password"
-        secureTextEntry={true}
-        value={password}
-        onChangeText={(newText) => setPassword(newText)}
-      />
-      <Text>Confirm Password</Text>
-      <TextInput
-        autoCapitalize="none"
-        placeholder="Password"
-        secureTextEntry={true}
-        value={confirmedPassword}
-        onChangeText={(newText) => setConfirmedPassword(newText)}
-      />
-      <Text>=======</Text>
-      <PressableButton onPress={() => signupHandler()}>
-        <Text>Register</Text>
-      </PressableButton>
+
+      <Card 
+        width={300}
+        height={360}
+        backgroundColor={colors.whiteWords}
+      >
+        <Text>Email Address</Text>
+        <TextInput
+          autoCapitalize="none"
+          placeholder="Email"
+          value={email}
+          onChangeText={(newText) => setEmail(newText)}
+        />
+        <Text>Password</Text>
+        <TextInput
+          autoCapitalize="none"
+          placeholder="Password"
+          secureTextEntry={true}
+          value={password}
+          onChangeText={(newText) => setPassword(newText)}
+        />
+        <Text>Confirm Password</Text>
+        <TextInput
+          autoCapitalize="none"
+          placeholder="Password"
+          secureTextEntry={true}
+          value={confirmedPassword}
+          onChangeText={(newText) => setConfirmedPassword(newText)}
+        />
+        <Text>=======</Text>
+        <PressableButton onPress={() => signupHandler()}>
+          <Text>Register</Text>
+        </PressableButton>
+      </Card>
       <Text>=======</Text>
       <Text>Already Registered?</Text>
       <Text>=======</Text>
