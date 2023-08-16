@@ -54,27 +54,36 @@ export default function Login({ navigation }) {
         height={350}
         backgroundColor={'white'}
       >
-        <AntDesign name="user" size={24} color="black" />
+        <AntDesign name="user" size={24} color="black" style={styles.user}/>
         <Text style={styles.inputTitle}>Email</Text>
-        <MaterialCommunityIcons name="email-outline" size={24} color="black" />
-        <TextInput
-          autoCapitalize="none"
-          placeholder="Email"
-          value={email}
-          onChangeText={(newText) => setEmail(newText)}
-          style={styles.textInput}
-        />
+        <View style={styles.inputContainer}>
+          <View style={styles.iconContainer}>
+            <MaterialCommunityIcons name="email-outline" size={24} color="black" />
+          </View>
+            
+          <TextInput
+            autoCapitalize="none"
+            placeholder="Email"
+            value={email}
+            onChangeText={(newText) => setEmail(newText)}
+            style={styles.textInput}
+          />
+        </View>
         <Text style={styles.inputTitle}>Password</Text>
-        <Ionicons name="ios-lock-closed-outline" size={24} color="black" />
-        <TextInput
-          autoCapitalize="none"
-          placeholder="Password"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={(newText) => setPassword(newText)}
-          style={styles.textInput}
-        />
-        <Text>=======</Text>
+        <View style={styles.inputContainer}>
+          <View style={styles.iconContainer}>
+            <Ionicons name="ios-lock-closed-outline" size={24} color="black" />
+          </View>
+          <TextInput
+            autoCapitalize="none"
+            placeholder="Password"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(newText) => setPassword(newText)}
+            style={styles.textInput}
+          />
+        </View>
+
         <PressableButton onPress={() => loginHandler()}>
           <Text>Log In</Text>
         </PressableButton>
@@ -127,12 +136,20 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontSize: 20,
-    // borderWidth: 1,
-    borderRadius: 5,
-    borderColor: 'black',
     height: 40,
-    marginVertical: 5,
+    width: '90%',
     paddingLeft: 5,
+  },
+  user: {
+    alignSelf: 'center',
+  },
+  inputContainer: {
+    flexDirection: 'row',
     backgroundColor: '#FFF6E0',
+    borderRadius: 5,
+  }, 
+  iconContainer: {
+    marginHorizontal: 5,
+    marginTop: 8,
   }
 });
