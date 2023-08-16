@@ -35,15 +35,19 @@ export default function Profile() {
   return (
     <GradientBackground>
       <View style={styles.container}>
-        <Image
-          style={{ width: 100, height: 100 }}
-          source={{ uri: user?.avatar }}
-        />
-        <ImageManager
-          storeDownloadUri={updateAvatarUri}
-          folderName={avatarStorageFolder}
-          fileName={avatarFileName}
-        />
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            
+            source={{ uri: user?.avatar }}
+          />
+          <ImageManager
+            storeDownloadUri={updateAvatarUri}
+            folderName={avatarStorageFolder}
+            fileName={avatarFileName}
+          />
+        </View>
+          
         <Text>name:</Text>
         {isEditingName ? (
           <UserNameEditor
@@ -103,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    backgroundColor: colors.loginButton,
+    backgroundColor: 'darkred',
     // Add platform-specific shadow
     ...Platform.select({
       ios: {
@@ -119,8 +123,16 @@ const styles = StyleSheet.create({
     }),
   },
   pressedStyle: {
-    backgroundColor: colors.pressedLoginButton,
+    backgroundColor: 'red',
     opacity: 0.5,
+  },
+  imageContainer: {
+    position: 'relative',
+  },
+  image: {
+    width: 100,
+    height: 100,
+    resizeMode: 'cover',
   },
 
 

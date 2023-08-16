@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { Alert } from "react";
 import * as ImagePicker from "expo-image-picker";
 import PressableButton from "./PressableButton";
@@ -54,10 +54,24 @@ export default function ImageManager({
   }
 
   return (
-    <View>
+    <View style={styles.editButton}>
       <PressableButton onPress={() => takeImageHandler()}>
-        <MaterialCommunityIcons name="camera-retake" size={30} color="black" />
+        <MaterialCommunityIcons name="camera-retake" size={30} color="grey"/>
       </PressableButton>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  editButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    position: 'absolute',
+    bottom: -20,
+    right: -20,
+    backgroundColor: 'white',
+    padding: 10,
+  },
+
+})
