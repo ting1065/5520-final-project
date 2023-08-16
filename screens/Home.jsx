@@ -39,7 +39,15 @@ export default function Home() {
       />
       <Tab.Screen name="Design" component={Design} />
       <Tab.Screen name="Activity" component={Activity} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen 
+        name="Profile" 
+        component={Profile} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome5 name="user-circle" size={size} color={color} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
