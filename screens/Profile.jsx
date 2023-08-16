@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../Firebase/firebase-setup";
 import { signOut } from "firebase/auth";
@@ -8,6 +8,7 @@ import UserNameEditor from "../components/UserNameEditor";
 import ImageManager from "../components/ImageManager";
 import { doc, onSnapshot } from "firebase/firestore";
 import GradientBackground from "../components/GradientBackground";
+import { colors } from '../Colors';
 
 export default function Profile() {
   const avatarStorageFolder = "avatars";
@@ -33,7 +34,7 @@ export default function Profile() {
 
   return (
     <GradientBackground>
-      <View>
+      <View style={styles.container}>
         <Image
           style={{ width: 100, height: 100 }}
           source={{ uri: user?.avatar }}
@@ -64,6 +65,8 @@ export default function Profile() {
         <Text>win: {user?.win}</Text>
         <Text>lose: {user?.lose}</Text>
         <PressableButton
+          defaultStyle={styles.defaultStyle}
+          pressedStyle={styles.pressedStyle}
           onPress={async () => {
             try {
               await signOut(auth);
@@ -72,11 +75,53 @@ export default function Profile() {
             }
           }}
         >
-          <Text>=======</Text>
-          <Text>Sign Out</Text>
-          <Text>=======</Text>
+          <Text style={styles.loginButtonText}>Sign Out</Text>
         </PressableButton>
       </View>
     </GradientBackground>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loginButtonText: {
+    color: colors.whiteWords,
+    fontSize: 20,
+    alignSelf: 'center',
+
+  },
+  defaultStyle: {
+    width: 200,
+    height: 45,
+    marginTop: 30,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    backgroundColor: colors.loginButton,
+    // Add platform-specific shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.shadowColor,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  pressedStyle: {
+    backgroundColor: colors.pressedLoginButton,
+    opacity: 0.5,
+  },
+
+
+});
