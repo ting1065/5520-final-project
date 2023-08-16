@@ -77,7 +77,7 @@ export default function Profile() {
               onPress={() => setIsEditingName(true)}
             >
               <View style={styles.editNameButton}>
-                <AntDesign name="edit" size={24} color="black" />
+                <AntDesign name="edit" size={24} color={colors.shadowColor} />
                 <Text style={styles.inputDisplay}> Edit </Text>
               </View>
               
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    backgroundColor: 'darkred',
+    backgroundColor: colors.redButton,
     // Add platform-specific shadow
     ...Platform.select({
       ios: {
@@ -150,7 +150,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.27,
         shadowRadius: 4.65,
-        
       },
       android: {
         elevation: 6,
@@ -158,7 +157,7 @@ const styles = StyleSheet.create({
     }),
   },
   pressedStyle: {
-    backgroundColor: 'red',
+    backgroundColor: colors.pressedRedButton,
     opacity: 0.5,
   },
   imageContainer: {
@@ -170,7 +169,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 100,
     borderWidth: 5,
-    borderColor: 'white',
+    borderColor: colors.whiteWords,
 
     resizeMode: 'cover',
   },
@@ -186,7 +185,7 @@ const styles = StyleSheet.create({
   },
   inputTitle: {
     fontSize: 20,
-    color: 'grey',
+    color: colors.greyWords,
     marginVertical: 10,
   },
   inputDisplay: {

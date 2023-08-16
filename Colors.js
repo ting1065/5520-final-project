@@ -1,14 +1,17 @@
 export const colors = {
     whiteWords: 'white',
     redWords: 'red',
+    greyWords: 'grey',
     appName: 'darkblue',
     loginButton: '#87CBB9',
     pressedLoginButton: '#B9EDDD',
     inputBackground: '#FFF6E0',
+    redButton: 'darkred',
+    pressedRedButton: 'red',
 
 
     main: 'darkblue',
-    redButton: "crimson",
+
     blueButton: '#1e90ff',
     cardBackground: '#a9a9a9',
     shadowColor: '#000',
