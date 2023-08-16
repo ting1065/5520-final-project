@@ -130,8 +130,10 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+
     resizeMode: 'cover',
   },
 

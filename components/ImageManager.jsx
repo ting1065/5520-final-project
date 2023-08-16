@@ -55,7 +55,9 @@ export default function ImageManager({
 
   return (
     <View style={styles.editButton}>
-      <PressableButton onPress={() => takeImageHandler()}>
+      <PressableButton 
+        onPress={() => takeImageHandler()}
+      >
         <MaterialCommunityIcons name="camera-retake" size={30} color="grey"/>
       </PressableButton>
     </View>
@@ -68,8 +70,8 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 50,
     position: 'absolute',
-    bottom: -20,
-    right: -20,
+    bottom: 0,
+    right: -5,
     backgroundColor: 'white',
     padding: 10,
   },
