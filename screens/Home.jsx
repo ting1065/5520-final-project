@@ -6,6 +6,7 @@ import Design from "./Design";
 import Activity from "./Activity";
 import Profile from "./Profile";
 import { colors } from '../Colors';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +28,15 @@ export default function Home() {
         ),
       })}
     >
-      <Tab.Screen name="Find" component={Find} />
+      <Tab.Screen 
+        name="Find" 
+        component={Find} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome5 name="users" size={size} color={color} />
+          ),
+        }}
+      />
       <Tab.Screen name="Design" component={Design} />
       <Tab.Screen name="Activity" component={Activity} />
       <Tab.Screen name="Profile" component={Profile} />
