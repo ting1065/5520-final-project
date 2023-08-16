@@ -111,13 +111,16 @@ export default function Signup({ navigation }) {
           <Text style={styles.loginButtonText}>Register</Text>
         </PressableButton>
       </Card>
-      <Text>=======</Text>
-      <Text>Already Registered?</Text>
-      <Text>=======</Text>
-      <PressableButton onPress={() => navigation.replace("Login")}>
-        <Text>Login</Text>
-      </PressableButton>
-
+      <View style={styles.bottomContainer}>
+        <Text>Already Registered?   </Text>
+        <PressableButton 
+          // defaultStyle={styles.defaultStyleBottom}
+          pressedStyle={styles.pressedStyleBottom}
+          onPress={() => navigation.replace("Login")}
+        >
+          <Text style={styles.createAccountText}>Login</Text>
+        </PressableButton>
+      </View>
     </View>
   );
 }
@@ -205,18 +208,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.pressedLoginButton,
     opacity: 0.5,
   },
-  // bottomContainer: {
-  //   marginTop: 30,
-  //   flexDirection: 'row',
-  // },
-  // // defaultStyleBottom: {
+  bottomContainer: {
+    marginTop: 30,
+    flexDirection: 'row',
+  },
+  // defaultStyleBottom: {
 
-  // // },
-  // pressedStyleBottom: {
-  //   opacity: 0.2,
   // },
-  // createAccountText: {
-  //   color: colors.redWords,
-  // }
+  pressedStyleBottom: {
+    opacity: 0.2,
+  },
+  createAccountText: {
+    color: colors.redWords,
+  }
   
 });
