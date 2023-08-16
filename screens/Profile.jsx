@@ -9,6 +9,7 @@ import ImageManager from "../components/ImageManager";
 import { doc, onSnapshot } from "firebase/firestore";
 import GradientBackground from "../components/GradientBackground";
 import { colors } from '../Colors';
+import Card from "../components/Card";
 
 export default function Profile() {
   const avatarStorageFolder = "avatars";
@@ -47,25 +48,33 @@ export default function Profile() {
             fileName={avatarFileName}
           />
         </View>
+        <Card
+          width={300}
+          height={300}
+          backgroundColor={colors.whiteWords}
+        
+        >
+          <Text>Your name:</Text>
+          {isEditingName ? (
+            <UserNameEditor
+              currentName={user?.name}
+              confirmHandler={() => {
+                setIsEditingName(false);
+              }}
+              cancelHandler={() => setIsEditingName(false)}
+            />
+          ) : (
+            <Text>{user?.name}</Text>
+          )}
+          <Text>=======</Text>
+          <PressableButton onPress={() => setIsEditingName(true)}>
+            <Text>Edit Name</Text>
+          </PressableButton>
+        </Card>
           
-        <Text>name:</Text>
-        {isEditingName ? (
-          <UserNameEditor
-            currentName={user?.name}
-            confirmHandler={() => {
-              setIsEditingName(false);
-            }}
-            cancelHandler={() => setIsEditingName(false)}
-          />
-        ) : (
-          <Text>{user?.name}</Text>
-        )}
         <Text>=======</Text>
-        <PressableButton onPress={() => setIsEditingName(true)}>
-          <Text>Edit Name</Text>
-        </PressableButton>
-        <Text>=======</Text>
-        <Text>email: {user?.email}</Text>
+        <Text>Your email: {user?.email}</Text>
+        <Text>Combat record</Text>
         <Text>win: {user?.win}</Text>
         <Text>lose: {user?.lose}</Text>
         <PressableButton
