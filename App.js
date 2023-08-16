@@ -27,8 +27,8 @@ export default function App() {
 
   const AuthStack = (
     <>
-      <Stack.Screen name="Signup" component={Signup} />
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }}/>
+      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
       {/* <Stack.Screen name="Signup">
         {props => <Signup {...props} onLayoutRootView={onLayoutRootView} />} */}
       {/* </Stack.Screen>
