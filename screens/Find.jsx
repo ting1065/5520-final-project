@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import PlayerList from "../components/PlayerList";
 import { db } from "../Firebase/firebase-setup";
@@ -9,6 +9,8 @@ import Map from "../components/Map";
 import PressableButton from "../components/PressableButton";
 import * as Location from "expo-location";
 import GradientBackground from "../components/GradientBackground";
+import { colors } from '../Colors';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function Find({ navigation, route }) {
   const [players, setPlayers] = useState([]);
@@ -103,31 +105,39 @@ export default function Find({ navigation, route }) {
 
   return (
     <GradientBackground>
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <PlayerClicked
           clickedPlayer={clickedPlayer}
           modalVisible={modalVisible}
           challengeHandler={challengeHandler}
           closeHandler={closeHandler}
         />
-        <Text>======</Text>
-        <PressableButton
-          onPress={() => {
-            setIsMapMode(true);
-            locateUserHandler();
-          }}
-        >
-          <Text>map mode</Text>
-        </PressableButton>
-        <Text>======</Text>
-        <Text>======</Text>
-        <PressableButton
-          onPress={() => {
-            setIsMapMode(false);
-          }}
-        >
-          <Text>list mode</Text>
-        </PressableButton>
+        <View style={styles.modeContainer}>
+          <PressableButton
+            defaultStyle={styles.mode1DefaultStyle}
+            pressedStyle={styles.mode1PressedStyle}
+
+            onPress={() => {
+              setIsMapMode(true);
+              locateUserHandler();
+            }}
+          > 
+            <FontAwesome name="map-pin" size={24} color="black" />
+            <Text style={styles.modeText}>Map mode</Text>
+          </PressableButton>
+          <PressableButton
+            defaultStyle={styles.mode1DefaultStyle}
+            pressedStyle={styles.mode1PressedStyle}
+            onPress={() => {
+              setIsMapMode(false);
+            }}
+          >
+            <FontAwesome name="list-alt" size={24} color="black" />
+            <Text style={styles.modeText}>List mode</Text>
+          </PressableButton>
+        </View>
+          
+
         <Text>======</Text>
 
         {isMapMode ? (
@@ -151,3 +161,46 @@ export default function Find({ navigation, route }) {
     </GradientBackground>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // height: '100%',
+    // alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+
+  },
+  mode1DefaultStyle: {
+    width: 120,
+    height: 60,
+    margin: 20,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    backgroundColor: colors.whiteWords,
+    // Add platform-specific shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.shadowColor,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  mode1PressedStyle: {
+    opacity: 0.5,
+  },
+  modeText: {
+    fontSize: 20,
+
+  }
+})
