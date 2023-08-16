@@ -95,17 +95,18 @@ export default function Login({ navigation }) {
 
       </Card>
         
-      <Text>=======</Text>
-      <Text>New User?</Text>
-      <Text>=======</Text>
-      <PressableButton
-        onPress={() => {
-          navigation.replace("Signup");
-        }}
-      >
-        <Text>Create an account</Text>
-      </PressableButton>
-      <Text>=======</Text>
+      <View style={styles.bottomContainer}>
+        <Text>New User?   </Text>
+        <PressableButton
+          defaultStyle={styles.defaultStyleBottom}
+          pressedStyle={styles.pressedStyleBottom}
+          onPress={() => {
+            navigation.replace("Signup");
+          }}
+        >
+          <Text style={styles.createAccountText}>Create an account</Text>
+        </PressableButton>
+      </View>
     </View>
   );
 }
@@ -192,9 +193,21 @@ const styles = StyleSheet.create({
     }),
   },
   pressedStyle: {
-
-
     backgroundColor: '#B9EDDD',
     opacity: 0.5,
   },
+  bottomContainer: {
+    marginTop: 30,
+    flexDirection: 'row',
+  },
+  // defaultStyleBottom: {
+
+  // },
+  pressedStyleBottom: {
+    opacity: 0.2,
+  },
+  createAccountText: {
+    color: 'red',
+  }
+  
 });
