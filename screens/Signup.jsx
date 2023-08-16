@@ -68,7 +68,7 @@ export default function Signup({ navigation }) {
           </View>
           <TextInput
             autoCapitalize="none"
-            placeholder="Email"
+            placeholder="name@example.com"
             value={email}
             onChangeText={(newText) => setEmail(newText)}
             style={styles.textInput}
@@ -81,7 +81,7 @@ export default function Signup({ navigation }) {
           </View>
           <TextInput
             autoCapitalize="none"
-            placeholder="Password"
+            placeholder="at least 6 characters"
             secureTextEntry={true}
             value={password}
             onChangeText={(newText) => setPassword(newText)}
@@ -95,7 +95,7 @@ export default function Signup({ navigation }) {
           </View>
           <TextInput
             autoCapitalize="none"
-            placeholder="Password"
+            placeholder="enter your password again"
             secureTextEntry={true}
             value={confirmedPassword}
             onChangeText={(newText) => setConfirmedPassword(newText)}

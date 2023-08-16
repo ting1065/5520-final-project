@@ -62,7 +62,7 @@ export default function Login({ navigation }) {
           </View>
           <TextInput
             autoCapitalize="none"
-            placeholder="Email"
+            // placeholder="Email"
             value={email}
             onChangeText={(newText) => setEmail(newText)}
             style={styles.textInput}
@@ -76,7 +76,7 @@ export default function Login({ navigation }) {
           </View>
           <TextInput
             autoCapitalize="none"
-            placeholder="Password"
+            // placeholder="Password"
             secureTextEntry={true}
             value={password}
             onChangeText={(newText) => setPassword(newText)}
