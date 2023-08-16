@@ -22,7 +22,8 @@
     "expo-image-picker": "~14.3.2",
     "expo-location": "~16.1.0",
     "react-native-maps": "1.7.1",
-    "expo-font": "~11.4.0"
+    "expo-font": "~11.4.0",
+    "expo-splash-screen": "~0.20.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
