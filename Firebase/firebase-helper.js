@@ -11,9 +11,11 @@ import {
   getDocs,
   arrayUnion,
   arrayRemove,
+  increment,
 } from "firebase/firestore";
 import { db } from "./firebase-setup";
 import { getRandomImageFromNASA } from "../external-api/helper";
+import { Alert } from "react-native";
 
 const defaultAvatar =
   "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/1200px-SpongeBob_SquarePants_character.svg.png";
@@ -30,6 +32,7 @@ export async function addUserToDB(id, email) {
       win: 0,
       lose: 0,
       id: id,
+      location: null,
     });
   } catch (e) {
     console.error("Error happened while adding user to db: ", e);
@@ -95,6 +98,18 @@ export async function incrementUserLoseInDB(id) {
   }
 }
 
+//update a user's location in db
+export async function updateUserLocationInDB(id, newLocation) {
+  try {
+    const docRef = doc(db, "users", id);
+    await updateDoc(docRef, {
+      location: newLocation,
+    });
+  } catch (e) {
+    console.error("Error happened while updating user's location in db: ", e);
+  }
+}
+
 //puzzles collection
 
 //add a new puzzle to db
@@ -137,8 +152,15 @@ export async function getPuzzleFromDB(userId) {
 //update a puzzle in db
 export async function updatePuzzleInDB(id, newPuzzle) {
   try {
+    const newCoverImageUri = await getRandomImageFromNASA();
+    if (!newCoverImageUri) {
+      throw new Error("Unable to get random image from NASA API.");
+    }
+
     const docRef = doc(db, "puzzles", id);
+
     await updateDoc(docRef, {
+      coverImageUri: newCoverImageUri,
       puzzle: newPuzzle,
     });
   } catch (e) {
@@ -182,14 +204,14 @@ export async function deletePuzzleFromDB(id) {
 //activities collection
 
 //add a new activity to db
-export async function addActivityToDB(title, imageUri, intro, oganizer) {
+export async function addActivityToDB(title, imageUri, intro, organizer) {
   try {
     await addDoc(collection(db, "activities"), {
       title: title,
       imageUri: imageUri,
       intro: intro,
-      oganizer: oganizer,
-      participants: [oganizer],
+      organizer: organizer,
+      participants: [organizer],
     });
   } catch (e) {
     console.error("Error happened while adding activity to db: ", e);

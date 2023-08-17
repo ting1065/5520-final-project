@@ -1,15 +1,26 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import PlayerList from "../components/PlayerList";
 import { db } from "../Firebase/firebase-setup";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import PlayerClicked from "../components/PlayerClicked";
 import { getPuzzleFromDB } from "../Firebase/firebase-helper";
+import Map from "../components/Map";
+import PressableButton from "../components/PressableButton";
+import * as Location from "expo-location";
+import GradientBackground from "../components/GradientBackground";
+import { colors } from '../Colors';
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function Find({ navigation }) {
+export default function Find({ navigation, route }) {
   const [players, setPlayers] = useState([]);
   const [clickedPlayer, setClickedPlayer] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isMapMode, setIsMapMode] = useState(false);
+  const [permissionInfo, requestPermission] =
+    Location.useForegroundPermissions();
+  const [hasPermission, setHasPermission] = useState(false);
+  const [initialRegion, setInitialRegion] = useState(null);
 
   useEffect(() => {
     const q = query(collection(db, "users"));
@@ -26,7 +37,14 @@ export default function Find({ navigation }) {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (route.params?.isMapMode) {
+      setIsMapMode(true);
+    }
+  }, []);
+
   async function clickHandler(player) {
+    setModalVisible(true);
     const puzzleData = await getPuzzleFromDB(player.id);
 
     puzzleExists = puzzleData ? true : false;
@@ -40,14 +58,13 @@ export default function Find({ navigation }) {
       puzzleCover: puzzleData?.coverImageUri,
       puzzleExists: puzzleExists,
     });
-    setModalVisible(true);
   }
 
   function challengeHandler(clickedPlayer) {
     //using navigation.replace leads to app crash
     //due to a bug in react-navigation
     //i.e. using replace on modal leads to app crash
-    navigation.navigate("Game", { clickedPlayer });
+    navigation.navigate("Game", { clickedPlayer, isMapMode });
     closeHandler();
   }
 
@@ -56,17 +73,143 @@ export default function Find({ navigation }) {
     setClickedPlayer(null);
   }
 
+  async function verifyPermission() {
+    if (permissionInfo.granted === true) {
+      return true;
+    } else {
+      const response = await requestPermission();
+      return response.granted;
+    }
+  }
+
+  const locateUserHandler = async () => {
+    try {
+      const hasPermission = await verifyPermission();
+      if (!hasPermission) {
+        setHasPermission(false);
+        Alert.alert("You need to give access to location");
+        return;
+      }
+      setHasPermission(true);
+      const currentLocation = await Location.getLastKnownPositionAsync();
+      setInitialRegion({
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      });
+    } catch (err) {
+      console.log("error happened while getting current location", err);
+    }
+  };
+
   return (
-    <View>
-      <PlayerClicked
-        clickedPlayer={clickedPlayer}
-        modalVisible={modalVisible}
-        challengeHandler={challengeHandler}
-        closeHandler={closeHandler}
-      />
-      <Text>player list -- clickable</Text>
-      <Text>======</Text>
-      <PlayerList players={players} clickHandler={clickHandler} />
-    </View>
+    <GradientBackground>
+      <View style={styles.container}>
+        <PlayerClicked
+          clickedPlayer={clickedPlayer}
+          modalVisible={modalVisible}
+          challengeHandler={challengeHandler}
+          closeHandler={closeHandler}
+        />
+        <View style={styles.modeContainer}>
+          <PressableButton
+            defaultStyle={styles.mode1DefaultStyle}
+            pressedStyle={styles.mode1PressedStyle}
+
+            onPress={() => {
+              setIsMapMode(true);
+              locateUserHandler();
+            }}
+          > 
+            <FontAwesome name="map-pin" size={24} color="black" />
+            <Text style={styles.modeText}>Map mode</Text>
+          </PressableButton>
+          <PressableButton
+            defaultStyle={styles.mode1DefaultStyle}
+            pressedStyle={styles.mode1PressedStyle}
+            onPress={() => {
+              setIsMapMode(false);
+            }}
+          >
+            <FontAwesome name="list-alt" size={24} color="black" />
+            <Text style={styles.modeText}>List mode</Text>
+          </PressableButton>
+        </View>
+          
+
+        
+
+        {isMapMode ? (
+          <>
+            <Map
+              hasPermission={hasPermission}
+              initialRegion={initialRegion}
+              players={players}
+              playerClickHandler={clickHandler}
+            />
+          </>
+        ) : (
+          <>
+            <Text style={styles.playersList}>Players' list</Text>
+            <Text style={styles.smallText}>Click their avatars to see more details!</Text>
+            <PlayerList players={players} clickHandler={clickHandler} />
+
+          </>
+        )}
+      </View>
+    </GradientBackground>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // height: '100%',
+    // alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+
+  },
+  mode1DefaultStyle: {
+    width: 120,
+    height: 60,
+    margin: 20,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    backgroundColor: colors.whiteWords,
+    // Add platform-specific shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.shadowColor,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  mode1PressedStyle: {
+    opacity: 0.5,
+  },
+  modeText: {
+    fontSize: 20,
+  },
+  playersList: {
+    marginTop: 10,
+    fontSize: 25,
+    alignSelf: 'center',
+  },
+  smallText: {
+    alignSelf: 'center',
+    color:colors.greyWords,
+    marginBottom: 10,
+  }
+})

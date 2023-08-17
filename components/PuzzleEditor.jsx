@@ -13,7 +13,7 @@ export default function PuzzleEditor({
   const [resetHandler, setResetHandler] = useState(false);
 
   const quizPattern = /^[A-Z0-9]+$/;
-
+  const quizLengths = [5, 6, 7, 8, 9, 10];
   const puzzleDocId = puzzleDoc?.id;
 
   const [quiz1, setQuiz1] = useState(puzzleDoc ? puzzleDoc.puzzle[0] : "");
@@ -38,11 +38,11 @@ export default function PuzzleEditor({
   async function pushNewPuzzle() {
     if (
       !(
-        quiz1.length === 5 &&
-        quiz2.length === 10 &&
-        quiz3.length === 15 &&
-        quiz4.length === 20 &&
-        quiz5.length === 30
+        quiz1.length === quizLengths[0] &&
+        quiz2.length === quizLengths[1] &&
+        quiz3.length === quizLengths[2] &&
+        quiz4.length === quizLengths[3] &&
+        quiz5.length === quizLengths[4]
       )
     ) {
       Alert.alert("invalid quiz length, please follow the instruction");
@@ -90,6 +90,10 @@ export default function PuzzleEditor({
     <Modal visible={modalVisible} animationType="slide">
       <View style={styles.container}>
         <Text>quiz 1:</Text>
+        <Text>
+          {"("}length of {quizLengths[0]}
+          {")"}
+        </Text>
         <TextInput
           autoCapitalize="characters"
           value={quiz1}
@@ -98,6 +102,10 @@ export default function PuzzleEditor({
           }}
         />
         <Text>quiz 2:</Text>
+        <Text>
+          {"("}length of {quizLengths[1]}
+          {")"}
+        </Text>
         <TextInput
           autoCapitalize="characters"
           value={quiz2}
@@ -106,6 +114,10 @@ export default function PuzzleEditor({
           }}
         />
         <Text>quiz 3:</Text>
+        <Text>
+          {"("}length of {quizLengths[2]}
+          {")"}
+        </Text>
         <TextInput
           autoCapitalize="characters"
           value={quiz3}
@@ -114,6 +126,10 @@ export default function PuzzleEditor({
           }}
         />
         <Text>quiz 4:</Text>
+        <Text>
+          {"("}length of {quizLengths[3]}
+          {")"}
+        </Text>
         <TextInput
           autoCapitalize="characters"
           value={quiz4}
@@ -122,6 +138,10 @@ export default function PuzzleEditor({
           }}
         />
         <Text>quiz 5:</Text>
+        <Text>
+          {"("}length of {quizLengths[4]}
+          {")"}
+        </Text>
         <TextInput
           autoCapitalize="characters"
           value={quiz5}

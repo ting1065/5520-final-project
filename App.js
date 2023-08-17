@@ -9,6 +9,7 @@ import Login from "./screens/Login";
 import Home from "./screens/Home";
 import Game from "./screens/Game";
 import PressableButton from "./components/PressableButton";
+import { colors } from './Colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,8 +28,14 @@ export default function App() {
 
   const AuthStack = (
     <>
-      <Stack.Screen name="Signup" component={Signup} />
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }}/>
+      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
+      {/* <Stack.Screen name="Signup">
+        {props => <Signup {...props} onLayoutRootView={onLayoutRootView} />} */}
+      {/* </Stack.Screen>
+      <Stack.Screen name="Login">
+        {props => <Login {...props} onLayoutRootView={onLayoutRootView} />}
+      </Stack.Screen> */}
     </>
   );
 
@@ -42,15 +49,8 @@ export default function App() {
       <Stack.Screen
         name="Game"
         component={Game}
-        options={({ navigation }) => {
+        options={() => {
           return {
-            headerRight: () => {
-              return (
-                <PressableButton onPress={() => navigation.replace("Home")}>
-                  <Text>quit</Text>
-                </PressableButton>
-              );
-            },
             headerLeft: () => {
               return <></>;
             },

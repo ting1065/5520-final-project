@@ -1,9 +1,10 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { Alert } from "react";
 import * as ImagePicker from "expo-image-picker";
 import PressableButton from "./PressableButton";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../Firebase/firebase-setup";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function ImageManager({
   storeDownloadUri,
@@ -53,10 +54,34 @@ export default function ImageManager({
   }
 
   return (
-    <View>
-      <PressableButton onPress={() => takeImageHandler()}>
-        <Text>edit pic</Text>
+    <View style={styles.editButton}>
+      <PressableButton 
+        defaultStyle={styles.defaultStyle}
+        pressedStyle={styles.pressedStyle}
+        onPress={() => takeImageHandler()}
+      >
+        <MaterialCommunityIcons name="camera-retake" size={30} color="black"/>
       </PressableButton>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  editButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    position: 'absolute',
+    bottom: 0,
+    right: -5,
+    backgroundColor: 'white',
+    padding: 10,
+  },
+  defaultStyle: {
+
+  },
+  pressedStyle: {
+    opacity: 0.5,
+  },
+
+})

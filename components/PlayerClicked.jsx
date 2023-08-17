@@ -2,6 +2,8 @@ import { View, Text, Modal, Image, StyleSheet } from "react-native";
 import React from "react";
 import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
+import { colors } from '../Colors';
+import Card from "../components/Card";
 
 export default function PlayerClicked({
   clickedPlayer,
@@ -11,44 +13,74 @@ export default function PlayerClicked({
 }) {
   return (
     <Modal visible={modalVisible} animationType="slide">
+      
       <View style={styles.container}>
+        <PressableButton 
+            defaultStyle={[styles.defaultStyle, {backgroundColor: colors.shadowColor}, {alignSelf: 'flex-end'}, {marginRight: 20}, {width: 70}]}
+            pressedStyle={styles.pressedStyle}
+            onPress={() => closeHandler()}
+          >
+            <Text style={styles.loginButtonText}>Close</Text>
+          </PressableButton>
         {clickedPlayer && (
           <>
-            <Text>{clickedPlayer.name}</Text>
-            <Text>win: {clickedPlayer.win}</Text>
-            <Text>lose: {clickedPlayer.lose}</Text>
-            <Text>===========</Text>
-            <Text>{clickedPlayer.name}'s puzzle</Text>
-            {clickedPlayer.puzzleExists ? (
-              <>
+            <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Combat Record</Text>
+            <View style={styles.cardContainer}>
+              <Card
+                width={300}
+                height={100}
+                backgroundColor={colors.loginButton}
+          
+              >
+                {/* <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Combat Record</Text> */}
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Win: {clickedPlayer.win}</Text>
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Lose: {clickedPlayer.lose}</Text>
+              </Card>
+            </View>
+            <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Puzzle</Text>
+            <View style={styles.cardContainer}>
+              
+              <Card
+                width={300}
+                height={320}
+                backgroundColor={colors.loginButton}
+            
+              >
+                {/* <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Puzzle</Text> */}
                 <Image
-                  style={{ width: 200, height: 200 }}
+                  style={styles.image}
                   source={{ uri: clickedPlayer.puzzleCover }}
                 />
-                <Text>puzzle win: {clickedPlayer.puzzleWin}</Text>
-                <Text>puzzle lose: {clickedPlayer.puzzleLose}</Text>
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Puzzle win: {clickedPlayer.puzzleWin}</Text>
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Puzzle lose: {clickedPlayer.puzzleLose}</Text>
+              </Card>
+            </View>
+            
+            
+            {clickedPlayer.puzzleExists ? (
+              <>
+                
                 {auth.currentUser.uid !== clickedPlayer.id && (
                   <>
-                    <Text>===========</Text>
                     <PressableButton
+                      defaultStyle={styles.defaultStyle}
+                      pressedStyle={styles.pressedStyle}
                       onPress={() => challengeHandler(clickedPlayer)}
                     >
-                      <Text>challenge button</Text>
+                      <Text style={styles.loginButtonText}>Challenge it!</Text>
                     </PressableButton>
-                    <Text>===========</Text>
+
                   </>
                 )}
               </>
             ) : (
-              <Text>this player has not designed puzzle yet</Text>
+              <Text >this player has not designed puzzle yet</Text>
             )}
           </>
         )}
-        <Text>===========</Text>
-        <PressableButton onPress={() => closeHandler()}>
-          <Text>close button</Text>
-        </PressableButton>
-        <Text>===========</Text>
+        
+        
+        
       </View>
     </Modal>
   );
@@ -59,5 +91,62 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  personalInfo: {
+    fontSize: 25,
+    alignSelf: 'center',
+  },
+  combatWords: {
+    color: colors.shadowColor,
+  }, 
+  winLoseStyle: {
+    alignSelf: 'center',
+  },
+  inputTitle: {
+    fontSize: 20,
+    color: colors.redButton,
+    marginVertical: 5,
+  },
+  cardContainer: {
+    marginVertical: 25,
+  },
+  image: {
+    marginVertical: 10,
+
+    width: 200,
+    height: 200,
+    alignSelf: 'center',
+  },
+  defaultStyle: {
+    width: 150,
+    height: 45,
+    marginBottom: 20,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    backgroundColor: colors.redButton,
+    // Add platform-specific shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.shadowColor,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  pressedStyle: {
+    backgroundColor: colors.pressedRedButton,
+    opacity: 0.5,
+  },
+  loginButtonText: {
+    color: colors.whiteWords,
+    fontSize: 20,
+    alignSelf: 'center',
+
   },
 });
