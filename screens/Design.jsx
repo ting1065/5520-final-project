@@ -107,7 +107,23 @@ export default function Design() {
 
         </>
       ) : (
-        <Text style={styles.inputTitle}>no puzzle</Text>
+        <>
+          <Text style={styles.inputTitle}>no puzzle</Text>
+          <View style={styles.buttons}>
+              <PressableButton
+                defaultStyle={styles.editNameDefaultStyle}
+                pressedStyle={styles.editNamePressedStyle}
+                onPress={() => {
+                  setModalVisible(true);
+              }}
+              > 
+                <View style={styles.editNameButton}>
+                  <AntDesign name="edit" size={24} color={colors.shadowColor} />
+                  <Text style={styles.inputDisplay}>Add/update</Text>
+                </View>
+              </PressableButton>
+            </View>
+          </>
       )}
 
         </Card>
