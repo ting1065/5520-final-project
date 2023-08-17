@@ -13,7 +13,15 @@ export default function PlayerClicked({
 }) {
   return (
     <Modal visible={modalVisible} animationType="slide">
+      
       <View style={styles.container}>
+        <PressableButton 
+            defaultStyle={[styles.defaultStyle, {backgroundColor: colors.shadowColor}, {alignSelf: 'flex-end'}, {marginRight: 20}, {width: 70}]}
+            pressedStyle={styles.pressedStyle}
+            onPress={() => closeHandler()}
+          >
+            <Text style={styles.loginButtonText}>Close</Text>
+          </PressableButton>
         {clickedPlayer && (
           <>
             <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Combat Record</Text>
@@ -55,23 +63,23 @@ export default function PlayerClicked({
                 {auth.currentUser.uid !== clickedPlayer.id && (
                   <>
                     <PressableButton
+                      defaultStyle={styles.defaultStyle}
+                      pressedStyle={styles.pressedStyle}
                       onPress={() => challengeHandler(clickedPlayer)}
                     >
-                      <Text>challenge button</Text>
+                      <Text style={styles.loginButtonText}>Challenge it!</Text>
                     </PressableButton>
 
                   </>
                 )}
               </>
             ) : (
-              <Text>this player has not designed puzzle yet</Text>
+              <Text >this player has not designed puzzle yet</Text>
             )}
           </>
         )}
         
-        <PressableButton onPress={() => closeHandler()}>
-          <Text>close button</Text>
-        </PressableButton>
+        
         
       </View>
     </Modal>
@@ -108,5 +116,37 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     alignSelf: 'center',
-  }
+  },
+  defaultStyle: {
+    width: 150,
+    height: 45,
+    marginBottom: 20,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    backgroundColor: colors.redButton,
+    // Add platform-specific shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.shadowColor,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  pressedStyle: {
+    backgroundColor: colors.pressedRedButton,
+    opacity: 0.5,
+  },
+  loginButtonText: {
+    color: colors.whiteWords,
+    fontSize: 20,
+    alignSelf: 'center',
+
+  },
 });
