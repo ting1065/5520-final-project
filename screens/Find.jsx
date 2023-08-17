@@ -203,11 +203,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   playersList: {
+    marginTop: 10,
     fontSize: 25,
     alignSelf: 'center',
   },
   smallText: {
     alignSelf: 'center',
     color:colors.greyWords,
+    marginBottom: 10,
   }
 })
