@@ -1,8 +1,9 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StyleSheet, Platform } from "react-native";
 import React from "react";
 import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { Marker } from "react-native-maps";
+import { colors } from '../Colors';
 
 export default function PlayerMarker({ clickHandler, player }) {
   return (
@@ -14,12 +15,55 @@ export default function PlayerMarker({ clickHandler, player }) {
       stopPropagation={true}
       onPress={async () => await clickHandler(player)}
     >
-      <Text>{player.name}</Text>
-      <Image
-        style={{ width: 50, height: 50 }}
-        source={{ uri: player.avatar }}
-      />
-      {auth.currentUser.uid === player.id && <Text> me! </Text>}
+      <View style={styles.playerContainer}>
+        <Text style={styles.playerName}>{player.name}</Text>
+        <Image
+          style={styles.image}
+          source={{ uri: player.avatar }}
+        />
+        {auth.currentUser.uid === player.id && <Text style={styles.selfName}> You! </Text>}
+      </View>
+      
     </Marker>
   );
 }
+
+const styles = StyleSheet.create({
+  image: {
+    width: 40, 
+    height: 40,
+    resizeMode: 'cover',
+  
+  },
+  playerContainer: {
+    width: 90,
+    height: 90,
+    borderRadius: 40,
+
+    // flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    alignSelf: 'center',
+    margin: 10,
+    backgroundColor: colors.shadowColor,
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.shadowColor,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  playerName: {
+    color: colors.whiteWords,
+    fontSize: 15,
+  },
+  selfName: {
+    color: colors.goldWords,
+    fontSize: 15,
+  },
+})
