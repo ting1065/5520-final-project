@@ -17,36 +17,36 @@ To be added:
 - Notification
 
 ## Contribution
-Fengting Tang
+Fengting Tang  
 Mainly responsible for functionalities and data management, including integrating firebase services, designing data model and corresponding CRUD function, and implementing functionalities of all components.
 
-Chenlei Luo
+Chenlei Luo  
 Mainly responsible for component design and implementation, including designing the structures of all the screens and components, testing all the functionalities, and implementing the styling of all components.
 
 ## UI
 1. Login Page
-![Login Page image](resources/login_page.PNG)
+<img src="/resources/login_page.PNG" alt="Login Page image" width="200"/>
 
 2. Signup Page
-![Signup Page image](resources/register_page.PNG)
+<img src="/resources/register_page.PNG" alt="Signup Page image" width="200"/>
 
 3. Find Page(list mode)
-![Find Page(list mode) image](resources/find_page_list_mode.PNG)
+<img src="/resources/find_page_list_mode.PNG" alt="Find Page(list mode) image" width="200"/>
 
 4. Find Page(Map mode)
-![Find Page(Map mode) image](resources/find_page_map_mode.PNG)
+<img src="/resources/find_page_map_mode.PNG" alt="Find Page(Map mode) image" width="200"/>
 
 5. Other player info Page(after clicking user marker)
-![Other player info Page(after clicking user marker) image](resources/other_player_info.PNG)
+<img src="/resources/other_player_info.PNG" alt="Other player info Page(after clicking user marker) image" width="200"/>
 
 6. Design Page
-![Design Page image](resources/design_page.PNG)
+<img src="/resources/design_page.PNG" alt="Design Page image" width="200"/>
 
 7. Activity Page
-![Activity Page image](resources/activity_page.PNG)
+<img src="/resources/activity_page.PNG" alt="Activity Page image" width="200"/>
 
 8. Profile Page
-![Profile Page image](resources/profile_page.PNG)
+<img src="/resources/profile_page.PNG" alt="Profile Page image" width="200"/>
 
 ## Data model  
 To be optimized...
