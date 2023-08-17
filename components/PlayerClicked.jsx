@@ -41,9 +41,9 @@ export default function PlayerClicked({
             <View style={styles.cardContainer}>
               
               <Card
-              width={300}
-              height={320}
-              backgroundColor={colors.loginButton}
+                width={300}
+                height={320}
+                backgroundColor={colors.loginButton}
             
               >
                 {/* <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Puzzle</Text> */}
