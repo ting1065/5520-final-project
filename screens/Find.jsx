@@ -151,10 +151,10 @@ export default function Find({ navigation, route }) {
           </>
         ) : (
           <>
-            <Text>player list -- clickable</Text>
-            <Text>======</Text>
+            <Text style={styles.playersList}>Players' list</Text>
+            <Text style={styles.smallText}>Click their avatars to see more details!</Text>
             <PlayerList players={players} clickHandler={clickHandler} />
-            <Text>======</Text>
+
           </>
         )}
       </View>
@@ -201,6 +201,13 @@ const styles = StyleSheet.create({
   },
   modeText: {
     fontSize: 20,
-
+  },
+  playersList: {
+    fontSize: 25,
+    alignSelf: 'center',
+  },
+  smallText: {
+    alignSelf: 'center',
+    color:colors.greyWords,
   }
 })
