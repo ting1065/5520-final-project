@@ -2,6 +2,8 @@ import { View, Text, Modal, Image, StyleSheet } from "react-native";
 import React from "react";
 import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
+import { colors } from '../Colors';
+import Card from "../components/Card";
 
 export default function PlayerClicked({
   clickedPlayer,
@@ -14,28 +16,50 @@ export default function PlayerClicked({
       <View style={styles.container}>
         {clickedPlayer && (
           <>
-            <Text>{clickedPlayer.name}</Text>
-            <Text>win: {clickedPlayer.win}</Text>
-            <Text>lose: {clickedPlayer.lose}</Text>
-            <Text>===========</Text>
-            <Text>{clickedPlayer.name}'s puzzle</Text>
-            {clickedPlayer.puzzleExists ? (
-              <>
+            <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Combat Record</Text>
+            <View style={styles.cardContainer}>
+              <Card
+                width={300}
+                height={100}
+                backgroundColor={colors.loginButton}
+          
+              >
+                {/* <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Combat Record</Text> */}
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Win: {clickedPlayer.win}</Text>
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Lose: {clickedPlayer.lose}</Text>
+              </Card>
+            </View>
+            <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Puzzle</Text>
+            <View style={styles.cardContainer}>
+              
+              <Card
+              width={300}
+              height={320}
+              backgroundColor={colors.loginButton}
+            
+              >
+                {/* <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Puzzle</Text> */}
                 <Image
-                  style={{ width: 200, height: 200 }}
+                  style={styles.image}
                   source={{ uri: clickedPlayer.puzzleCover }}
                 />
-                <Text>puzzle win: {clickedPlayer.puzzleWin}</Text>
-                <Text>puzzle lose: {clickedPlayer.puzzleLose}</Text>
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Puzzle win: {clickedPlayer.puzzleWin}</Text>
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Puzzle lose: {clickedPlayer.puzzleLose}</Text>
+              </Card>
+            </View>
+            
+            
+            {clickedPlayer.puzzleExists ? (
+              <>
+                
                 {auth.currentUser.uid !== clickedPlayer.id && (
                   <>
-                    <Text>===========</Text>
                     <PressableButton
                       onPress={() => challengeHandler(clickedPlayer)}
                     >
                       <Text>challenge button</Text>
                     </PressableButton>
-                    <Text>===========</Text>
+
                   </>
                 )}
               </>
@@ -44,11 +68,11 @@ export default function PlayerClicked({
             )}
           </>
         )}
-        <Text>===========</Text>
+        
         <PressableButton onPress={() => closeHandler()}>
           <Text>close button</Text>
         </PressableButton>
-        <Text>===========</Text>
+        
       </View>
     </Modal>
   );
@@ -60,4 +84,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  personalInfo: {
+    fontSize: 25,
+    alignSelf: 'center',
+  },
+  combatWords: {
+    color: colors.shadowColor,
+  }, 
+  winLoseStyle: {
+    alignSelf: 'center',
+  },
+  inputTitle: {
+    fontSize: 20,
+    color: colors.redButton,
+    marginVertical: 5,
+  },
+  cardContainer: {
+    marginVertical: 25,
+  },
+  image: {
+    marginVertical: 10,
+
+    width: 200,
+    height: 200,
+    alignSelf: 'center',
+  }
 });
