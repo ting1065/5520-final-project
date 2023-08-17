@@ -2,6 +2,7 @@ export const colors = {
     whiteWords: 'white',
     redWords: 'red',
     greyWords: 'grey',
+    goldWords: 'gold',
     appName: 'darkblue',
     loginButton: '#87CBB9',
     pressedLoginButton: '#B9EDDD',
