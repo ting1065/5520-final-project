@@ -1,4 +1,4 @@
-import { View, Text, Alert } from "react-native";
+import { View, Text, Alert, StyleSheet  } from "react-native";
 import React, { useEffect, useState } from "react";
 import PressableButton from "../components/PressableButton";
 import ActivityList from "../components/ActivityList";
@@ -13,6 +13,7 @@ import {
   deleteActivityFromDB,
 } from "../Firebase/firebase-helper";
 import GradientBackground from "../components/GradientBackground";
+import { colors } from '../Colors';
 
 export default function Activity() {
   const [activities, setActivities] = useState([]);
@@ -145,9 +146,9 @@ export default function Activity() {
           confirmEditHandler={confirmEditHandler}
           cancelEditHandler={cancelEditHandler}
         />
-        <Text>=======</Text>
-        <Text>activity list</Text>
-        <Text>=======</Text>
+
+        <Text style={styles.activityList}>Activity list</Text>
+
         <ActivityList
           activities={activities}
           players={players}
@@ -160,3 +161,17 @@ export default function Activity() {
     </GradientBackground>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // height: '100%',
+    // alignItems: 'center',
+    justifyContent: 'center',
+  },
+  activityList: {
+    marginTop: 10,
+    fontSize: 25,
+    alignSelf: 'center',
+  },
+})
