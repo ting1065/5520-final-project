@@ -4,6 +4,7 @@ import { auth } from "../Firebase/firebase-setup";
 import PressableButton from "./PressableButton";
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from '../Colors';
+import Card from "../components/Card";
 
 export default function ActivityInList({
   activity,
@@ -16,14 +17,26 @@ export default function ActivityInList({
   const organizer = players.find((player) => player.id === activity.organizer);
   return (
     <View>
-      <Text>Title: {activity.title}</Text>
-      <Image
-        style={{ width: 200, height: 200 }}
-        source={{ uri: activity.imageUri }}
-      />
-      <Text>Introduction: {activity.intro}</Text>
-      <Text>organizer: {organizer.name}</Text>
-      <Text>participant: {activity.participants.length}</Text>
+      <View style={styles.card}>
+        <Card
+            width={340}
+            height={340}
+            backgroundColor={colors.whiteWords}
+        >
+          <Text>Title: {activity.title}</Text>
+          <Image
+            style={{ width: 200, height: 200 }}
+            source={{ uri: activity.imageUri }}
+          />
+          <Text>Introduction: {activity.intro}</Text>
+          <Text>organizer: {organizer.name}</Text>
+          <Text>participant: {activity.participants.length}</Text>
+        </Card>
+      </View>
+      
+      
+      
+      
       {activity.organizer === auth.currentUser.uid ? (
         <>
           <View style={styles.buttons}>
@@ -140,6 +153,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginVertical: 15,
+  },
+  card: {
+    marginVertical: 10,
+    alignSelf: 'center',
   }
 
 
