@@ -138,7 +138,7 @@ export default function Find({ navigation, route }) {
         </View>
           
 
-        <Text>======</Text>
+        
 
         {isMapMode ? (
           <>

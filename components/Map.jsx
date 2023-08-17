@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Alert } from "react-native";
+import { View, Text, Pressable, Alert, StyleSheet } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
@@ -6,6 +6,7 @@ import { auth } from "../Firebase/firebase-setup";
 import PressableButton from "./PressableButton";
 import PlayerMarker from "./PlayerMarker";
 import { updateUserLocationInDB } from "../Firebase/firebase-helper";
+import { colors } from '../Colors';
 
 export default function Map({
   hasPermission,
@@ -65,11 +66,15 @@ export default function Map({
     <>
       {hasPermission ? (
         <>
-          <Text>=====</Text>
-          <PressableButton onPress={moveToBaseHandler}>
-            <Text>go to my base</Text>
+          
+          <PressableButton 
+             defaultStyle={styles.mode1DefaultStyle}
+             pressedStyle={styles.mode1PressedStyle}
+            onPress={moveToBaseHandler}
+          >
+            <Text style={styles.modeText}>Locate my base</Text>
           </PressableButton>
-          <Text>=====</Text>
+          
           <MapView
             ref={mapRef}
             style={{ flex: 1 }}
@@ -109,3 +114,47 @@ export default function Map({
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // height: '100%',
+    // alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+
+  },
+  mode1DefaultStyle: {
+    width: 140,
+    height: 50,
+    marginBottom: 20,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 40,
+    backgroundColor: colors.shadowColor,
+    // Add platform-specific shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.shadowColor,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  mode1PressedStyle: {
+    opacity: 0.5,
+  },
+  modeText: {
+    fontSize: 15,
+    color: colors.whiteWords
+
+  }
+})
