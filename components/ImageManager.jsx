@@ -84,6 +84,7 @@ export default function ImageManager({
 
               const result = await ImagePicker.launchImageLibraryAsync({
                 allowsEditing: true,
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
               });
 
               await uploadImageHandler(result);
