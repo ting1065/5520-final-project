@@ -98,7 +98,7 @@ export default function PuzzleEditor({
           autoCapitalize="characters"
           value={quiz1}
           onChangeText={(text) => {
-            setQuiz1(text);
+            setQuiz1(text.toUpperCase());
           }}
         />
         <Text>quiz 2:</Text>
@@ -110,7 +110,7 @@ export default function PuzzleEditor({
           autoCapitalize="characters"
           value={quiz2}
           onChangeText={(text) => {
-            setQuiz2(text);
+            setQuiz2(text.toUpperCase());
           }}
         />
         <Text>quiz 3:</Text>
@@ -122,7 +122,7 @@ export default function PuzzleEditor({
           autoCapitalize="characters"
           value={quiz3}
           onChangeText={(text) => {
-            setQuiz3(text);
+            setQuiz3(text.toUpperCase());
           }}
         />
         <Text>quiz 4:</Text>
@@ -134,7 +134,7 @@ export default function PuzzleEditor({
           autoCapitalize="characters"
           value={quiz4}
           onChangeText={(text) => {
-            setQuiz4(text);
+            setQuiz4(text.toUpperCase());
           }}
         />
         <Text>quiz 5:</Text>
@@ -146,7 +146,7 @@ export default function PuzzleEditor({
           autoCapitalize="characters"
           value={quiz5}
           onChangeText={(text) => {
-            setQuiz5(text);
+            setQuiz5(text.toUpperCase());
           }}
         />
         <Text>=====</Text>
