@@ -21,7 +21,8 @@ export default function PlayerMarker({ clickHandler, player }) {
           style={styles.image}
           source={{ uri: player.avatar }}
         />
-        {auth.currentUser.uid === player.id && <Text style={styles.selfName}> You! </Text>}
+        <Text style={styles.playerName}>Rank: {player.rank}</Text>
+        {auth.currentUser.uid === player.id && <Text style={styles.selfName}> Me! </Text>}
       </View>
       
     </Marker>
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
   playerContainer: {
     width: 90,
     height: 90,
-    borderRadius: 40,
+    borderRadius: 20,
 
     // flexDirection: 'row',
     justifyContent: 'space-evenly',
