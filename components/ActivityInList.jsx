@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Linking } from "react-native";
 import React from "react";
 import { auth } from "../Firebase/firebase-setup";
 import PressableButton from "./PressableButton";
@@ -21,6 +21,19 @@ export default function ActivityInList({
     activity.participants.includes(player.id)
   );
 
+  function navigationHandler() {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${organizer.location.latitude},${organizer.location.longitude}`
+
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        return Linking.openURL(url);
+      } else {
+        console.log(`Cannot open URL: ${url}`);
+      }
+    });
+
+  }
+
   return (
     <View>
       <View style={styles.card}>
@@ -31,6 +44,9 @@ export default function ActivityInList({
             source={{ uri: activity.imageUri }}
           />
           <Text>Introduction: {activity.intro}</Text>
+          <PressableButton onPress={navigationHandler}>
+            <Text>{"<"}Go There{">"}</Text>
+          </PressableButton>
           <View style={styles.playerTagWrapper}>
             <Text>organizer:</Text>
             <PlayerTagInActivity player={organizer} isInFlatList={false} />

@@ -21,6 +21,9 @@ export default function Activity() {
   const [modalVisible, setModalVisible] = useState(false);
   const [activityAsOrganizer, setActivityAsOrganizer] = useState(null);
   const { players } = usePlayers();
+  const currentUser = players.find(
+    (player) => player.id === auth.currentUser.uid
+  );
 
   useEffect(() => {
     const q = query(collection(db, "activities"));
@@ -56,6 +59,17 @@ export default function Activity() {
 
     return () => unsubscribe();
   }, []);
+
+  function addHandler() {
+    if (!currentUser.location) {
+      Alert.alert(
+        "No Base Location",
+        "Set your base location in 'Find' before posting an activity."
+      );
+      return;
+    }
+    setModalVisible(true);
+  }
 
   function editHandler(activity) {
     setEditingActivity(activity);
@@ -115,11 +129,7 @@ export default function Activity() {
         {!activityAsOrganizer && (
           <>
             <Text>=======</Text>
-            <PressableButton
-              onPress={() => {
-                setModalVisible(true);
-              }}
-            >
+            <PressableButton onPress={addHandler}>
               <Text>add activity</Text>
             </PressableButton>
             <Text>=======</Text>
