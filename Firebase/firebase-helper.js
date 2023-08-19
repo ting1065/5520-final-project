@@ -196,24 +196,26 @@ export async function updatePuzzleInDB(id, newPuzzle) {
 }
 
 //increment a puzzle's win in db
-export async function incrementPuzzleWinInDB(id) {
+export async function incrementPuzzleWinInDB(id, designerId) {
   try {
     const docRef = doc(db, "puzzles", id);
     await updateDoc(docRef, {
       win: increment(1),
     });
+    await incrementUserScoreInDB(designerId);
   } catch (e) {
     console.error("Error happened while incrementing puzzle's win in db: ", e);
   }
 }
 
 //increment a puzzle's lose in db
-export async function incrementPuzzleLoseInDB(id) {
+export async function incrementPuzzleLoseInDB(id, designerId) {
   try {
     const docRef = doc(db, "puzzles", id);
     await updateDoc(docRef, {
       lose: increment(1),
     });
+    await decrementUserScoreInDB(designerId);
   } catch (e) {
     console.error("Error happened while incrementing puzzle's lose in db: ", e);
   }
