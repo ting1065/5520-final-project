@@ -9,7 +9,7 @@ import Login from "./screens/Login";
 import Home from "./screens/Home";
 import Game from "./screens/Game";
 import PressableButton from "./components/PressableButton";
-import { colors } from './Colors';
+import { colors } from './styles/colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,12 +30,6 @@ export default function App() {
     <>
       <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }}/>
       <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
-      {/* <Stack.Screen name="Signup">
-        {props => <Signup {...props} onLayoutRootView={onLayoutRootView} />} */}
-      {/* </Stack.Screen>
-      <Stack.Screen name="Login">
-        {props => <Login {...props} onLayoutRootView={onLayoutRootView} />}
-      </Stack.Screen> */}
     </>
   );
 

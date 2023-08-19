@@ -6,7 +6,7 @@ import { auth, db } from "../Firebase/firebase-setup";
 import PuzzleEditor from "../components/PuzzleEditor";
 import { onSnapshot, query, collection, where } from "firebase/firestore";
 import GradientBackground from "../components/GradientBackground";
-import { colors } from '../Colors';
+import { colors } from '../styles/colors';
 import Card from "../components/Card";
 import { AntDesign } from '@expo/vector-icons';
 

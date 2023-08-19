@@ -13,7 +13,7 @@ import {
   deleteActivityFromDB,
 } from "../Firebase/firebase-helper";
 import GradientBackground from "../components/GradientBackground";
-import { colors } from '../Colors';
+import { colors } from '../styles/colors';
 
 export default function Activity() {
   const [activities, setActivities] = useState([]);

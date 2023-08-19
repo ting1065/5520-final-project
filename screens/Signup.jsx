@@ -5,7 +5,7 @@ import { auth } from "../Firebase/firebase-setup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addUserToDB } from "../Firebase/firebase-helper";
 import Card from "../components/Card";
-import { colors } from '../Colors';
+import { colors } from '../styles/colors';
 import {LinearGradient}  from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';

@@ -6,7 +6,7 @@ import { auth } from "../Firebase/firebase-setup";
 import PressableButton from "./PressableButton";
 import PlayerMarker from "./PlayerMarker";
 import { updateUserLocationInDB } from "../Firebase/firebase-helper";
-import { colors } from '../Colors';
+import { colors } from '../styles/colors';
 
 export default function Map({
   hasPermission,

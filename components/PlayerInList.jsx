@@ -2,7 +2,7 @@ import { Text, Image, StyleSheet, View } from "react-native";
 import React from "react";
 import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
-import { colors } from "../Colors";
+import { colors } from "../styles/colors";
 
 export default function PlayerInList({ clickHandler, player }) {
   return (

@@ -3,7 +3,7 @@ import React from "react";
 import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { Marker } from "react-native-maps";
-import { colors } from '../Colors';
+import { colors } from '../styles/colors';
 
 export default function PlayerMarker({ clickHandler, player }) {
   return (

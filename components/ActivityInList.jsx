@@ -3,7 +3,7 @@ import React from "react";
 import { auth } from "../Firebase/firebase-setup";
 import PressableButton from "./PressableButton";
 import { AntDesign } from '@expo/vector-icons';
-import { colors } from '../Colors';
+import { colors } from '../styles/colors';
 import Card from "../components/Card";
 
 export default function ActivityInList({

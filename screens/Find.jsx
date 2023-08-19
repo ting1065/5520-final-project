@@ -9,7 +9,7 @@ import Map from "../components/Map";
 import PressableButton from "../components/PressableButton";
 import * as Location from "expo-location";
 import GradientBackground from "../components/GradientBackground";
-import { colors } from '../Colors';
+import { colors } from '../styles/colors';
 import { FontAwesome } from '@expo/vector-icons';
 
 export default function Find({ navigation, route }) {

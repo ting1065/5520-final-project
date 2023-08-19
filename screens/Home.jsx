@@ -5,7 +5,7 @@ import Find from "./Find";
 import Design from "./Design";
 import Activity from "./Activity";
 import Profile from "./Profile";
-import { colors } from '../Colors';
+import { colors } from '../styles/colors';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 

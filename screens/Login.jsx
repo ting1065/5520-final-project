@@ -4,7 +4,7 @@ import PressableButton from "../components/PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Card from "../components/Card";
-import { colors } from '../Colors';
+import { colors } from '../styles/colors';
 import {LinearGradient}  from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
