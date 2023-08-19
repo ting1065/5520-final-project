@@ -28,7 +28,8 @@ export default function Find({ navigation, route }) {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (!querySnapshot.empty) {
         const players = querySnapshot.docs.map((player) => player.data());
-        setPlayers(players);
+        const playersWithRank = addRankToPlayers(players);
+        setPlayers(playersWithRank);
       } else {
         setPlayers([]);
       }
@@ -42,6 +43,25 @@ export default function Find({ navigation, route }) {
       setIsMapMode(true);
     }
   }, []);
+
+  function addRankToPlayers(players) {
+    const sortedPlayers = players.sort((a, b) => {
+      return b.score - a.score;
+    });
+    //add a rank field to each player based on their score. players with the same score have the same rank
+    let rank = 1;
+    sortedPlayers[0].rank = rank;
+    for (let i = 1; i < sortedPlayers.length; i++) {
+      if (sortedPlayers[i].score === sortedPlayers[i - 1].score) {
+        sortedPlayers[i].rank = rank;
+      } else {
+        sortedPlayers[i].rank = i + 1;
+        rank = i + 1;
+      }
+    }
+    return sortedPlayers;
+
+  }
 
   async function clickHandler(player) {
     setModalVisible(true);
