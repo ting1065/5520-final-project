@@ -59,7 +59,7 @@ export default function Design() {
       </View>
 
       <View style={styles.container}>
-        <Text style={styles.personalInfo}>Your puzzle</Text>
+        <Text style={styles.personalInfo}>Your Puzzle</Text>
         <Card
           width={340}
           height={480}
@@ -91,7 +91,7 @@ export default function Design() {
             > 
               <View style={styles.editNameButton}>
                 <AntDesign name="edit" size={24} color={colors.shadowColor} />
-                <Text style={styles.inputDisplay}>Add/update</Text>
+                <Text style={styles.inputDisplay}>Add/Update</Text>
               </View>
               
             </PressableButton>

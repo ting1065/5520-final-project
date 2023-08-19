@@ -57,8 +57,8 @@ export default function PlayerClicked({
                   style={styles.image}
                   source={{ uri: clickedPlayer.puzzleCover }}
                 />
-                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Puzzle win: {clickedPlayer.puzzleWin}</Text>
-                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Puzzle lose: {clickedPlayer.puzzleLose}</Text>
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Puzzle Win: {clickedPlayer.puzzleWin}</Text>
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Puzzle Lose: {clickedPlayer.puzzleLose}</Text>
               </Card>
             </View>
             

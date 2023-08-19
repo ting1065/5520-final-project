@@ -160,7 +160,7 @@ export default function Find({ navigation, route }) {
             }}
           > 
             <FontAwesome name="map-pin" size={24} color="black" />
-            <Text style={styles.modeText}>Map mode</Text>
+            <Text style={styles.modeText}>Map Mode</Text>
           </PressableButton>
           <PressableButton
             defaultStyle={styles.mode1DefaultStyle}
@@ -170,7 +170,7 @@ export default function Find({ navigation, route }) {
             }}
           >
             <FontAwesome name="list-alt" size={24} color="black" />
-            <Text style={styles.modeText}>List mode</Text>
+            <Text style={styles.modeText}>List Mode</Text>
           </PressableButton>
         </View>
           

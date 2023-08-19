@@ -72,7 +72,7 @@ export default function Map({
              pressedStyle={styles.mode1PressedStyle}
             onPress={moveToBaseHandler}
           >
-            <Text style={styles.modeText}>my base</Text>
+            <Text style={styles.modeText}>My Base</Text>
           </PressableButton>
           
           <MapView

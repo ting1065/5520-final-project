@@ -147,7 +147,7 @@ export default function Activity() {
           cancelEditHandler={cancelEditHandler}
         />
 
-        <Text style={styles.activityList}>Activity list</Text>
+        <Text style={styles.activityList}>Activity List</Text>
 
         <ActivityList
           activities={activities}
