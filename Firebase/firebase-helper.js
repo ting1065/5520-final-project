@@ -213,11 +213,12 @@ export async function incrementPuzzleWinInDB(id, designerId) {
 }
 
 //increment a puzzle's lose in db
-export async function incrementPuzzleLoseInDB(id, designerId) {
+export async function incrementPuzzleLoseInDB(id, designerId, winnerId) {
   try {
     const docRef = doc(db, "puzzles", id);
     await updateDoc(docRef, {
       lose: increment(1),
+      winners: arrayUnion(winnerId),
     });
     await decrementUserScoreInDB(designerId);
   } catch (e) {
