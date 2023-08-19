@@ -32,24 +32,24 @@ export default function PlayerInList({ clickHandler, player }) {
 
         <View style={styles.rightWrapper}>
           <View style={styles.rightTextWrapper}>
-          <Text
-            style={
-              auth.currentUser.uid === player.id
-                ? styles.selfStat
-                : styles.playerStat
-            }
-          >
-            Rank: {player.rank}
-          </Text>
-          <Text
-            style={
-              auth.currentUser.uid === player.id
-                ? styles.selfStat
-                : styles.playerStat
-            }
-          >
-            Score: {player.score}
-          </Text>
+            <Text
+              style={
+                auth.currentUser.uid === player.id
+                  ? styles.selfStat
+                  : styles.playerStat
+              }
+            >
+              Rank: {player.rank}
+            </Text>
+            <Text
+              style={
+                auth.currentUser.uid === player.id
+                  ? styles.selfStat
+                  : styles.playerStat
+              }
+            >
+              Score: {player.score}
+            </Text>
           </View>
         </View>
       </View>

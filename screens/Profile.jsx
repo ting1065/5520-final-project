@@ -8,9 +8,9 @@ import UserNameEditor from "../components/UserNameEditor";
 import ImageManager from "../components/ImageManager";
 import { doc, onSnapshot } from "firebase/firestore";
 import GradientBackground from "../components/GradientBackground";
-import { colors } from '../styles/colors';
+import { colors } from "../styles/colors";
 import Card from "../components/Card";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from "@expo/vector-icons";
 
 export default function Profile() {
   const avatarStorageFolder = "avatars";
@@ -38,71 +38,58 @@ export default function Profile() {
     <GradientBackground>
       <View style={styles.container}>
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            
-            source={{ uri: user?.avatar }}
-          />
+          <Image style={styles.image} source={{ uri: user?.avatar }} />
           <ImageManager
             storeDownloadUri={updateAvatarUri}
             folderName={avatarStorageFolder}
             fileName={avatarFileName}
           />
         </View>
-        <Card
-          width={300}
-          height={200}
-          backgroundColor={colors.whiteWords}
-        
-        >
+        <Card width={300} height={200} backgroundColor={colors.whiteWords}>
           <Text style={styles.personalInfo}>Personal Info</Text>
           <Text style={styles.inputTitle}>Your name:</Text>
           <View style={styles.nameContainer}>
-            
-          {isEditingName ? (
-            <UserNameEditor
-              currentName={user?.name}
-              confirmHandler={() => {
-                setIsEditingName(false);
-              }}
-              cancelHandler={() => setIsEditingName(false)}
-            />
-          ) : (
-            <Text style={styles.inputDisplay}>{user?.name}</Text>
-          )}
-            {!isEditingName &&
-            <PressableButton 
-              defaultStyle={styles.editNameDefaultStyle}
-              pressedStyle={styles.editNamePressedStyle}
-              onPress={() => setIsEditingName(true)}
-            >
-              <View style={styles.editNameButton}>
-                <AntDesign name="edit" size={24} color={colors.shadowColor} />
-                <Text style={styles.inputDisplay}> Edit </Text>
-              </View>
-              
-            </PressableButton>}
-            
+            {isEditingName ? (
+              <UserNameEditor
+                currentName={user?.name}
+                confirmHandler={() => {
+                  setIsEditingName(false);
+                }}
+                cancelHandler={() => setIsEditingName(false)}
+              />
+            ) : (
+              <Text style={styles.inputDisplay}>{user?.name}</Text>
+            )}
+            {!isEditingName && (
+              <PressableButton
+                defaultStyle={styles.editNameDefaultStyle}
+                pressedStyle={styles.editNamePressedStyle}
+                onPress={() => setIsEditingName(true)}
+              >
+                <View style={styles.editNameButton}>
+                  <AntDesign name="edit" size={24} color={colors.shadowColor} />
+                  <Text style={styles.inputDisplay}> Edit </Text>
+                </View>
+              </PressableButton>
+            )}
           </View>
           <Text style={styles.inputTitle}>Your email:</Text>
           <Text style={styles.inputDisplay}>{user?.email}</Text>
-          
         </Card>
         <View style={styles.combatContainer}>
-
-        
-          <Card
-            width={300}
-            height={130}
-            backgroundColor={colors.loginButton}
-          
-          >
-            <Text style={[styles.combatWords, styles.personalInfo]}>Combat Record</Text>
-            <Text style={[styles.inputTitle, styles.winLoseStyle]}>Win: {user?.win}</Text>
-            <Text style={[styles.inputTitle, styles.winLoseStyle]}>Lose: {user?.lose}</Text>
+          <Card width={300} height={130} backgroundColor={colors.loginButton}>
+            <Text style={[styles.combatWords, styles.personalInfo]}>
+              Combat Record
+            </Text>
+            <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+              Win: {user?.win}
+            </Text>
+            <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+              Lose: {user?.lose}
+            </Text>
           </Card>
         </View>
-          
+
         <PressableButton
           defaultStyle={styles.defaultStyle}
           pressedStyle={styles.pressedStyle}
@@ -124,23 +111,22 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   loginButtonText: {
     color: colors.whiteWords,
     fontSize: 20,
-    alignSelf: 'center',
-
+    alignSelf: "center",
   },
   defaultStyle: {
     width: 120,
     height: 45,
     marginTop: 20,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
     backgroundColor: colors.redButton,
     // Add platform-specific shadow
@@ -161,7 +147,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   imageContainer: {
-    position: 'relative',
+    position: "relative",
     marginBottom: 20,
   },
   image: {
@@ -171,17 +157,16 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: colors.whiteWords,
 
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   nameContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   personalInfo: {
     fontSize: 25,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   inputTitle: {
     fontSize: 20,
@@ -192,14 +177,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   editNameButton: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   editNameDefaultStyle: {
     width: 80,
     height: 30,
     borderWidth: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
     marginRight: 5,
   },
@@ -211,10 +196,8 @@ const styles = StyleSheet.create({
   },
   combatWords: {
     color: colors.whiteWords,
-  }, 
+  },
   winLoseStyle: {
-    alignSelf: 'center',
-  }
-
-
+    alignSelf: "center",
+  },
 });

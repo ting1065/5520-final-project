@@ -23,7 +23,11 @@ export default function Game({ route, navigation }) {
 
   async function winHandler() {
     await incrementUserWinInDB(auth.currentUser.uid);
-    await incrementPuzzleLoseInDB(clickedPlayer.puzzleId, clickedPlayer.id, auth.currentUser.uid);
+    await incrementPuzzleLoseInDB(
+      clickedPlayer.puzzleId,
+      clickedPlayer.id,
+      auth.currentUser.uid
+    );
   }
 
   async function loseHandler() {

@@ -56,7 +56,6 @@ export default function PlayersProvider({ children }) {
     sortedPlayers.unshift(currentUser);
 
     return sortedPlayers;
-
   }
 
   return (

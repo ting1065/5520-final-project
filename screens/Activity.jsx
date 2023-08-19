@@ -1,4 +1,4 @@
-import { View, Text, Alert, StyleSheet  } from "react-native";
+import { View, Text, Alert, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import PressableButton from "../components/PressableButton";
 import ActivityList from "../components/ActivityList";
@@ -13,7 +13,6 @@ import {
   deleteActivityFromDB,
 } from "../Firebase/firebase-helper";
 import GradientBackground from "../components/GradientBackground";
-import { colors } from '../styles/colors';
 import { usePlayers } from "../contexts/PlayersContext";
 
 export default function Activity() {
@@ -151,6 +150,6 @@ const styles = StyleSheet.create({
     flex: 1,
     // height: '100%',
     // alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
   },
-})
+});

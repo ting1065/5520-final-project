@@ -1,31 +1,35 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text, Image, StyleSheet } from "react-native";
+import React from "react";
 
-export default function PlayerTagInActivity({player}) {
+export default function PlayerTagInActivity({ player, isInFlatList }) {
   return (
-    <View style={styles.container}>
-
+    <View style={isInFlatList ? styles.containerInFlatList : styles.container}>
       <View style={styles.nameWrapper}>
         <Text style={styles.name}>{player.name}</Text>
       </View>
 
       <View style={styles.avatarWrapper}>
-        <Image style={styles.avatar} source={{ uri: player.avatar }}/>
+        <Image style={styles.avatar} source={{ uri: player.avatar }} />
       </View>
 
       <View style={styles.rankWrapper}>
         <Text style={styles.rank}>{player.rank}</Text>
       </View>
-
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     alignItems: "center",
     width: "20%",
+  },
+  containerInFlatList: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: 50,
+    marginRight: 5,
   },
   nameWrapper: {
     flex: 2,
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
     flex: 6,
     width: "100%",
   },
-  avatar:{
+  avatar: {
     height: "100%",
     resizeMode: "contain",
   },
@@ -53,4 +57,4 @@ const styles = StyleSheet.create({
     fontSize: 10,
     textAlign: "center",
   },
-})
+});

@@ -2,10 +2,11 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import React from "react";
 import { auth } from "../Firebase/firebase-setup";
 import PressableButton from "./PressableButton";
-import { AntDesign } from '@expo/vector-icons';
-import { colors } from '../styles/colors';
+import { AntDesign } from "@expo/vector-icons";
+import { colors } from "../styles/colors";
 import Card from "../components/Card";
 import PlayerTagInActivity from "./PlayerTagInActivity";
+import ParticipantList from "./ParticipantList";
 
 export default function ActivityInList({
   activity,
@@ -16,14 +17,14 @@ export default function ActivityInList({
   leaveHandler,
 }) {
   const organizer = players.find((player) => player.id === activity.organizer);
+  const participants = players.filter((player) =>
+    activity.participants.includes(player.id)
+  );
+
   return (
     <View>
       <View style={styles.card}>
-        <Card
-            width={340}
-            height={400}
-            backgroundColor={colors.whiteWords}
-        >
+        <Card width={340} height={400} backgroundColor={colors.whiteWords}>
           <Text>Title: {activity.title}</Text>
           <Image
             style={{ width: 200, height: 200 }}
@@ -32,15 +33,15 @@ export default function ActivityInList({
           <Text>Introduction: {activity.intro}</Text>
           <View style={styles.playerTagWrapper}>
             <Text>organizer:</Text>
-            <PlayerTagInActivity player={organizer} />
+            <PlayerTagInActivity player={organizer} isInFlatList={false} />
           </View>
-          <Text>participant: {activity.participants.length}</Text>
+          <Text>participants: {activity.participants.length}</Text>
+          <View style={styles.playerTagListWrapper}>
+            <ParticipantList participants={participants} />
+          </View>
         </Card>
       </View>
-      
-      
-      
-      
+
       {activity.organizer === auth.currentUser.uid ? (
         <>
           <View style={styles.buttons}>
@@ -96,22 +97,20 @@ export default function ActivityInList({
   );
 }
 
-
 const styles = StyleSheet.create({
   editNameButton: {
-    flexDirection: 'row',
-    alignSelf: 'center',
+    flexDirection: "row",
+    alignSelf: "center",
   },
   editNameDefaultStyle: {
     width: 150,
     height: 50,
     borderWidth: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
     borderRadius: 5,
     marginRight: 5,
-
   },
   editNamePressedStyle: {
     opacity: 0.5,
@@ -125,9 +124,9 @@ const styles = StyleSheet.create({
     height: 45,
     marginLeft: 5,
 
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
     backgroundColor: colors.redButton,
     // Add platform-specific shadow
@@ -150,23 +149,26 @@ const styles = StyleSheet.create({
   buttonText: {
     color: colors.whiteWords,
     fontSize: 20,
-    alignSelf: 'center',
-
+    alignSelf: "center",
   },
   buttons: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: 15,
   },
   card: {
     marginVertical: 10,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   playerTagWrapper: {
-    flexDirection: 'row',
+    flexDirection: "row",
     width: "100%",
     height: 50,
-    alignItems: 'center',
+    alignItems: "center",
   },
-})
+  playerTagListWrapper: {
+    width: "100%",
+    height: 50,
+  },
+});

@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import React from "react";
 import * as ImagePicker from "expo-image-picker";
 import PressableButton from "./PressableButton";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../Firebase/firebase-setup";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function ImageManager({
   storeDownloadUri,
@@ -13,7 +13,8 @@ export default function ImageManager({
 }) {
   const [cameraPermissionInfo, requestCameraPermission] =
     ImagePicker.useCameraPermissions();
-  const [photoPermissionInfo, requestPhotoPermission] = ImagePicker.useMediaLibraryPermissions();
+  const [photoPermissionInfo, requestPhotoPermission] =
+    ImagePicker.useMediaLibraryPermissions();
 
   async function verifyCameraPermission() {
     if (cameraPermissionInfo.granted === true) {
@@ -50,52 +51,46 @@ export default function ImageManager({
 
   async function takeImageHandler() {
     try {
+      Alert.alert("Image Source", "Where do you want to take the image from?", [
+        {
+          text: "Camera",
+          onPress: async () => {
+            const hasPermission = await verifyCameraPermission();
 
-      Alert.alert(
-        "Image Source",
-        "Where do you want to take the image from?",
-        [
-          {
-            text: "Camera",
-            onPress: async () => {
-              const hasPermission = await verifyCameraPermission();
+            if (!hasPermission) {
+              Alert.alert("You need to give access to camera");
+              return;
+            }
 
-              if (!hasPermission) {
-                Alert.alert("You need to give access to camera");
-                return;
-              }
+            const result = await ImagePicker.launchCameraAsync({
+              allowsEditing: true,
+            });
 
-              const result = await ImagePicker.launchCameraAsync({
-                allowsEditing: true,
-              });
-
-              await uploadImageHandler(result);
-            },
+            await uploadImageHandler(result);
           },
-          {
-            text: "Library",
-            onPress: async () => {
-              const hasPermission = await verifyPhotoPermission();
+        },
+        {
+          text: "Library",
+          onPress: async () => {
+            const hasPermission = await verifyPhotoPermission();
 
-              if (!hasPermission) {
-                Alert.alert("You need to give access to photo library");
-                return;
-              }
+            if (!hasPermission) {
+              Alert.alert("You need to give access to photo library");
+              return;
+            }
 
-              const result = await ImagePicker.launchImageLibraryAsync({
-                allowsEditing: true,
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-              });
+            const result = await ImagePicker.launchImageLibraryAsync({
+              allowsEditing: true,
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            });
 
-              await uploadImageHandler(result);
-            },
+            await uploadImageHandler(result);
           },
-          {
-            text: "Cancel",
-          }
-        ]
-      );
-
+        },
+        {
+          text: "Cancel",
+        },
+      ]);
     } catch (error) {
       console.log("error happened while taking a picture:", error);
     }
@@ -103,12 +98,12 @@ export default function ImageManager({
 
   return (
     <View style={styles.editButton}>
-      <PressableButton 
+      <PressableButton
         defaultStyle={styles.defaultStyle}
         pressedStyle={styles.pressedStyle}
         onPress={() => takeImageHandler()}
       >
-        <MaterialCommunityIcons name="camera-retake" size={30} color="black"/>
+        <MaterialCommunityIcons name="camera-retake" size={30} color="black" />
       </PressableButton>
     </View>
   );
@@ -119,17 +114,14 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     right: -5,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 10,
   },
-  defaultStyle: {
-
-  },
+  defaultStyle: {},
   pressedStyle: {
     opacity: 0.5,
   },
-
-})
+});

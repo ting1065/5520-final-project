@@ -1,9 +1,8 @@
 import { View, Text, Image, StyleSheet, Platform } from "react-native";
 import React from "react";
-import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { Marker } from "react-native-maps";
-import { colors } from '../styles/colors';
+import { colors } from "../styles/colors";
 
 export default function PlayerMarker({ clickHandler, player }) {
   return (
@@ -17,24 +16,21 @@ export default function PlayerMarker({ clickHandler, player }) {
     >
       <View style={styles.playerContainer}>
         <Text style={styles.playerName}>{player.name}</Text>
-        <Image
-          style={styles.image}
-          source={{ uri: player.avatar }}
-        />
+        <Image style={styles.image} source={{ uri: player.avatar }} />
         <Text style={styles.playerName}>Rank: {player.rank}</Text>
-        {auth.currentUser.uid === player.id && <Text style={styles.selfName}> Me! </Text>}
+        {auth.currentUser.uid === player.id && (
+          <Text style={styles.selfName}> Me! </Text>
+        )}
       </View>
-      
     </Marker>
   );
 }
 
 const styles = StyleSheet.create({
   image: {
-    width: 40, 
+    width: 40,
     height: 40,
-    resizeMode: 'cover',
-  
+    resizeMode: "cover",
   },
   playerContainer: {
     width: 90,
@@ -42,9 +38,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
 
     // flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    alignSelf: 'center',
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    alignSelf: "center",
     margin: 10,
     backgroundColor: colors.shadowColor,
     ...Platform.select({
@@ -67,4 +63,4 @@ const styles = StyleSheet.create({
     color: colors.goldWords,
     fontSize: 15,
   },
-})
+});

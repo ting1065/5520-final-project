@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  TextInput,
-  Alert,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import { Text } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Find from "./Find";
