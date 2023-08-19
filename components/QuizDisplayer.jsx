@@ -6,12 +6,10 @@ export default function QuizDisplayer({ quiz, modalVisible, endHandler }) {
     "ARE",
     "YOU",
     "READY?",
-    "3",
-    "2",
-    "1",
     "GO!",
     "->",
     ...quiz.split(""),
+    "<-",
     "END",
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
