@@ -106,6 +106,7 @@ export async function incrementUserWinInDB(id) {
     await updateDoc(docRef, {
       win: increment(1),
     });
+    await incrementUserScoreInDB(id);
   } catch (e) {
     console.error("Error happened while incrementing user's win in db: ", e);
   }
@@ -118,6 +119,7 @@ export async function incrementUserLoseInDB(id) {
     await updateDoc(docRef, {
       lose: increment(1),
     });
+    await decrementUserScoreInDB(id);
   } catch (e) {
     console.error("Error happened while incrementing user's lose in db: ", e);
   }
