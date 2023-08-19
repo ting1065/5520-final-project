@@ -33,6 +33,7 @@ export async function addUserToDB(id, email) {
       lose: 0,
       id: id,
       location: null,
+      score: 0,
     });
   } catch (e) {
     console.error("Error happened while adding user to db: ", e);
@@ -71,6 +72,30 @@ export async function updateUserAvatarInDB(id, newAvatarUri) {
     });
   } catch (e) {
     console.error("Error happened while updating user's avatar in db: ", e);
+  }
+}
+
+//increment a user's score in db
+export async function incrementUserScoreInDB(id) {
+  try {
+    const docRef = doc(db, "users", id);
+    await updateDoc(docRef, {
+      score: increment(1),
+    });
+  } catch (e) {
+    console.error("Error happened while incrementing user's score in db: ", e);
+  }
+}
+
+//decrement a user's score in db
+export async function decrementUserScoreInDB(id) {
+  try {
+    const docRef = doc(db, "users", id);
+    await updateDoc(docRef, {
+      score: increment(-1),
+    });
+  } catch (e) {
+    console.error("Error happened while decrementing user's score in db: ", e);
   }
 }
 
