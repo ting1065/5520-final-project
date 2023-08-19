@@ -5,6 +5,7 @@ import PressableButton from "./PressableButton";
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from '../styles/colors';
 import Card from "../components/Card";
+import PlayerTagInActivity from "./PlayerTagInActivity";
 
 export default function ActivityInList({
   activity,
@@ -20,7 +21,7 @@ export default function ActivityInList({
       <View style={styles.card}>
         <Card
             width={340}
-            height={340}
+            height={400}
             backgroundColor={colors.whiteWords}
         >
           <Text>Title: {activity.title}</Text>
@@ -29,7 +30,10 @@ export default function ActivityInList({
             source={{ uri: activity.imageUri }}
           />
           <Text>Introduction: {activity.intro}</Text>
-          <Text>organizer: {organizer.name}</Text>
+          <View style={styles.playerTagWrapper}>
+            <Text>organizer:</Text>
+            <PlayerTagInActivity player={organizer} />
+          </View>
           <Text>participant: {activity.participants.length}</Text>
         </Card>
       </View>
@@ -158,8 +162,11 @@ const styles = StyleSheet.create({
   card: {
     marginVertical: 10,
     alignSelf: 'center',
-  }
-
-
-
+  },
+  playerTagWrapper: {
+    flexDirection: 'row',
+    width: "100%",
+    height: 50,
+    alignItems: 'center',
+  },
 })
