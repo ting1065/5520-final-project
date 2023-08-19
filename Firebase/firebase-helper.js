@@ -154,6 +154,7 @@ export async function addPuzzleToDB(puzzle, userId) {
       coverImageUri: coverImageUri,
       win: 0,
       lose: 0,
+      winners: [],
     });
   } catch (e) {
     console.error("Error happened while adding puzzle to db: ", e);
