@@ -14,13 +14,14 @@ import {
 } from "../Firebase/firebase-helper";
 import GradientBackground from "../components/GradientBackground";
 import { colors } from '../styles/colors';
+import { usePlayers } from "../contexts/PlayersContext";
 
 export default function Activity() {
   const [activities, setActivities] = useState([]);
   const [editingActivity, setEditingActivity] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [activityAsOrganizer, setActivityAsOrganizer] = useState(null);
-  const [players, setPlayers] = useState([]);
+  const { players } = usePlayers();
 
   useEffect(() => {
     const q = query(collection(db, "activities"));
@@ -51,21 +52,6 @@ export default function Activity() {
       } else {
         setActivityAsOrganizer(null);
         setActivities([]);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    const q = query(collection(db, "users"));
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      if (!querySnapshot.empty) {
-        const players = querySnapshot.docs.map((player) => player.data());
-        setPlayers(players);
-      } else {
-        setPlayers([]);
       }
     });
 
