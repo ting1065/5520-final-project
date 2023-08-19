@@ -189,6 +189,8 @@ export async function updatePuzzleInDB(id, newPuzzle) {
     await updateDoc(docRef, {
       coverImageUri: newCoverImageUri,
       puzzle: newPuzzle,
+      win: 0,
+      lose: 0,
     });
   } catch (e) {
     console.error("Error happened while updating puzzle in db: ", e);
