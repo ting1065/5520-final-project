@@ -93,6 +93,7 @@ export default function Find({ navigation, route }) {
       puzzleWin: puzzleData?.win,
       puzzleLose: puzzleData?.lose,
       puzzleCover: puzzleData?.coverImageUri,
+      puzzleWinners: puzzleData?.winners,
       puzzleExists: puzzleExists,
     });
   }
