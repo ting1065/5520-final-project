@@ -147,8 +147,6 @@ export default function Activity() {
           cancelEditHandler={cancelEditHandler}
         />
 
-        <Text style={styles.activityList}>Activity List</Text>
-
         <ActivityList
           activities={activities}
           players={players}
@@ -168,10 +166,5 @@ const styles = StyleSheet.create({
     // height: '100%',
     // alignItems: 'center',
     justifyContent: 'center',
-  },
-  activityList: {
-    marginTop: 10,
-    fontSize: 25,
-    alignSelf: 'center',
   },
 })

@@ -59,7 +59,7 @@ export default function Design() {
       </View>
 
       <View style={styles.container}>
-        <Text style={styles.personalInfo}>Your Puzzle</Text>
+        <Text style={styles.personalInfo}>My Puzzle</Text>
         <Card
           width={340}
           height={480}

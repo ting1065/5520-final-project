@@ -188,8 +188,6 @@ export default function Find({ navigation, route }) {
           </>
         ) : (
           <>
-            <Text style={styles.playersList}>Players' list</Text>
-            <Text style={styles.smallText}>Click their avatars to see more details!</Text>
             <PlayerList players={players} clickHandler={clickHandler} />
 
           </>
@@ -239,14 +237,4 @@ const styles = StyleSheet.create({
   modeText: {
     fontSize: 20,
   },
-  playersList: {
-    marginTop: 10,
-    fontSize: 25,
-    alignSelf: 'center',
-  },
-  smallText: {
-    alignSelf: 'center',
-    color:colors.greyWords,
-    marginBottom: 10,
-  }
 })
