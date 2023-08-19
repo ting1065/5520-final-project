@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import PlayerList from "../components/PlayerList";
-import { db } from "../Firebase/firebase-setup";
+import { db, auth } from "../Firebase/firebase-setup";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import PlayerClicked from "../components/PlayerClicked";
 import { getPuzzleFromDB } from "../Firebase/firebase-helper";
@@ -48,10 +48,21 @@ export default function Find({ navigation, route }) {
     const sortedPlayers = players.sort((a, b) => {
       return b.score - a.score;
     });
-    //add a rank field to each player based on their score. players with the same score have the same rank
+
+    if (sortedPlayers.length === 1) {
+      sortedPlayers[0].rank = 1;
+      return sortedPlayers;
+    }
+
+    //add rank field to each player object
     let rank = 1;
+    let currentUserIndex = 0;
     sortedPlayers[0].rank = rank;
     for (let i = 1; i < sortedPlayers.length; i++) {
+      if (sortedPlayers[i].id === auth.currentUser.uid) {
+        currentUserIndex = i;
+      }
+
       if (sortedPlayers[i].score === sortedPlayers[i - 1].score) {
         sortedPlayers[i].rank = rank;
       } else {
@@ -59,6 +70,12 @@ export default function Find({ navigation, route }) {
         rank = i + 1;
       }
     }
+
+    //insert the current user's player object at the beginning of the array
+    const currentUser = sortedPlayers[currentUserIndex];
+    sortedPlayers.splice(currentUserIndex, 1);
+    sortedPlayers.unshift(currentUser);
+
     return sortedPlayers;
 
   }
