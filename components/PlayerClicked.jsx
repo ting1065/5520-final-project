@@ -24,7 +24,7 @@ export default function PlayerClicked({
           </PressableButton>
         {clickedPlayer && (
           <>
-            <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Combat Record</Text>
+            <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}</Text>
             <View style={styles.cardContainer}>
               <Card
                 width={300}
@@ -33,8 +33,14 @@ export default function PlayerClicked({
           
               >
                 {/* <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Combat Record</Text> */}
+                <View style={styles.upperBoardTextContainer}>
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Rank: {clickedPlayer.rank}</Text>
+                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Score: {clickedPlayer.score}</Text>
+                </View>
+                <View style={styles.upperBoardTextContainer}>
                 <Text style={[styles.inputTitle, styles.winLoseStyle]}>Win: {clickedPlayer.win}</Text>
                 <Text style={[styles.inputTitle, styles.winLoseStyle]}>Lose: {clickedPlayer.lose}</Text>
+                </View>
               </Card>
             </View>
             <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Puzzle</Text>
@@ -91,6 +97,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  upperBoardTextContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
   personalInfo: {
     fontSize: 25,
