@@ -14,6 +14,8 @@ import {
 } from "../Firebase/firebase-helper";
 import GradientBackground from "../components/GradientBackground";
 import { usePlayers } from "../contexts/PlayersContext";
+import { AntDesign } from "@expo/vector-icons";
+import { colors } from "../styles/colors";
 
 export default function Activity({ route }) {
   const [activities, setActivities] = useState([]);
@@ -165,11 +167,21 @@ export default function Activity({ route }) {
       <View style={styles.addButtonContainer}>
         {!activityAsOrganizer && (
           <>
-            <Text>=======</Text>
-            <PressableButton onPress={addHandler}>
-              <Text>add activity</Text>
+            
+            <PressableButton 
+              defaultStyle={styles.editNameDefaultStyle}
+              pressedStyle={styles.editNamePressedStyle}
+              onPress={addHandler}>
+              <View style={styles.editNameButton}>
+                <AntDesign
+                  name="edit"
+                  size={24}
+                  color={colors.shadowColor}
+                />
+                <Text style={styles.inputDisplay}>Add/Update Activity</Text>
+              </View>
             </PressableButton>
-            <Text>=======</Text>
+            
           </>
         )}
         <ActivityEditor
@@ -199,8 +211,30 @@ export default function Activity({ route }) {
 const styles = StyleSheet.create({
   addButtonContainer: {
     flex: 1,
+    paddingTop: 20,
   },
   listContainer: {
     flex: 9,
+  },
+  editNameButton: {
+    flexDirection: "row",
+    alignSelf: "center",
+  },
+  editNameDefaultStyle: {
+    width: 220,
+    height: 50,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    borderRadius: 5,
+    marginRight: 5,
+  },
+  editNamePressedStyle: {
+    opacity: 0.5,
+  },
+  inputDisplay: {
+    fontSize: 20,
+    marginLeft: 5,
   },
 });
