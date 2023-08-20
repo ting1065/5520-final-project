@@ -136,6 +136,15 @@ export async function updateUserLocationInDB(id, newLocation) {
   }
 }
 
+//delete a user from db
+export async function deleteUserFromDB(id) {
+  try {
+    await deleteDoc(doc(db, "users", id));
+  } catch (e) {
+    console.error("Error happened while deleting user from db: ", e);
+  }
+}
+
 //puzzles collection
 
 //add a new puzzle to db
