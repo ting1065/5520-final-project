@@ -100,6 +100,12 @@ export default function Activity({ route }) {
   }
 
   async function confirmEditHandler(title, imageUri, intro, date) {
+
+    if (date < editingActivity.date) {
+      Alert.alert("You can only change the starting time LATER.");
+      return;
+    }
+
     if (!(title && imageUri && intro && date)) {
       Alert.alert("Please fill in all fields");
       return;
