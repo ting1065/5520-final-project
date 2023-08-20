@@ -74,7 +74,7 @@ export default function Activity({ route }) {
       );
       if (!index) {
         setRemindedActivityIndex(-1);
-      };
+      }
       setRemindedActivityIndex(index);
     }
   }, [route]);
@@ -100,7 +100,6 @@ export default function Activity({ route }) {
   }
 
   async function confirmEditHandler(title, imageUri, intro, date) {
-
     if (editingActivity && date < editingActivity.date) {
       Alert.alert("You can only change the starting time LATER.");
       return;
@@ -118,7 +117,7 @@ export default function Activity({ route }) {
         imageUri,
         intro,
         date,
-        (editingActivity.date === date) ? editingActivity.usersToRemind : [],
+        editingActivity.date === date ? editingActivity.usersToRemind : []
       );
     } else {
       await addActivityToDB(title, imageUri, intro, auth.currentUser.uid, date);

@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "../Firebase/firebase-setup";
 import { signOut } from "firebase/auth";
 import PressableButton from "../components/PressableButton";
-import {
-  updateUserAvatarInDB,
-} from "../Firebase/firebase-helper";
+import { updateUserAvatarInDB } from "../Firebase/firebase-helper";
 import UserNameEditor from "../components/UserNameEditor";
 import ImageManager from "../components/ImageManager";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -43,28 +41,26 @@ export default function Profile() {
   }
 
   function totallyDeleteUser() {
-    Alert.alert(
-      "Are you sure?",
-      "This action cannot be undone!",
-      [
-        {
-          text: "Cancel",
+    Alert.alert("Are you sure?", "This action cannot be undone!", [
+      {
+        text: "Cancel",
+      },
+      {
+        text: "Delete",
+        onPress: () => {
+          setModalVisible(true);
         },
-        {
-          text: "Delete",
-          onPress: () => {
-            setModalVisible(true);
-          }
-            
-        },
-      ],
-    );
+      },
+    ]);
   }
 
   return (
     <GradientBackground>
       <View style={styles.container}>
-        <DeleteAccountBoard modalVisible={modalVisible} hideModalHandler={hideModalHandler}/>
+        <DeleteAccountBoard
+          modalVisible={modalVisible}
+          hideModalHandler={hideModalHandler}
+        />
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: user?.avatar }} />
           <ImageManager

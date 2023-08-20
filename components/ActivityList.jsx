@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Alert } from "react-native";
+import { FlatList, Alert } from "react-native";
 import React, { useRef, useEffect } from "react";
 import ActivityInList from "./ActivityInList";
 

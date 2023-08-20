@@ -34,16 +34,13 @@ export default function ActivityInList({
 
   const secondDiff = () => {
     const now = new Date();
-    const secondDiff =
-      Math.floor((activity.date - now) / 1000) - 86400;
+    const secondDiff = Math.floor((activity.date - now) / 1000) - 86400;
     if (secondDiff > 0) {
       return secondDiff;
     } else {
       return 5;
     }
-  }
-
-
+  };
 
   function navigationHandler() {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${organizer.location.latitude},${organizer.location.longitude}`;

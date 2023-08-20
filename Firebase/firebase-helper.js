@@ -267,7 +267,10 @@ export async function addActivityToDB(title, imageUri, intro, organizer, date) {
 //read a single activity from db using user id
 export async function getActivityFromDB(userId) {
   try {
-    const q = query(collection(db, "activities"), where("organizer", "==", userId));
+    const q = query(
+      collection(db, "activities"),
+      where("organizer", "==", userId)
+    );
     const querySnapshot = await getDocs(q);
     const doc = querySnapshot.docs[0];
     if (doc) {
@@ -276,12 +279,22 @@ export async function getActivityFromDB(userId) {
       return null;
     }
   } catch (e) {
-    console.error("Error happened while getting a user's activity from db: ", e);
+    console.error(
+      "Error happened while getting a user's activity from db: ",
+      e
+    );
   }
 }
 
 //update an activity in db
-export async function updateActivityInDB(activityId, title, imageUri, intro, date, usersToRemind) {
+export async function updateActivityInDB(
+  activityId,
+  title,
+  imageUri,
+  intro,
+  date,
+  usersToRemind
+) {
   try {
     const docRef = doc(db, "activities", activityId);
     await updateDoc(docRef, {
@@ -361,7 +374,10 @@ export async function deleteUserAvatarImageFromStorage(userId) {
     const userAvatarRef = ref(storage, `avatars/${userId}`);
     await deleteObject(userAvatarRef);
   } catch (e) {
-    console.log("Avatar image not deleted from storage because: ", e);
+    console.log(
+      "<No Panic Needed> Avatar image not deleted from storage because: ",
+      e
+    );
   }
 }
 
@@ -371,7 +387,10 @@ export async function deleteUserActivityImageFromStorage(userId) {
     const activityCoverImageRef = ref(storage, `activities/${userId}`);
     await deleteObject(activityCoverImageRef);
   } catch (e) {
-    console.log("Activity cover image not deleted from storage because: ", e);
+    console.log(
+      "<No Panic Needed> Activity cover image not deleted from storage because: ",
+      e
+    );
   }
 }
 

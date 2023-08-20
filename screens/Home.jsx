@@ -14,16 +14,17 @@ import * as Notifications from "expo-notifications";
 const Tab = createBottomTabNavigator();
 
 export default function Home({ navigation }) {
-
   useEffect(() => {
     const subscription = Notifications.addNotificationResponseReceivedListener(
       (notification) => {
-        navigation.navigate("Activity", { remindedActivityId: notification.notification.request.content.data.activityId });
+        navigation.navigate("Activity", {
+          remindedActivityId:
+            notification.notification.request.content.data.activityId,
+        });
       }
     );
     return () => subscription.remove();
   }, []);
-
 
   return (
     <PlayersProvider>
