@@ -30,7 +30,13 @@ export default function DatePicker({ confirmDateHandler, initialDate, date }) {
       <DateTimePickerModal
         isVisible={modalVisible}
         mode="datetime"
-        date={initialDate ? initialDate : new Date()}
+        date={
+          initialDate
+            ? initialDate < new Date()
+              ? new Date()
+              : initialDate
+            : new Date()
+        }
         minimumDate={new Date()}
         onConfirm={(date) => {
           confirmDateHandler(date);
