@@ -15,7 +15,9 @@ export default function PlayerMarker({ clickHandler, player }) {
       onPress={async () => await clickHandler(player)}
     >
       <View style={styles.playerContainer}>
-        <Text style={styles.playerName}>{player.name}</Text>
+        <Text style={styles.playerName}>
+          {player.name.length > 6 ? `${player.name.slice(0, 6)}...` : player.name}
+        </Text>
         <Image style={styles.image} source={{ uri: player.avatar }} />
         <Text style={styles.playerName}>Rank: {player.rank}</Text>
         {auth.currentUser.uid === player.id && (
