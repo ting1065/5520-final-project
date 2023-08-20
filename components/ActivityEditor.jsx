@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import ImageManager from "./ImageManager";
 import { auth } from "../Firebase/firebase-setup";
 import PressableButton from "./PressableButton";
+import DatePicker from "./DatePicker";
 
 const defaultCoverImage =
   "https://media.istockphoto.com/id/1085838082/vector/conference-room-meeting-icon.jpg?s=612x612&w=0&k=20&c=w2dyjVwYw-LDadgIFuRkvgMPBtljmsufgler8zcE288=";
@@ -12,6 +13,7 @@ export default function ActivityEditor({
   editingActivity,
   confirmEditHandler,
   cancelEditHandler,
+  editorRefresher,
 }) {
   const [title, setTitle] = useState(
     editingActivity ? editingActivity.title : ""
@@ -22,12 +24,20 @@ export default function ActivityEditor({
   const [intro, setIntro] = useState(
     editingActivity ? editingActivity.intro : ""
   );
+  const [startDate, setStartDate] = useState(
+    editingActivity ? editingActivity.date : null
+  );
 
   useEffect(() => {
     setTitle(editingActivity ? editingActivity.title : "");
     setImageUri(editingActivity ? editingActivity.imageUri : defaultCoverImage);
     setIntro(editingActivity ? editingActivity.intro : "");
-  }, [editingActivity]);
+    setStartDate(editingActivity ? editingActivity.date : null);
+  }, [editingActivity, editorRefresher]);
+
+  function confirmDateHandler(date) {
+    setStartDate(date);
+  }
 
   return (
     <Modal visible={modalVisible} animationType="slide">
@@ -55,10 +65,15 @@ export default function ActivityEditor({
             setIntro(text);
           }}
         />
+        <DatePicker
+          confirmDateHandler={confirmDateHandler}
+          initialDate={startDate}
+          date={startDate}
+        />
         <Text>===========</Text>
         <PressableButton
           onPress={async () => {
-            await confirmEditHandler(title, imageUri, intro);
+            await confirmEditHandler(title, imageUri, intro, startDate);
           }}
         >
           <Text>confirm</Text>

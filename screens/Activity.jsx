@@ -20,6 +20,8 @@ export default function Activity() {
   const [editingActivity, setEditingActivity] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [activityAsOrganizer, setActivityAsOrganizer] = useState(null);
+  const [editorRefresher, setEditorRefresher] = useState(false);
+
   const { players } = usePlayers();
   const currentUser = players.find(
     (player) => player.id === auth.currentUser.uid
@@ -31,7 +33,11 @@ export default function Activity() {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (!querySnapshot.empty) {
         const activitiesFromDB = querySnapshot.docs.map((activity) => {
-          return { ...activity.data(), id: activity.id };
+          return {
+            ...activity.data(),
+            date: activity.data().date.toDate(),
+            id: activity.id,
+          };
         });
 
         const activitiesAsOrganizer = activitiesFromDB.filter(
@@ -76,16 +82,22 @@ export default function Activity() {
     setModalVisible(true);
   }
 
-  async function confirmEditHandler(title, imageUri, intro) {
-    if (!(title && imageUri && intro)) {
+  async function confirmEditHandler(title, imageUri, intro, date) {
+    if (!(title && imageUri && intro && date)) {
       Alert.alert("Please fill in all fields");
       return;
     }
 
     if (editingActivity) {
-      await updateActivityInDB(editingActivity.id, title, imageUri, intro);
+      await updateActivityInDB(
+        editingActivity.id,
+        title,
+        imageUri,
+        intro,
+        date
+      );
     } else {
-      await addActivityToDB(title, imageUri, intro, auth.currentUser.uid);
+      await addActivityToDB(title, imageUri, intro, auth.currentUser.uid, date);
     }
 
     setModalVisible(false);
@@ -94,6 +106,7 @@ export default function Activity() {
 
   function cancelEditHandler() {
     setEditingActivity(null);
+    setEditorRefresher(!editorRefresher);
     setModalVisible(false);
   }
 
@@ -140,6 +153,7 @@ export default function Activity() {
           editingActivity={editingActivity}
           confirmEditHandler={confirmEditHandler}
           cancelEditHandler={cancelEditHandler}
+          editorRefresher={editorRefresher}
         />
 
         <ActivityList

@@ -237,13 +237,14 @@ export async function deletePuzzleFromDB(id) {
 //activities collection
 
 //add a new activity to db
-export async function addActivityToDB(title, imageUri, intro, organizer) {
+export async function addActivityToDB(title, imageUri, intro, organizer, date) {
   try {
     await addDoc(collection(db, "activities"), {
       title: title,
       imageUri: imageUri,
       intro: intro,
       organizer: organizer,
+      date: date,
       participants: [organizer],
     });
   } catch (e) {
@@ -252,13 +253,14 @@ export async function addActivityToDB(title, imageUri, intro, organizer) {
 }
 
 //update an activity in db
-export async function updateActivityInDB(activityId, title, imageUri, intro) {
+export async function updateActivityInDB(activityId, title, imageUri, intro, date) {
   try {
     const docRef = doc(db, "activities", activityId);
     await updateDoc(docRef, {
       title: title,
       imageUri: imageUri,
       intro: intro,
+      date: date,
     });
   } catch (e) {
     console.error("Error happened while updating activity in db: ", e);

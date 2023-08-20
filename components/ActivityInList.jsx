@@ -21,17 +21,26 @@ export default function ActivityInList({
     activity.participants.includes(player.id)
   );
 
-  function navigationHandler() {
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${organizer.location.latitude},${organizer.location.longitude}`
+  const dateFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false,
+    timeZoneName: "short",
+  };
 
-    Linking.canOpenURL(url).then(supported => {
+  function navigationHandler() {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${organizer.location.latitude},${organizer.location.longitude}`;
+
+    Linking.canOpenURL(url).then((supported) => {
       if (supported) {
         return Linking.openURL(url);
       } else {
         console.log(`Cannot open URL: ${url}`);
       }
     });
-
   }
 
   return (
@@ -44,8 +53,13 @@ export default function ActivityInList({
             source={{ uri: activity.imageUri }}
           />
           <Text>Introduction: {activity.intro}</Text>
+          <Text>
+            Date: {activity.date.toLocaleString(undefined, dateFormatOptions)}
+          </Text>
           <PressableButton onPress={navigationHandler}>
-            <Text>{"<"}Go There{">"}</Text>
+            <Text>
+              {"<"}Go There{">"}
+            </Text>
           </PressableButton>
           <View style={styles.playerTagWrapper}>
             <Text>organizer:</Text>
