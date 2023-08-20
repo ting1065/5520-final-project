@@ -1,5 +1,5 @@
 import { Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Find from "./Find";
 import Design from "./Design";
@@ -9,10 +9,22 @@ import { colors } from "../styles/colors";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import PlayersProvider from "../contexts/PlayersContext";
+import * as Notifications from "expo-notifications";
 
 const Tab = createBottomTabNavigator();
 
-export default function Home() {
+export default function Home({ navigation }) {
+
+  useEffect(() => {
+    const subscription = Notifications.addNotificationResponseReceivedListener(
+      (notification) => {
+        navigation.navigate("Activity", { remindedActivityId: notification.notification.request.content.data.activityId });
+      }
+    );
+    return () => subscription.remove();
+  }, []);
+
+
   return (
     <PlayersProvider>
       <Tab.Navigator

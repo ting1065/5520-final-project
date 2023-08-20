@@ -26,25 +26,6 @@ export default function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
-    const subscription = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        console.log("notification received: ", notification);
-      }
-    );
-    return () => subscription.remove();
-  }, []);
-
-  useEffect(() => {
-    const subscription = Notifications.addNotificationResponseReceivedListener(
-      (notification) => {
-        console.log("notification response: ", notification);
-        console.log("notification activityId: ", notification.notification.request.content.data.activityId);
-      }
-    );
-    return () => subscription.remove();
-  }, []);
-
-  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsUserLoggedIn(true);

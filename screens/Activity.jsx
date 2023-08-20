@@ -15,12 +15,13 @@ import {
 import GradientBackground from "../components/GradientBackground";
 import { usePlayers } from "../contexts/PlayersContext";
 
-export default function Activity() {
+export default function Activity({ route }) {
   const [activities, setActivities] = useState([]);
   const [editingActivity, setEditingActivity] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [activityAsOrganizer, setActivityAsOrganizer] = useState(null);
   const [editorRefresher, setEditorRefresher] = useState(false);
+  const [remindedActivityIndex, setRemindedActivityIndex] = useState(null);
 
   const { players } = usePlayers();
   const currentUser = players.find(
@@ -65,6 +66,19 @@ export default function Activity() {
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (route.params?.remindedActivityId) {
+      const index = activities.findIndex(
+        (activity) => activity.id === route.params.remindedActivityId
+      );
+      setRemindedActivityIndex(index);
+    }
+  }, [route]);
+
+  function resetRemindedActivityIndex() {
+    setRemindedActivityIndex(null);
+  }
 
   function addHandler() {
     if (!currentUser.location) {
@@ -163,6 +177,8 @@ export default function Activity() {
             deleteHandler={deleteHandler}
             joinHandler={joinHandler}
             leaveHandler={leaveHandler}
+            remindedActivityIndex={remindedActivityIndex}
+            resetRemindedActivityIndex={resetRemindedActivityIndex}
           />
         </View>
       </View>
