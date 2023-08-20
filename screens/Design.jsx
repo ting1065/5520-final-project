@@ -154,10 +154,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   inputTitle: {
+    alignSelf: 'center',
     fontSize: 20,
     color: colors.redButton,
     marginVertical: 5,
-    marginLeft: 70,
   },
 
   image: {
