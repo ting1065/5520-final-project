@@ -21,7 +21,7 @@ export default function PlayerInList({ clickHandler, player }) {
                   : styles.playerName
               }
             >
-              {player.name}
+              {player.name.length > 9 ? `${player.name.slice(0, 9)}...` : player.name}
             </Text>
           </View>
 
