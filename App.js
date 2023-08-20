@@ -8,11 +8,41 @@ import Signup from "./screens/Signup";
 import Login from "./screens/Login";
 import Home from "./screens/Home";
 import Game from "./screens/Game";
+import * as Notifications from "expo-notifications";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    };
+  },
+});
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const subscription = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        console.log("notification received: ", notification);
+      }
+    );
+    return () => subscription.remove();
+  }, []);
+
+  useEffect(() => {
+    const subscription = Notifications.addNotificationResponseReceivedListener(
+      (notification) => {
+        console.log("notification response: ", notification);
+        console.log("notification activityId: ", notification.notification.request.content.data.activityId);
+      }
+    );
+    return () => subscription.remove();
+  }, []);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {

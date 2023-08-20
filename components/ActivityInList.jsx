@@ -7,6 +7,7 @@ import { colors } from "../styles/colors";
 import Card from "../components/Card";
 import PlayerTagInActivity from "./PlayerTagInActivity";
 import ParticipantList from "./ParticipantList";
+import ActivityReminder from "./ActivityReminder";
 
 export default function ActivityInList({
   activity,
@@ -46,7 +47,8 @@ export default function ActivityInList({
   return (
     <View>
       <View style={styles.card}>
-        <Card width={340} height={400} backgroundColor={colors.whiteWords}>
+        <Card width={340} height={420} backgroundColor={colors.whiteWords}>
+          <ActivityReminder activityTitle={activity.title} organizerName={organizer.name} activityId={activity.id} triggerSeconds={4}/>
           <Text>Title: {activity.title}</Text>
           <Image
             style={{ width: 200, height: 200 }}
