@@ -138,7 +138,7 @@ export default function Activity() {
 
   return (
     <GradientBackground>
-      <View>
+      <View style={styles.addButtonContainer}>
         {!activityAsOrganizer && (
           <>
             <Text>=======</Text>
@@ -155,25 +155,26 @@ export default function Activity() {
           cancelEditHandler={cancelEditHandler}
           editorRefresher={editorRefresher}
         />
-
-        <ActivityList
-          activities={activities}
-          players={players}
-          editHandler={editHandler}
-          deleteHandler={deleteHandler}
-          joinHandler={joinHandler}
-          leaveHandler={leaveHandler}
-        />
+        <View style={styles.listContainer}>
+          <ActivityList
+            activities={activities}
+            players={players}
+            editHandler={editHandler}
+            deleteHandler={deleteHandler}
+            joinHandler={joinHandler}
+            leaveHandler={leaveHandler}
+          />
+        </View>
       </View>
     </GradientBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  addButtonContainer: {
     flex: 1,
-    // height: '100%',
-    // alignItems: 'center',
-    justifyContent: "center",
+  },
+  listContainer: {
+    flex: 9,
   },
 });
