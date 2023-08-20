@@ -13,7 +13,9 @@ import {
   arrayRemove,
   increment,
 } from "firebase/firestore";
-import { db } from "./firebase-setup";
+import { ref, deleteObject } from "firebase/storage";
+import { deleteUser } from "firebase/auth";
+import { db, auth, storage } from "./firebase-setup";
 import { getRandomImageFromNASA } from "../external-api/helper";
 
 const defaultAvatar =
@@ -262,6 +264,22 @@ export async function addActivityToDB(title, imageUri, intro, organizer, date) {
   }
 }
 
+//read a single activity from db using user id
+export async function getActivityFromDB(userId) {
+  try {
+    const q = query(collection(db, "activities"), where("organizer", "==", userId));
+    const querySnapshot = await getDocs(q);
+    const doc = querySnapshot.docs[0];
+    if (doc) {
+      return { ...doc.data(), id: doc.id };
+    } else {
+      return null;
+    }
+  } catch (e) {
+    console.error("Error happened while getting a user's activity from db: ", e);
+  }
+}
+
 //update an activity in db
 export async function updateActivityInDB(activityId, title, imageUri, intro, date, usersToRemind) {
   try {
@@ -332,5 +350,39 @@ export async function deleteActivityFromDB(activityId) {
     await deleteDoc(doc(db, "activities", activityId));
   } catch (e) {
     console.error("Error happened while deleting activity from db: ", e);
+  }
+}
+
+//storage
+
+//delete a user's avatar image from storage
+export async function deleteUserAvatarImageFromStorage(userId) {
+  try {
+    const userAvatarRef = ref(storage, `avatars/${userId}`);
+    await deleteObject(userAvatarRef);
+  } catch (e) {
+    console.log("Avatar image not deleted from storage because: ", e);
+  }
+}
+
+//delete a user's activity cover image from storage
+export async function deleteUserActivityImageFromStorage(userId) {
+  try {
+    const activityCoverImageRef = ref(storage, `activities/${userId}`);
+    await deleteObject(activityCoverImageRef);
+  } catch (e) {
+    console.log("Activity cover image not deleted from storage because: ", e);
+  }
+}
+
+//account
+
+//delete a user's account
+export async function deleteUserAccount() {
+  try {
+    const user = auth.currentUser;
+    await deleteUser(user);
+  } catch (e) {
+    console.error("Error happened while deleting user account: ", e);
   }
 }

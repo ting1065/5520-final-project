@@ -1,9 +1,11 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../Firebase/firebase-setup";
 import { signOut } from "firebase/auth";
 import PressableButton from "../components/PressableButton";
-import { updateUserAvatarInDB } from "../Firebase/firebase-helper";
+import {
+  updateUserAvatarInDB,
+} from "../Firebase/firebase-helper";
 import UserNameEditor from "../components/UserNameEditor";
 import ImageManager from "../components/ImageManager";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -11,6 +13,7 @@ import GradientBackground from "../components/GradientBackground";
 import { colors } from "../styles/colors";
 import Card from "../components/Card";
 import { AntDesign } from "@expo/vector-icons";
+import DeleteAccountBoard from "../components/DeleteAccountBoard";
 
 export default function Profile() {
   const avatarStorageFolder = "avatars";
@@ -18,6 +21,7 @@ export default function Profile() {
 
   const [user, setUser] = useState(null);
   const [isEditingName, setIsEditingName] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -30,13 +34,37 @@ export default function Profile() {
     return () => unsubscribe();
   }, []);
 
+  function hideModalHandler() {
+    setModalVisible(false);
+  }
+
   async function updateAvatarUri(uri) {
     await updateUserAvatarInDB(auth.currentUser.uid, uri);
+  }
+
+  function totallyDeleteUser() {
+    Alert.alert(
+      "Are you sure?",
+      "This action cannot be undone!",
+      [
+        {
+          text: "Cancel",
+        },
+        {
+          text: "Delete",
+          onPress: () => {
+            setModalVisible(true);
+          }
+            
+        },
+      ],
+    );
   }
 
   return (
     <GradientBackground>
       <View style={styles.container}>
+        <DeleteAccountBoard modalVisible={modalVisible} hideModalHandler={hideModalHandler}/>
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: user?.avatar }} />
           <ImageManager
@@ -89,6 +117,14 @@ export default function Profile() {
           }}
         >
           <Text style={styles.loginButtonText}>Sign Out</Text>
+        </PressableButton>
+
+        <PressableButton
+          defaultStyle={styles.defaultStyle}
+          pressedStyle={styles.pressedStyle}
+          onPress={totallyDeleteUser}
+        >
+          <Text style={styles.loginButtonText}>Delete</Text>
         </PressableButton>
       </View>
     </GradientBackground>
