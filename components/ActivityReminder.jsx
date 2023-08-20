@@ -1,7 +1,9 @@
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import React from 'react'
 import * as Notifications from "expo-notifications";
 import PressableButton from './PressableButton';
+import { auth } from '../Firebase/firebase-setup';
+import { addUserToUsersToRemindInActivityInDB } from '../Firebase/firebase-helper';
 
 export default function ActivityReminder({ activityTitle, organizerName, activityId, triggerSeconds }) {
 
@@ -30,6 +32,8 @@ export default function ActivityReminder({ activityTitle, organizerName, activit
           },
           trigger: { seconds: triggerSeconds },
         });
+        await addUserToUsersToRemindInActivityInDB(activityId, auth.currentUser.uid);
+        Alert.alert("Notification Scheduled", "You will be notified when the activity is about to start in 24h.");
       } catch (err) {
         console.log("error while scheduling notification", err);
       }

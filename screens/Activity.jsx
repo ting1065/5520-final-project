@@ -111,7 +111,8 @@ export default function Activity({ route }) {
         title,
         imageUri,
         intro,
-        date
+        date,
+        (editingActivity.date === date) ? editingActivity.usersToRemind : [],
       );
     } else {
       await addActivityToDB(title, imageUri, intro, auth.currentUser.uid, date);

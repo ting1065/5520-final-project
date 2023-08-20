@@ -246,6 +246,7 @@ export async function addActivityToDB(title, imageUri, intro, organizer, date) {
       organizer: organizer,
       date: date,
       participants: [organizer],
+      usersToRemind: [],
     });
   } catch (e) {
     console.error("Error happened while adding activity to db: ", e);
@@ -253,7 +254,7 @@ export async function addActivityToDB(title, imageUri, intro, organizer, date) {
 }
 
 //update an activity in db
-export async function updateActivityInDB(activityId, title, imageUri, intro, date) {
+export async function updateActivityInDB(activityId, title, imageUri, intro, date, usersToRemind) {
   try {
     const docRef = doc(db, "activities", activityId);
     await updateDoc(docRef, {
@@ -261,6 +262,7 @@ export async function updateActivityInDB(activityId, title, imageUri, intro, dat
       imageUri: imageUri,
       intro: intro,
       date: date,
+      usersToRemind: usersToRemind,
     });
   } catch (e) {
     console.error("Error happened while updating activity in db: ", e);
@@ -277,6 +279,21 @@ export async function addParticipantToActivityInDB(activityId, participantId) {
   } catch (e) {
     console.error(
       "Error happened while adding participant to activity in db: ",
+      e
+    );
+  }
+}
+
+//add a user to usersToRemind in an activity in db
+export async function addUserToUsersToRemindInActivityInDB(activityId, userId) {
+  try {
+    const docRef = doc(db, "activities", activityId);
+    await updateDoc(docRef, {
+      usersToRemind: arrayUnion(userId),
+    });
+  } catch (e) {
+    console.error(
+      "Error happened while adding user to usersToRemind in activity in db: ",
       e
     );
   }
