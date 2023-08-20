@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, Alert } from "react-native";
 import React, { useRef, useEffect } from "react";
 import ActivityInList from "./ActivityInList";
 
@@ -16,6 +16,9 @@ export default function ActivityList({
 
   useEffect(() => {
     if (!remindedActivityIndex) {
+      return;
+    } else if (remindedActivityIndex === -1) {
+      Alert.alert("This activity does not exist anymore.");
       return;
     }
     activityListRef.current.scrollToIndex({

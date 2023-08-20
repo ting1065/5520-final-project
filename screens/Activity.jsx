@@ -73,7 +73,7 @@ export default function Activity({ route }) {
         (activity) => activity.id === route.params.remindedActivityId
       );
       if (!index) {
-        Alert.alert("This activity does not exist anymore.");
+        setRemindedActivityIndex(-1);
       };
       setRemindedActivityIndex(index);
     }
@@ -146,6 +146,7 @@ export default function Activity({ route }) {
           text: "Delete",
           onPress: async () => {
             await deleteActivityFromDB(activity.id);
+            setEditorRefresher(!editorRefresher);
           },
         },
       ]
