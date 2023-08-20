@@ -32,6 +32,19 @@ export default function ActivityInList({
     timeZoneName: "short",
   };
 
+  const secondDiff = () => {
+    const now = new Date();
+    const secondDiff =
+      Math.floor((activity.date - now) / 1000) - 86400;
+    if (secondDiff > 0) {
+      return secondDiff;
+    } else {
+      return 5;
+    }
+  }
+
+
+
   function navigationHandler() {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${organizer.location.latitude},${organizer.location.longitude}`;
 
@@ -48,8 +61,14 @@ export default function ActivityInList({
     <View>
       <View style={styles.card}>
         <Card width={340} height={420} backgroundColor={colors.whiteWords}>
-          {!activity.usersToRemind.includes(auth.currentUser.uid) &&
-          <ActivityReminder activityTitle={activity.title} organizerName={organizer.name} activityId={activity.id} triggerSeconds={4}/>}
+          {!activity.usersToRemind.includes(auth.currentUser.uid) && (
+            <ActivityReminder
+              activityTitle={activity.title}
+              organizerName={organizer.name}
+              activityId={activity.id}
+              triggerSeconds={secondDiff()}
+            />
+          )}
           <Text>Title: {activity.title}</Text>
           <Image
             style={{ width: 200, height: 200 }}

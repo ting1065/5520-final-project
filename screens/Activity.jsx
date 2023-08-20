@@ -101,7 +101,7 @@ export default function Activity({ route }) {
 
   async function confirmEditHandler(title, imageUri, intro, date) {
 
-    if (date < editingActivity.date) {
+    if (editingActivity && date < editingActivity.date) {
       Alert.alert("You can only change the starting time LATER.");
       return;
     }

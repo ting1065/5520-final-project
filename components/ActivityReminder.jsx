@@ -33,7 +33,7 @@ export default function ActivityReminder({ activityTitle, organizerName, activit
           trigger: { seconds: triggerSeconds },
         });
         await addUserToUsersToRemindInActivityInDB(activityId, auth.currentUser.uid);
-        Alert.alert("Notification Scheduled", "You will be notified when the activity is about to start in 24h.");
+        Alert.alert("Notification Scheduled", `You will be notified when the activity is about to start in 24h.\n\ni.e. ${triggerSeconds} seconds later.`);
       } catch (err) {
         console.log("error while scheduling notification", err);
       }
