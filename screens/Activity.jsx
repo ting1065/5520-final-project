@@ -72,6 +72,9 @@ export default function Activity({ route }) {
       const index = activities.findIndex(
         (activity) => activity.id === route.params.remindedActivityId
       );
+      if (!index) {
+        Alert.alert("This activity does not exist anymore.");
+      };
       setRemindedActivityIndex(index);
     }
   }, [route]);

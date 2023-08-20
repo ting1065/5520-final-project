@@ -25,7 +25,7 @@ export default function ActivityReminder({ activityTitle, organizerName, activit
         await Notifications.scheduleNotificationAsync({
           content: {
             title: "Incoming Activity Reminder",
-            body: `on-site activity '${activityTitle}' organized by '${organizerName}' is about to start in 24 hours.`,
+            body: `on-site activity '${activityTitle}' organized by '${organizerName}' is about to start.`,
             data: { activityId: activityId},
           },
           trigger: { seconds: triggerSeconds },
