@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import PressableButton from "./PressableButton";
 import { MaterialIcons } from '@expo/vector-icons';
+import { colors } from "../styles/colors";
 
 export default function DatePicker({ confirmDateHandler, initialDate, date }) {
   const [modalVisible, setModalVisible] = useState(false);
