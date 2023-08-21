@@ -1,4 +1,4 @@
-import { View, Text, Modal, TextInput, Image, StyleSheet } from "react-native";
+import { View, Text, Modal, TextInput, Image, StyleSheet, KeyboardAvoidingView } from "react-native";
 import React, { useState, useEffect } from "react";
 import ImageManager from "./ImageManager";
 import { auth } from "../Firebase/firebase-setup";
@@ -44,7 +44,10 @@ export default function ActivityEditor({
   return (
     <Modal visible={modalVisible} animationType="slide">
       <GradientBackground>
-        <View style={styles.container}>
+        <KeyboardAvoidingView 
+          style={styles.container}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
           
           <Text style={styles.inputTitle}>Cover Image</Text>
           <View style={styles.imageContainer}>
@@ -93,7 +96,7 @@ export default function ActivityEditor({
             <Text>cancel</Text>
           </PressableButton>
           <Text>===========</Text>
-        </View>
+        </KeyboardAvoidingView>
       </GradientBackground>
 
     </Modal>
