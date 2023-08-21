@@ -111,7 +111,7 @@ export default function Design() {
             </>
           ) : (
             <>
-              <Text style={styles.inputTitle}>no puzzle</Text>
+              <Text style={styles.inputTitle}>No puzzle</Text>
               <View style={styles.buttons}>
                 <PressableButton
                   defaultStyle={styles.editNameDefaultStyle}
