@@ -69,10 +69,10 @@ export default function ActivityInList({
           {/* Title */}
           <Text style={styles.eventTitle}>{activity.title}</Text>
           <Image
-            style={[{ width: 150, height: 150 }, {alignSelf: 'center'}]}
+            style={[{ width: 150, height: 150 }, {alignSelf: 'center'}, {marginVertical: 5}]}
             source={{ uri: activity.imageUri }}
           />
-          <Text>Introduction:</Text>
+          <Text style={[{fontWeight: 'bold'}]}>Introduction:</Text>
           <ScrollView style={styles.scrollViewContainer}>
             <Text style={styles.text}>{activity.intro}</Text>
           </ScrollView>
