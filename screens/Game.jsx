@@ -9,6 +9,8 @@ import {
   incrementPuzzleLoseInDB,
 } from "../Firebase/firebase-helper";
 import QuizDisplayer from "../components/QuizDisplayer";
+import GradientBackground from "../components/GradientBackground";
+
 
 export default function Game({ route, navigation }) {
   const clickedPlayer = route.params.clickedPlayer;
@@ -78,67 +80,69 @@ export default function Game({ route, navigation }) {
   }
 
   return (
-    <View>
-      {modalVisible && (
-        <QuizDisplayer
-          quiz={clickedPuzzle[gameRound - 1]}
-          modalVisible={modalVisible}
-          endHandler={displayEndHandler}
-        />
-      )}
-      {gameStatus === "playing" ? (
-        <>
-          <Text>challenging {clickedPlayer.name}'s puzzle</Text>
-          <Text>Round: {gameRound}</Text>
-          {isDisplayed ? (
-            <>
-              <TextInput
-                autoCapitalize="characters"
-                value={answer}
-                onChangeText={setAnswer}
-              />
-              <Text>=========</Text>
-              <PressableButton onPress={confirmHandler}>
-                <Text>confirm</Text>
-              </PressableButton>
-              <Text>=========</Text>
-              <Text>=========</Text>
-              <PressableButton onPress={clearHandler}>
-                <Text>clear</Text>
-              </PressableButton>
-              <Text>=========</Text>
-            </>
-          ) : (
-            <>
-              <Text>
-                click the button if you are ready to watch the string to
-                memorize
-              </Text>
-              <Text>=========</Text>
-              <PressableButton onPress={displayHandler}>
-                <Text>display</Text>
-              </PressableButton>
-              <Text>=========</Text>
-            </>
-          )}
-          <Text>=========</Text>
-          <PressableButton onPress={quitHandler}>
-            <Text>quit</Text>
-          </PressableButton>
-          <Text>=========</Text>
-        </>
-      ) : (
-        <>
-          <Text>you {gameStatus}!</Text>
-          <Text>=========</Text>
-          <PressableButton
-            onPress={() => navigation.navigate("Home", { isMapMode })}
-          >
-            <Text>back to home page</Text>
-          </PressableButton>
-          <Text>=========</Text>
-        </>
-      )}
-    </View>
+    <GradientBackground>
+      <View>
+        {modalVisible && (
+          <QuizDisplayer
+            quiz={clickedPuzzle[gameRound - 1]}
+            modalVisible={modalVisible}
+            endHandler={displayEndHandler}
+          />
+        )}
+        {gameStatus === "playing" ? (
+          <>
+            <Text>challenging {clickedPlayer.name}'s puzzle</Text>
+            <Text>Round: {gameRound}</Text>
+            {isDisplayed ? (
+              <>
+                <TextInput
+                  autoCapitalize="characters"
+                  value={answer}
+                  onChangeText={setAnswer}
+                />
+                <Text>=========</Text>
+                <PressableButton onPress={confirmHandler}>
+                  <Text>confirm</Text>
+                </PressableButton>
+                <Text>=========</Text>
+                <Text>=========</Text>
+                <PressableButton onPress={clearHandler}>
+                  <Text>clear</Text>
+                </PressableButton>
+                <Text>=========</Text>
+              </>
+            ) : (
+              <>
+                <Text>
+                  click the button if you are ready to watch the string to
+                  memorize
+                </Text>
+                <Text>=========</Text>
+                <PressableButton onPress={displayHandler}>
+                  <Text>display</Text>
+                </PressableButton>
+                <Text>=========</Text>
+              </>
+            )}
+            <Text>=========</Text>
+            <PressableButton onPress={quitHandler}>
+              <Text>quit</Text>
+            </PressableButton>
+            <Text>=========</Text>
+          </>
+        ) : (
+          <>
+            <Text>you {gameStatus}!</Text>
+            <Text>=========</Text>
+            <PressableButton
+              onPress={() => navigation.navigate("Home", { isMapMode })}
+            >
+              <Text>back to home page</Text>
+            </PressableButton>
+            <Text>=========</Text>
+          </>
+        )}
+      </View>
+    </GradientBackground>
   );
 }

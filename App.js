@@ -9,6 +9,7 @@ import Login from "./screens/Login";
 import Home from "./screens/Home";
 import Game from "./screens/Game";
 import * as Notifications from "expo-notifications";
+import { colors } from "./styles/colors";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -65,6 +66,9 @@ export default function App() {
             headerLeft: () => {
               return <></>;
             },
+            headerStyle: {
+              backgroundColor: colors.gradient1,
+            }
           };
         }}
       />
