@@ -1,7 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import PressableButton from "./PressableButton";
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function DatePicker({ confirmDateHandler, initialDate, date }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -20,13 +21,19 @@ export default function DatePicker({ confirmDateHandler, initialDate, date }) {
     : "";
 
   return (
-    <View>
-      <PressableButton onPress={() => setModalVisible(true)}>
-        <Text>
-          {"<"}Set Starting Time{">"}
-        </Text>
+    <View style={styles.container}>
+      <PressableButton
+        defaultStyle={styles.editNameDefaultStyle}
+        pressedStyle={styles.editNamePressedStyle} 
+        onPress={() => setModalVisible(true)}
+      >
+        <View style={styles.dateInnerContainer}>
+          <MaterialIcons name="date-range" size={24} color="black" /> 
+          <Text style={styles.inputDisplay}>{"<"}Set Starting Time{">"}</Text>
+        </View>
+        
       </PressableButton>
-      <Text>{formattedDate}</Text>
+      <Text style={styles.inputDisplay}>{formattedDate}</Text>
       <DateTimePickerModal
         isVisible={modalVisible}
         mode="datetime"
@@ -49,3 +56,31 @@ export default function DatePicker({ confirmDateHandler, initialDate, date }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+
+  },
+  dateInnerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  editNameDefaultStyle: {
+    backgroundColor: 'white',
+    width: 250,
+    height: 40,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    marginVertical: 10,
+  },
+  editNamePressedStyle: {
+    opacity: 0.5,
+  },
+  inputDisplay: {
+    fontSize: 20,
+  },
+
+})
