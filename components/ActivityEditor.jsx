@@ -45,15 +45,8 @@ export default function ActivityEditor({
     <Modal visible={modalVisible} animationType="slide">
       <GradientBackground>
         <View style={styles.container}>
-          <Text>Title</Text>
-          <TextInput
-            autoCapitalize="none"
-            value={title}
-            onChangeText={(text) => {
-              setTitle(text);
-            }}
-          />
-          <Text>Cover Image</Text>
+          
+          <Text style={styles.inputTitle}>Cover Image</Text>
           <View style={styles.imageContainer}>
             
             <Image  style={styles.image} source={{ uri: imageUri }} />
@@ -63,14 +56,23 @@ export default function ActivityEditor({
               fileName={auth.currentUser.uid}
             />
           </View>
-            
-          <Text>introduction</Text>
+          <Text style={styles.inputTitle}>Title</Text>
+          <TextInput
+            autoCapitalize="none"
+            value={title}
+            onChangeText={(text) => {
+              setTitle(text);
+            }}
+            style={styles.textInput}
+          /> 
+          <Text style={styles.inputTitle}>Introduction</Text>
           <TextInput
             autoCapitalize="none"
             value={intro}
             onChangeText={(text) => {
               setIntro(text);
             }}
+            style={styles.textInput}
           />
           <DatePicker
             confirmDateHandler={confirmDateHandler}
@@ -116,6 +118,20 @@ const styles = StyleSheet.create({
   imageContainer: {
     position: "relative",
     marginBottom: 20,
+  },
+  inputTitle: {
+    fontSize: 20,
+    color: colors.greyWords,
+    marginVertical: 10,
+  },
+  textInput: {
+    fontSize: 20,
+    width: 200,
+    borderWidth: 2,
+    borderColor: "grey",
+    borderRadius: 5,
+    paddingLeft: 5,
+    height: 35,
   },
 
 });
