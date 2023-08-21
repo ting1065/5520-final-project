@@ -92,10 +92,10 @@ export default function ActivityInList({
             
           </PressableButton>
           <View style={styles.playerTagWrapper}>
-            <Text>organizer:</Text>
+            <Text style={{fontWeight: 'bold'}}>Organizer:</Text>
             <PlayerTagInActivity player={organizer} isInFlatList={false} />
           </View>
-          <Text>participants: {activity.participants.length}</Text>
+          <Text style={{fontWeight: 'bold'}}>Participants: {activity.participants.length}</Text>
           <View style={styles.playerTagListWrapper}>
             <ParticipantList participants={participants} />
           </View>
