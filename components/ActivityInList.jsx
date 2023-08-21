@@ -81,11 +81,11 @@ export default function ActivityInList({
             Date: {activity.date.toLocaleString(undefined, dateFormatOptions)}
           </Text>
           <PressableButton 
-            defaultStyle={styles.reminderDefaultStyle}
-            pressedStyle={styles.reminderPressedStyle}
+            defaultStyle={styles.goDefaultStyle}
+            pressedStyle={styles.goPressedStyle}
             onPress={navigationHandler}>
-              <View style={styles.reminderInnerContainer}>
-                <Text style={styles.inputDisplay}>
+              <View style={styles.goInnerContainer}>
+                <Text style={styles.goText}>
                   {"<"}Go There{">"}
                 </Text>
               </View>
@@ -114,7 +114,7 @@ export default function ActivityInList({
             >
               <View style={styles.editNameButton}>
                 <AntDesign name="edit" size={24} color={colors.shadowColor} />
-                <Text style={styles.inputDisplay}>Edit</Text>
+                <Text style={styles.editText}>Edit</Text>
               </View>
             </PressableButton>
             <PressableButton
@@ -267,10 +267,10 @@ const styles = StyleSheet.create({
     fontSize: 25,
     alignSelf: 'center',
   },
-  reminderInnerContainer: {
+  goInnerContainer: {
     flexDirection: 'row',
   },
-  reminderDefaultStyle: {
+  goDefaultStyle: {
     backgroundColor: colors.tabBarPressed,
     width: 250,
     height: 20,
@@ -281,10 +281,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginVertical: 5,
   },
-  reminderPressedStyle: {
+  goPressedStyle: {
     opacity: 0.5,
   },
-  inputDisplay: {
+  goText: {
+    color: colors.whiteWords,
+    fontSize: 15,
+  },
+  editText: {
     color: colors.shadowColor,
     fontSize: 20,
     marginLeft: 5,
