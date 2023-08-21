@@ -4,7 +4,7 @@ import ImageManager from "./ImageManager";
 import { auth } from "../Firebase/firebase-setup";
 import PressableButton from "./PressableButton";
 import DatePicker from "./DatePicker";
-
+import GradientBackground from "./GradientBackground";
 const defaultCoverImage =
   "https://media.istockphoto.com/id/1085838082/vector/conference-room-meeting-icon.jpg?s=612x612&w=0&k=20&c=w2dyjVwYw-LDadgIFuRkvgMPBtljmsufgler8zcE288=";
 
@@ -41,50 +41,53 @@ export default function ActivityEditor({
 
   return (
     <Modal visible={modalVisible} animationType="slide">
-      <View style={styles.container}>
-        <Text>Title</Text>
-        <TextInput
-          autoCapitalize="none"
-          value={title}
-          onChangeText={(text) => {
-            setTitle(text);
-          }}
-        />
-        <Text>Cover Image</Text>
-        <Image style={{ width: 200, height: 200 }} source={{ uri: imageUri }} />
-        <ImageManager
-          storeDownloadUri={setImageUri}
-          folderName="activities"
-          fileName={auth.currentUser.uid}
-        />
-        <Text>introduction</Text>
-        <TextInput
-          autoCapitalize="none"
-          value={intro}
-          onChangeText={(text) => {
-            setIntro(text);
-          }}
-        />
-        <DatePicker
-          confirmDateHandler={confirmDateHandler}
-          initialDate={startDate}
-          date={startDate}
-        />
-        <Text>===========</Text>
-        <PressableButton
-          onPress={async () => {
-            await confirmEditHandler(title, imageUri, intro, startDate);
-          }}
-        >
-          <Text>confirm</Text>
-        </PressableButton>
-        <Text>===========</Text>
-        <Text>===========</Text>
-        <PressableButton onPress={cancelEditHandler}>
-          <Text>cancel</Text>
-        </PressableButton>
-        <Text>===========</Text>
-      </View>
+      <GradientBackground>
+        <View style={styles.container}>
+          <Text>Title</Text>
+          <TextInput
+            autoCapitalize="none"
+            value={title}
+            onChangeText={(text) => {
+              setTitle(text);
+            }}
+          />
+          <Text>Cover Image</Text>
+          <Image style={{ width: 200, height: 200 }} source={{ uri: imageUri }} />
+          <ImageManager
+            storeDownloadUri={setImageUri}
+            folderName="activities"
+            fileName={auth.currentUser.uid}
+          />
+          <Text>introduction</Text>
+          <TextInput
+            autoCapitalize="none"
+            value={intro}
+            onChangeText={(text) => {
+              setIntro(text);
+            }}
+          />
+          <DatePicker
+            confirmDateHandler={confirmDateHandler}
+            initialDate={startDate}
+            date={startDate}
+          />
+          <Text>===========</Text>
+          <PressableButton
+            onPress={async () => {
+              await confirmEditHandler(title, imageUri, intro, startDate);
+            }}
+          >
+            <Text>confirm</Text>
+          </PressableButton>
+          <Text>===========</Text>
+          <Text>===========</Text>
+          <PressableButton onPress={cancelEditHandler}>
+            <Text>cancel</Text>
+          </PressableButton>
+          <Text>===========</Text>
+        </View>
+      </GradientBackground>
+
     </Modal>
   );
 }
