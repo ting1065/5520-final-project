@@ -84,20 +84,24 @@ export default function ActivityEditor({
             initialDate={startDate}
             date={startDate}
           />
-          <Text>===========</Text>
-          <PressableButton
-            onPress={async () => {
-              await confirmEditHandler(title, imageUri, intro, startDate);
-            }}
-          >
-            <Text>confirm</Text>
-          </PressableButton>
-          <Text>===========</Text>
-          <Text>===========</Text>
-          <PressableButton onPress={cancelEditHandler}>
-            <Text>cancel</Text>
-          </PressableButton>
-          <Text>===========</Text>
+          <View style={styles.buttons}>
+            <PressableButton
+              defaultStyle={styles.defaultStyle}
+              pressedStyle={styles.pressedStyle}
+              onPress={async () => {
+                await confirmEditHandler(title, imageUri, intro, startDate);
+              }}
+            >
+              <Text style={styles.loginButtonText}>confirm</Text>
+            </PressableButton>
+
+            <PressableButton 
+              defaultStyle={styles.defaultStyle}
+              pressedStyle={styles.pressedStyle}
+              onPress={cancelEditHandler}>
+              <Text style={styles.loginButtonText}>cancel</Text>
+            </PressableButton>
+          </View>  
         </KeyboardAvoidingView>
       </GradientBackground>
 
@@ -147,5 +151,40 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     height: 200,
   },
+  loginButtonText: {
+    color: colors.whiteWords,
+    fontSize: 20,
+    alignSelf: "center",
+  },
+  defaultStyle: {
+    width: 120,
+    height: 45,
+    marginHorizontal: 10,
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    backgroundColor: colors.redButton,
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.shadowColor,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  pressedStyle: {
+    backgroundColor: colors.pressedRedButton,
+    opacity: 0.5,
+  },
+  buttons: {
+    flexDirection: 'row',
+    flex: 4
+
+  }
 
 });
