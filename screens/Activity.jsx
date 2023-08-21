@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 5,
     marginRight: 5,
+    marginBottom: 20,
   },
   editNamePressedStyle: {
     opacity: 0.5,
