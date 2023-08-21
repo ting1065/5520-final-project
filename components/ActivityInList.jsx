@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, Linking } from "react-native";
+import { View, Text, Image, StyleSheet, Linking, ScrollView } from "react-native";
 import React from "react";
 import { auth } from "../Firebase/firebase-setup";
 import PressableButton from "./PressableButton";
@@ -57,7 +57,7 @@ export default function ActivityInList({
   return (
     <View>
       <View style={styles.card}>
-        <Card width={340} height={420} backgroundColor={colors.whiteWords}>
+        <Card width={340} height={550} backgroundColor={colors.whiteWords}>
           {!activity.usersToRemind.includes(auth.currentUser.uid) && (
             <ActivityReminder
               activityTitle={activity.title}
@@ -66,19 +66,30 @@ export default function ActivityInList({
               triggerSeconds={secondDiff()}
             />
           )}
-          <Text>Title: {activity.title}</Text>
+          {/* Title */}
+          <Text style={styles.eventTitle}>{activity.title}</Text>
           <Image
-            style={{ width: 200, height: 200 }}
+            style={[{ width: 150, height: 150 }, {alignSelf: 'center'}]}
             source={{ uri: activity.imageUri }}
           />
-          <Text>Introduction: {activity.intro}</Text>
+          <Text>Introduction:</Text>
+          <ScrollView style={styles.scrollViewContainer}>
+            <Text style={styles.text}>{activity.intro}</Text>
+          </ScrollView>
+          
           <Text>
             Date: {activity.date.toLocaleString(undefined, dateFormatOptions)}
           </Text>
-          <PressableButton onPress={navigationHandler}>
-            <Text>
-              {"<"}Go There{">"}
-            </Text>
+          <PressableButton 
+            defaultStyle={styles.reminderDefaultStyle}
+            pressedStyle={styles.reminderPressedStyle}
+            onPress={navigationHandler}>
+              <View style={styles.reminderInnerContainer}>
+                <Text style={styles.inputDisplay}>
+                  {"<"}Go There{">"}
+                </Text>
+              </View>
+            
           </PressableButton>
           <View style={styles.playerTagWrapper}>
             <Text>organizer:</Text>
@@ -244,5 +255,40 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  scrollViewContainer: {
+    backgroundColor: "lightgray",
+    borderWidth: 1,
+    borderColor: "gray",
+    marginVertical: 5,
+    height: 70,
+    width: '100%',
+    padding: 5,
+  },
+  eventTitle: {
+    fontSize: 25,
+    alignSelf: 'center',
+  },
+  reminderInnerContainer: {
+    flexDirection: 'row',
+  },
+  reminderDefaultStyle: {
+    backgroundColor: colors.tabBarPressed,
+    width: 250,
+    height: 20,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: 'center',
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+  reminderPressedStyle: {
+    opacity: 0.5,
+  },
+  inputDisplay: {
+    color: colors.whiteWords,
+    fontSize: 15,
+  },
+  
 
 });
