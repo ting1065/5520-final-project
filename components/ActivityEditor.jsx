@@ -5,6 +5,8 @@ import { auth } from "../Firebase/firebase-setup";
 import PressableButton from "./PressableButton";
 import DatePicker from "./DatePicker";
 import GradientBackground from "./GradientBackground";
+import { colors } from "../styles/colors";
+
 const defaultCoverImage =
   "https://media.istockphoto.com/id/1085838082/vector/conference-room-meeting-icon.jpg?s=612x612&w=0&k=20&c=w2dyjVwYw-LDadgIFuRkvgMPBtljmsufgler8zcE288=";
 
@@ -52,12 +54,16 @@ export default function ActivityEditor({
             }}
           />
           <Text>Cover Image</Text>
-          <Image style={{ width: 200, height: 200 }} source={{ uri: imageUri }} />
-          <ImageManager
-            storeDownloadUri={setImageUri}
-            folderName="activities"
-            fileName={auth.currentUser.uid}
-          />
+          <View style={styles.imageContainer}>
+            
+            <Image  style={styles.image} source={{ uri: imageUri }} />
+            <ImageManager
+              storeDownloadUri={setImageUri}
+              folderName="activities"
+              fileName={auth.currentUser.uid}
+            />
+          </View>
+            
           <Text>introduction</Text>
           <TextInput
             autoCapitalize="none"
@@ -98,4 +104,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    borderWidth: 5,
+    borderColor: colors.whiteWords,
+
+    resizeMode: "cover",
+  },
+  imageContainer: {
+    position: "relative",
+    marginBottom: 20,
+  },
+
 });
