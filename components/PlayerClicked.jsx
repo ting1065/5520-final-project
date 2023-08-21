@@ -14,31 +14,36 @@ export default function PlayerClicked({
   return (
     <Modal visible={modalVisible} animationType="slide">
       <View style={styles.container}>
-        <PressableButton
-          defaultStyle={[
-            styles.defaultStyle,
-            { backgroundColor: colors.shadowColor },
-            { alignSelf: "flex-end" },
-            { marginRight: 20 },
-            { width: 70 },
-          ]}
-          pressedStyle={styles.pressedStyle}
-          onPress={() => closeHandler()}
-        >
-          <Text style={styles.loginButtonText}>Close</Text>
-        </PressableButton>
+        <View style={ styles.closeContainer}>
+          <PressableButton
+            defaultStyle={[
+              styles.defaultStyle,
+              { backgroundColor: colors.shadowColor },
+              { alignSelf: "flex-end" },
+              { marginRight: 20 },
+              { width: 70 },
+            ]}
+            pressedStyle={styles.pressedStyle}
+            onPress={() => closeHandler()}
+          >
+            <Text style={styles.loginButtonText}>Close</Text>
+          </PressableButton>
+        </View>
+        
         {clickedPlayer && (
           <>
-            <Text style={[styles.combatWords, styles.personalInfo]}>
+            <View style={styles.titleContainer}>
+              <Text style={[styles.combatWords, styles.personalInfo]}>
               {clickedPlayer.name}
-            </Text>
-            <View style={styles.cardContainer}>
+              </Text>
+            </View>
+            
+            <View style={[styles.cardContainer, {flex: 2} ]}>
               <Card
                 width={300}
                 height={100}
                 backgroundColor={colors.loginButton}
               >
-                {/* <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Combat Record</Text> */}
                 <View style={styles.upperBoardTextContainer}>
                   <Text style={[styles.inputTitle, styles.winLoseStyle]}>
                     Rank: {clickedPlayer.rank}
@@ -56,14 +61,17 @@ export default function PlayerClicked({
                   </Text>
                 </View>
               </Card>
-            </View>
-            <Text style={[styles.combatWords, styles.personalInfo]}>
+            </View >
+            <View style={styles.titleContainer}>
+              <Text style={[styles.combatWords, styles.personalInfo ]}>
               {clickedPlayer.name}'s Puzzle
-            </Text>
+              </Text>
+            </View>
+            
 
             {clickedPlayer.puzzleExists ? (
               <>
-                <View style={styles.cardContainer}>
+                <View style={[styles.cardContainer ]}>
                   <Card
                     width={300}
                     height={320}
@@ -85,11 +93,11 @@ export default function PlayerClicked({
                   (clickedPlayer.puzzleWinners.includes(
                     auth.currentUser.uid
                   ) ? (
-                    <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                    <Text style={[styles.inputTitle, styles.winLoseStyle, {flex: 1} ]}>
                       You have already solved this puzzle!
                     </Text>
                   ) : (
-                    <>
+                    <View style={styles.challengeButtonContainer}>
                       <PressableButton
                         defaultStyle={styles.defaultStyle}
                         pressedStyle={styles.pressedStyle}
@@ -99,11 +107,11 @@ export default function PlayerClicked({
                           Challenge it!
                         </Text>
                       </PressableButton>
-                    </>
+                    </View>
                   ))}
               </>
             ) : (
-              <View style={styles.cardContainer}>
+              <View style={[styles.cardContainer ]}>
                 <Card
                   width={300}
                   height={320}
@@ -126,7 +134,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    marginVertical: 40,
+    paddingVertical: 20,
+  },
+  closeContainer: {
+    flex: 1,
+    alignSelf: "flex-end"
   },
   upperBoardTextContainer: {
     flexDirection: "row",
@@ -135,6 +148,7 @@ const styles = StyleSheet.create({
   personalInfo: {
     fontSize: 25,
     alignSelf: "center",
+    marginVertical: 10,
   },
   combatWords: {
     color: colors.shadowColor,
@@ -148,7 +162,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   cardContainer: {
-    marginVertical: 25,
+    marginVertical: 10,
+    flex: 7,
   },
   image: {
     marginVertical: 10,
@@ -166,7 +181,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 5,
     backgroundColor: colors.redButton,
-    // Add platform-specific shadow
     ...Platform.select({
       ios: {
         shadowColor: colors.shadowColor,
@@ -188,4 +202,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignSelf: "center",
   },
+  challengeButtonContainer: {
+    flex: 1,
+  },
+  titleContainer: {
+    flex: 1,
+  }
 });
