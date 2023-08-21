@@ -60,6 +60,7 @@ export default function DatePicker({ confirmDateHandler, initialDate, date }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
 
   },
   dateInnerContainer: {
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
-    marginVertical: 10,
+    marginVertical: 15,
   },
   editNamePressedStyle: {
     opacity: 0.5,
