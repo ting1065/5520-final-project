@@ -1,9 +1,10 @@
-import { View, Text, Alert } from "react-native";
+import { View, Text, Alert, StyleSheet  } from "react-native";
 import React from "react";
 import * as Notifications from "expo-notifications";
 import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { addUserToUsersToRemindInActivityInDB } from "../Firebase/firebase-helper";
+import { colors } from "../styles/colors";
 
 export default function ActivityReminder({
   activityTitle,
@@ -51,12 +52,47 @@ export default function ActivityReminder({
   };
 
   return (
-    <View>
-      <PressableButton onPress={notificationHandler}>
-        <Text>
-          {"<"}Remind Me{">"}
-        </Text>
+    <View style={styles.container}>
+      <PressableButton 
+        defaultStyle={styles.reminderDefaultStyle}
+        pressedStyle={styles.reminderPressedStyle} 
+        onPress={notificationHandler}
+      >
+        <View style={styles.reminderInnerContainer}>
+
+          <Text style={styles.inputDisplay}>{"<"}Remind Me{">"}</Text>
+        </View>
+          
       </PressableButton>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+
+  },
+  reminderInnerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  reminderDefaultStyle: {
+    backgroundColor: colors.tabBarPressed,
+    width: 250,
+    height: 20,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+  },
+  reminderPressedStyle: {
+    opacity: 0.5,
+  },
+  inputDisplay: {
+    color: colors.whiteWords,
+    fontSize: 15,
+  },
+
+})
