@@ -162,7 +162,7 @@ export default function ActivityInList({
 const styles = StyleSheet.create({
   editNameButton: {
     flexDirection: "row",
-    alignSelf: "center",
+
   },
   editNameDefaultStyle: {
     width: 150,
@@ -170,7 +170,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     alignItems: "center",
     justifyContent: "center",
-    alignSelf: "center",
     borderRadius: 5,
     marginRight: 5,
   },
@@ -286,8 +285,9 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   inputDisplay: {
-    color: colors.whiteWords,
-    fontSize: 15,
+    color: colors.shadowColor,
+    fontSize: 20,
+    marginLeft: 5,
   },
   
 
