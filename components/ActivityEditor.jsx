@@ -66,7 +66,7 @@ export default function ActivityEditor({
             onChangeText={(text) => {
               setTitle(text);
             }}
-            style={styles.textInput}
+            style={styles.titleInput}
           /> 
           <Text style={styles.inputTitle}>Introduction</Text>
           <TextInput
@@ -75,7 +75,9 @@ export default function ActivityEditor({
             onChangeText={(text) => {
               setIntro(text);
             }}
-            style={styles.textInput}
+            style={styles.introInput}
+            multiline={true}
+            blurOnSubmit={true}
           />
           <DatePicker
             confirmDateHandler={confirmDateHandler}
@@ -127,14 +129,23 @@ const styles = StyleSheet.create({
     color: colors.greyWords,
     marginVertical: 10,
   },
-  textInput: {
+  titleInput: {
     fontSize: 20,
-    width: 200,
+    width: '80%',
     borderWidth: 2,
     borderColor: "grey",
     borderRadius: 5,
     paddingLeft: 5,
     height: 35,
+  },
+  introInput: {
+    fontSize: 20,
+    width: '80%',
+    borderWidth: 2,
+    borderColor: "grey",
+    borderRadius: 5,
+    paddingLeft: 5,
+    height: 200,
   },
 
 });
