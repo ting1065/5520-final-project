@@ -22,4 +22,6 @@ export const colors = {
   scrollBackground: 'lightgray',
   selfMarker: "#98D8AA",
   otherMarker: "#F7D060",
+  activeBell: "red",
+  inactiveBell: "grey",
 };

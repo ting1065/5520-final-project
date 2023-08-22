@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 5,
     height: 35,
+    textAlign: "center",
   },
   introInput: {
     fontSize: 20,
@@ -156,8 +157,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.tabBarNotPressed,
     borderRadius: 5,
-    paddingLeft: 5,
+    paddingHorizontal: 5,
     height: "20%",
+    textAlign: "justify",
   },
   loginButtonText: {
     color: colors.whiteWords,

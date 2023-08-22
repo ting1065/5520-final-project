@@ -1,4 +1,12 @@
-import { View, Text, Image, StyleSheet, Linking, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Linking,
+  ScrollView,
+  TextInput,
+} from "react-native";
 import React from "react";
 import { auth } from "../Firebase/firebase-setup";
 import PressableButton from "./PressableButton";
@@ -8,6 +16,8 @@ import Card from "../components/Card";
 import PlayerTagInActivity from "./PlayerTagInActivity";
 import ParticipantList from "./ParticipantList";
 import ActivityReminder from "./ActivityReminder";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Fontisto } from "@expo/vector-icons";
 
 export default function ActivityInList({
   activity,
@@ -57,104 +67,133 @@ export default function ActivityInList({
   return (
     <View>
       <View style={styles.card}>
-        <Card width={340} height={550} backgroundColor={colors.whiteWords}>
-          {!activity.usersToRemind.includes(auth.currentUser.uid) && (
-            <ActivityReminder
-              activityTitle={activity.title}
-              organizerName={organizer.name}
-              activityId={activity.id}
-              triggerSeconds={secondDiff()}
-            />
-          )}
+        <Card width={340} height={600} backgroundColor={colors.whiteWords}>
+          <View style={styles.headerButtonWrapper}>
+            <View style={styles.headerLeftButtonWrapper}>
+              {activity.usersToRemind.includes(auth.currentUser.uid) ? (
+                <MaterialCommunityIcons
+                  name="bell-ring"
+                  size={24}
+                  color={colors.activeBell}
+                />
+              ) : (
+                <ActivityReminder
+                  activityTitle={activity.title}
+                  organizerName={organizer.name}
+                  activityId={activity.id}
+                  triggerSeconds={secondDiff()}
+                />
+              )}
+            </View>
+            <View style={styles.headerRightButtonWrapper}>
+              <PressableButton
+                defaultStyle={styles.goDefaultStyle}
+                pressedStyle={styles.goPressedStyle}
+                onPress={navigationHandler}
+              >
+                <Fontisto
+                  name="navigate"
+                  size={24}
+                  color={colors.inactiveBell}
+                />
+              </PressableButton>
+            </View>
+          </View>
           {/* Title */}
           <Text style={styles.eventTitle}>{activity.title}</Text>
           <Image
-            style={[{ width: 150, height: 150 }, {alignSelf: 'center'}, {marginVertical: 5}]}
+            style={[
+              { width: 150, height: 150 },
+              { alignSelf: "center" },
+              { marginVertical: 5 },
+            ]}
             source={{ uri: activity.imageUri }}
           />
+          <View style={styles.introWrapper}>
           <Text style={styles.boldText}>Introduction:</Text>
-          <ScrollView style={styles.scrollViewContainer}>
-            <Text style={styles.text}>{activity.intro}</Text>
-          </ScrollView>
-          
-          <Text>
-            Date: {activity.date.toLocaleString(undefined, dateFormatOptions)}
-          </Text>
-          <PressableButton 
-            defaultStyle={styles.goDefaultStyle}
-            pressedStyle={styles.goPressedStyle}
-            onPress={navigationHandler}>
-              <View style={styles.goInnerContainer}>
-                <Text style={styles.goText}>
-                  {"<"}Go There{">"}
-                </Text>
-              </View>
-            
-          </PressableButton>
+          <View style={styles.introTextContainer}>
+            <TextInput
+              style={styles.introText}
+              multiline={true}
+              editable={false}
+              value={activity.intro}
+            />
+          </View>
+          </View>
+          <View style={styles.dateWrapper}>
+            <Text style={styles.boldText}>Date:</Text>
+            <Text>
+              {" "}
+              {activity.date.toLocaleString(undefined, dateFormatOptions)}
+            </Text>
+          </View>
           <View style={styles.playerTagWrapper}>
             <Text style={styles.boldText}>Organizer:</Text>
             <PlayerTagInActivity player={organizer} isInFlatList={false} />
           </View>
-          <Text style={styles.boldText}>Participants: {activity.participants.length}</Text>
+          <Text style={styles.boldText}>
+            Participants: {activity.participants.length}
+          </Text>
           <View style={styles.playerTagListWrapper}>
             <ParticipantList participants={participants} />
           </View>
+          {activity.organizer === auth.currentUser.uid ? (
+            <>
+              <View style={styles.buttons}>
+                <PressableButton
+                  defaultStyle={styles.editNameDefaultStyle}
+                  pressedStyle={styles.editNamePressedStyle}
+                  onPress={() => {
+                    editHandler(activity);
+                  }}
+                >
+                  <View style={styles.editNameButton}>
+                    <AntDesign
+                      name="edit"
+                      size={24}
+                      color={colors.shadowColor}
+                    />
+                    <Text style={styles.editText}>Edit</Text>
+                  </View>
+                </PressableButton>
+                <PressableButton
+                  defaultStyle={styles.defaultStyle}
+                  pressedStyle={styles.pressedStyle}
+                  onPress={() => {
+                    deleteHandler(activity);
+                  }}
+                >
+                  <Text style={styles.buttonText}>Delete</Text>
+                </PressableButton>
+              </View>
+            </>
+          ) : activity.participants.includes(auth.currentUser.uid) ? (
+            <View style={styles.buttons}>
+              <PressableButton
+                defaultStyle={styles.defaultStyle}
+                pressedStyle={styles.pressedStyle}
+                onPress={() => {
+                  leaveHandler(activity);
+                }}
+              >
+                <Text style={styles.buttonText}>leave</Text>
+              </PressableButton>
+              </View>
+          ) : (
+            <View style={styles.buttons}>
+              <PressableButton
+                defaultStyle={styles.joindefaultStyle}
+                pressedStyle={styles.pressedStyle}
+                onPress={() => {
+                  joinHandler(activity);
+                }}
+              >
+                <Text style={styles.buttonText}>join</Text>
+              </PressableButton>
+              </View>
+          )}
         </Card>
       </View>
-
-      {activity.organizer === auth.currentUser.uid ? (
-        <>
-          <View style={styles.buttons}>
-            <PressableButton
-              defaultStyle={styles.editNameDefaultStyle}
-              pressedStyle={styles.editNamePressedStyle}
-              onPress={() => {
-                editHandler(activity);
-              }}
-            >
-              <View style={styles.editNameButton}>
-                <AntDesign name="edit" size={24} color={colors.shadowColor} />
-                <Text style={styles.editText}>Edit</Text>
-              </View>
-            </PressableButton>
-            <PressableButton
-              defaultStyle={styles.defaultStyle}
-              pressedStyle={styles.pressedStyle}
-              onPress={() => {
-                deleteHandler(activity);
-              }}
-            >
-              <Text style={styles.buttonText}>Delete</Text>
-            </PressableButton>
-          </View>
-        </>
-      ) : activity.participants.includes(auth.currentUser.uid) ? (
-        <>
-          <PressableButton
-            defaultStyle={styles.defaultStyle}
-            pressedStyle={styles.pressedStyle}
-            onPress={() => {
-              leaveHandler(activity);
-            }}
-          >
-            <Text style={styles.buttonText}>leave</Text>
-          </PressableButton>
-        </>
-      ) : (
-        <>
-
-          <PressableButton
-            defaultStyle={styles.joindefaultStyle}
-            pressedStyle={styles.pressedStyle}
-            onPress={() => {
-              joinHandler(activity);
-            }}
-          >
-            <Text style={styles.buttonText}>join</Text>
-          </PressableButton>
-
-        </>
-      )}
     </View>
   );
 }
@@ -162,7 +201,6 @@ export default function ActivityInList({
 const styles = StyleSheet.create({
   editNameButton: {
     flexDirection: "row",
-
   },
   editNameDefaultStyle: {
     width: 150,
@@ -224,10 +262,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     alignItems: "center",
+    marginVertical: 5,
   },
   playerTagListWrapper: {
     width: "100%",
     height: 50,
+    marginVertical: 5,
   },
   joindefaultStyle: {
     width: 150,
@@ -252,39 +292,29 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  scrollViewContainer: {
+  introWrapper: {
+    width: "100%",
+    marginVertical: 5,
+  },
+  introTextContainer: {
     backgroundColor: colors.scrollBackground,
     borderWidth: 1,
     borderColor: colors.greyWords,
     marginVertical: 5,
     height: 70,
-    width: '100%',
+    width: "100%",
     padding: 5,
   },
   eventTitle: {
     fontSize: 25,
-    alignSelf: 'center',
-  },
-  goInnerContainer: {
-    flexDirection: 'row',
+    alignSelf: "center",
   },
   goDefaultStyle: {
-    backgroundColor: colors.tabBarPressed,
-    width: 250,
-    height: 25,
-    borderWidth: 2,
-    alignItems: "center",
-    justifyContent: "center",
-    alignSelf: 'center',
-    borderRadius: 5,
-    marginVertical: 5,
+    backgroundColor: colors.whiteWords,
+    borderRadius: 10,
   },
   goPressedStyle: {
-    opacity: 0.5,
-  },
-  goText: {
-    color: colors.whiteWords,
-    fontSize: 15,
+    backgroundColor: colors.blueButton,
   },
   editText: {
     color: colors.shadowColor,
@@ -292,6 +322,34 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   boldText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
+  },
+  dateWrapper: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginVertical: 5,
+  },
+  introText: {
+    flex: 1,
+    fontSize: 15,
+    textAlign: "justify",
+  },
+  headerButtonWrapper: {
+    flexDirection: "row",
+    width: "100%",
+    height: 50,
+    alignItems: "center",
+  },
+  headerLeftButtonWrapper: {
+    flex: 1,
+    alignItems: "flex-start",
+    paddingLeft: "5%",
+  },
+  headerRightButtonWrapper: {
+    flex: 1,
+    alignItems: "flex-end",
+    paddingRight: "5%",
   },
 });
