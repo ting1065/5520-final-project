@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   nameWrapper: {
     height: "27%",
     width: "100%",
-    paddingHorizontal: 30,
+    paddingHorizontal: "10%",
   },
   imageWrapper: {
     height: "68%",
