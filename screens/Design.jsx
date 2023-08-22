@@ -60,28 +60,30 @@ export default function Design() {
         <Card width={340} height={480} backgroundColor={colors.loginButton}>
           {puzzleDoc ? (
             <>
-              <Image
-                style={styles.image}
-                source={{ uri: puzzleDoc.coverImageUri }}
-              />
-              <Text style={styles.inputTitle}>
-                Quiz 1: {puzzleDoc.puzzle[0]}
-              </Text>
-              <Text style={styles.inputTitle}>
-                Quiz 2: {puzzleDoc.puzzle[1]}
-              </Text>
-              <Text style={styles.inputTitle}>
-                Quiz 3: {puzzleDoc.puzzle[2]}
-              </Text>
-              <Text style={styles.inputTitle}>
-                Quiz 4: {puzzleDoc.puzzle[3]}
-              </Text>
-              <Text style={styles.inputTitle}>
-                Quiz 5: {puzzleDoc.puzzle[4]}
-              </Text>
-              <View style={styles.winLoseStyle}>
-                <Text style={styles.design}>Design win: {puzzleDoc.win}</Text>
-                <Text style={styles.design}>Design lose: {puzzleDoc.lose}</Text>
+              <View style={styles.cardUpperWrapper}>
+                <Image
+                  style={styles.image}
+                  source={{ uri: puzzleDoc.coverImageUri }}
+                />
+                <Text style={styles.inputTitle}>
+                  Quiz 1: {puzzleDoc.puzzle[0]}
+                </Text>
+                <Text style={styles.inputTitle}>
+                  Quiz 2: {puzzleDoc.puzzle[1]}
+                </Text>
+                <Text style={styles.inputTitle}>
+                  Quiz 3: {puzzleDoc.puzzle[2]}
+                </Text>
+                <Text style={styles.inputTitle}>
+                  Quiz 4: {puzzleDoc.puzzle[3]}
+                </Text>
+                <Text style={styles.inputTitle}>
+                  Quiz 5: {puzzleDoc.puzzle[4]}
+                </Text>
+                <View style={styles.winLoseStyle}>
+                  <Text style={styles.design}>Design win: {puzzleDoc.win}</Text>
+                  <Text style={styles.design}>Design lose: {puzzleDoc.lose}</Text>
+                </View>
               </View>
               <View style={styles.buttons}>
                 <PressableButton
@@ -111,7 +113,9 @@ export default function Design() {
             </>
           ) : (
             <>
-              <Text style={styles.inputTitle}>No puzzle</Text>
+              <View style={styles.cardUpperWrapper}>
+                <Text style={styles.inputTitle}>empty</Text>
+              </View>
               <View style={styles.buttons}>
                 <PressableButton
                   defaultStyle={styles.editNameDefaultStyle}
@@ -231,7 +235,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 5,
   },
+  cardUpperWrapper: {
+    flex: 8.5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   buttons: {
+    flex: 1.5,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
