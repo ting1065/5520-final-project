@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-
+    marginBottom: 60,
   },
   dateInnerContainer: {
     flexDirection: 'row',

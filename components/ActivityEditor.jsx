@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 50,
+    paddingVertical: 30,
   },
   image: {
     width: 200,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   inputTitle: {
     fontSize: 20,
     color: colors.greyWords,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   titleInput: {
     fontSize: 20,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     borderColor: colors.tabBarNotPressed,
     borderRadius: 5,
     paddingLeft: 5,
-    height: 200,
+    height: "20%",
   },
   loginButtonText: {
     color: colors.whiteWords,
@@ -184,8 +184,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     flexDirection: 'row',
-    flex: 4
-
+    flex: 4,
   }
 
 });
