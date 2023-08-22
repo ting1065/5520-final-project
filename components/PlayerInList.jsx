@@ -23,7 +23,7 @@ export default function PlayerInList({ clickHandler, player }) {
               numberOfLines={1}
               ellipsizeMode="tail"
             >
-              {player.name.length > 9 ? `${player.name.slice(0, 9)}...` : player.name}
+              {player.name}
             </Text>
           </View>
 
