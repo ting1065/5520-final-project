@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "5520-final-project",
-    "slug": "5520-final-project",
+    "name": "Memory Master",
+    "slug": "Memory Master",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

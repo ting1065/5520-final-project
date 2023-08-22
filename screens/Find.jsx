@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import PlayerList from "../components/PlayerList";
 import PlayerClicked from "../components/PlayerClicked";
