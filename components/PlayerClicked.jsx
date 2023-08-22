@@ -33,12 +33,10 @@ export default function PlayerClicked({
         {clickedPlayer && (
           <>
             <View style={styles.titleContainer}>
-              <Text style={[styles.combatWords, styles.personalInfo]}>
+              <Text style={[styles.combatWords, styles.personalInfo, {marginBottom: 5}]}>
               {clickedPlayer.name}
               </Text>
-            </View>
             
-            <View style={[styles.cardContainer, {flex: 2} ]}>
               <Card
                 width={300}
                 height={100}
@@ -62,8 +60,9 @@ export default function PlayerClicked({
                 </View>
               </Card>
             </View >
-            <View style={styles.titleContainer}>
-              <Text style={[styles.combatWords, styles.personalInfo ]}>
+
+            <View style={[styles.titleContainer, {flex: 1}]}>
+              <Text style={[styles.combatWords, styles.personalInfo]}>
               {clickedPlayer.name}'s Puzzle
               </Text>
             </View>
@@ -71,10 +70,10 @@ export default function PlayerClicked({
 
             {clickedPlayer.puzzleExists ? (
               <>
-                <View style={[styles.cardContainer ]}>
+                <View style={[styles.cardContainer, {flex: 6} ]}>
                   <Card
                     width={300}
-                    height={320}
+                    height={300}
                     backgroundColor={colors.loginButton}
                   >
                     <Image
@@ -114,7 +113,7 @@ export default function PlayerClicked({
               <View style={[styles.cardContainer ]}>
                 <Card
                   width={300}
-                  height={320}
+                  height={300}
                   backgroundColor={colors.loginButton}
                 >
                   <Text style={[styles.inputTitle, styles.winLoseStyle]}>
@@ -134,11 +133,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    marginVertical: 40,
-    paddingVertical: 20,
+    marginTop: 40,
   },
   closeContainer: {
-    flex: 1,
+    flex: 2,
     alignSelf: "flex-end"
   },
   upperBoardTextContainer: {
@@ -161,12 +159,11 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   cardContainer: {
-    marginVertical: 10,
+    marginVertical: 5,
     flex: 7,
   },
   image: {
-    marginVertical: 10,
-
+    marginVertical: 5,
     width: 200,
     height: 200,
     alignSelf: "center",
@@ -174,7 +171,6 @@ const styles = StyleSheet.create({
   defaultStyle: {
     width: 150,
     height: 45,
-    marginBottom: 20,
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
@@ -202,11 +198,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   challengeButtonContainer: {
-    flex: 0.5,
+    width: '100%',
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderWidth: 2,
+
   },
   titleContainer: {
     flex: 1,
-    marginTop: 10,
     justifyContent: 'flex-end'
   },
 });
