@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 10,
     padding: 10,
+    justifyContent: "space-evenly",
     // Add platform-specific shadow
     ...Platform.select({
       ios: {
