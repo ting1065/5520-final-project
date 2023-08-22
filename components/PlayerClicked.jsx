@@ -63,32 +63,35 @@ export default function PlayerClicked({
               </Card>
             </View >
 
-            <View style={[styles.titleContainer, {flex: 1}]}>
-              <Text style={[styles.combatWords, styles.personalInfo]}>
-              {clickedPlayer.name}'s Puzzle
-              </Text>
-            </View>
+            
             
 
             {clickedPlayer.puzzleExists ? (
               <>
-                <View style={[styles.cardContainer, {flex: 6} ]}>
-                  <Card
-                    width={300}
-                    height={300}
-                    backgroundColor={colors.loginButton}
-                  >
-                    <Image
-                      style={styles.image}
-                      source={{ uri: clickedPlayer.puzzleCover }}
-                    />
-                    <Text style={[styles.inputTitle, styles.winLoseStyle]}>
-                      Puzzle Win: {clickedPlayer.puzzleWin}
-                    </Text>
-                    <Text style={[styles.inputTitle, styles.winLoseStyle]}>
-                      Puzzle Lose: {clickedPlayer.puzzleLose}
-                    </Text>
-                  </Card>
+                <View style={[styles.puzzleContainer, {flex: 6}, ]}>
+                  
+                  <Text style={[styles.combatWords, styles.personalInfo]}>
+                    {clickedPlayer.name}'s Puzzle
+                  </Text>
+                  <View style={styles.cardContainer}>
+                    <Card
+                      width={300}
+                      height={300}
+                      backgroundColor={colors.loginButton}
+                    >
+                      <Image
+                        style={styles.image}
+                        source={{ uri: clickedPlayer.puzzleCover }}
+                      />
+                      <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                        Puzzle Win: {clickedPlayer.puzzleWin}
+                      </Text>
+                      <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                        Puzzle Lose: {clickedPlayer.puzzleLose}
+                      </Text>
+                    </Card>
+                  </View>
+                    
                 </View>
                 {auth.currentUser.uid !== clickedPlayer.id &&
                   (clickedPlayer.puzzleWinners.includes(
@@ -112,7 +115,10 @@ export default function PlayerClicked({
                   ))}
               </>
             ) : (
-              <View style={[styles.cardContainer ]}>
+              <View style={[styles.puzzleContainer ]}>
+                <Text style={[styles.combatWords, styles.personalInfo, {marginBottom: 5}]}>
+                    {clickedPlayer.name}'s Puzzle
+                    </Text>
                 <Card
                   width={300}
                   height={300}
@@ -142,7 +148,8 @@ const styles = StyleSheet.create({
   },
   closeContainer: {
     flex: 2,
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
+
   },
   upperBoardTextContainer: {
     flexDirection: "row",
@@ -163,9 +170,13 @@ const styles = StyleSheet.create({
     color: colors.redButton,
     marginVertical: 5,
   },
-  cardContainer: {
+  puzzleContainer: {
     marginVertical: 5,
     flex: 7,
+    justifyContent: 'center',
+  },
+  cardContainer: {
+    alignSelf: 'center',
   },
   image: {
     marginVertical: 5,
@@ -208,11 +219,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     paddingBottom: 10,
-
   },
   titleContainer: {
     flex: 1,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   lowerCardTextWrapper: {
     flex: 1,
