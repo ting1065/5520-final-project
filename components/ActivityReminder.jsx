@@ -5,6 +5,7 @@ import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { addUserToUsersToRemindInActivityInDB } from "../Firebase/firebase-helper";
 import { colors } from "../styles/colors";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function ActivityReminder({
   activityTitle,
@@ -52,47 +53,22 @@ export default function ActivityReminder({
   };
 
   return (
-    <View style={styles.container}>
       <PressableButton 
         defaultStyle={styles.reminderDefaultStyle}
         pressedStyle={styles.reminderPressedStyle} 
         onPress={notificationHandler}
       >
-        <View style={styles.reminderInnerContainer}>
-
-          <Text style={styles.inputDisplay}>{"<"}Remind Me{">"}</Text>
-        </View>
-          
+        <MaterialCommunityIcons name="bell-ring-outline" size={24} color={colors.inactiveBell} />
       </PressableButton>
-    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-
-  },
-  reminderInnerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   reminderDefaultStyle: {
-    backgroundColor: colors.tabBarPressed,
-    width: 250,
-    height: 25,
-    borderWidth: 2,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 5,
+    backgroundColor: colors.whiteWords,
+    borderRadius: 10,
   },
   reminderPressedStyle: {
-    opacity: 0.5,
+    backgroundColor: colors.activeBell,
   },
-  inputDisplay: {
-    color: colors.whiteWords,
-    fontSize: 15,
-  },
-
 })

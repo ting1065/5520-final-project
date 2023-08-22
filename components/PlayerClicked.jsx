@@ -4,6 +4,7 @@ import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { colors } from "../styles/colors";
 import Card from "../components/Card";
+import GradientBackground from "../components/GradientBackground";
 
 export default function PlayerClicked({
   clickedPlayer,
@@ -13,6 +14,7 @@ export default function PlayerClicked({
 }) {
   return (
     <Modal visible={modalVisible} animationType="slide">
+      <GradientBackground>
       <View style={styles.container}>
         <View style={ styles.closeContainer}>
           <PressableButton
@@ -116,15 +118,18 @@ export default function PlayerClicked({
                   height={300}
                   backgroundColor={colors.loginButton}
                 >
-                  <Text style={[styles.inputTitle, styles.winLoseStyle]}>
-                    No designed puzzle yet!
-                  </Text>
+                  <View style={styles.lowerCardTextWrapper}>
+                    <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                      No designed puzzle yet!
+                    </Text>
+                  </View>
                 </Card>
               </View>
             )}
           </>
         )}
       </View>
+      </GradientBackground>
     </Modal>
   );
 }
@@ -208,5 +213,10 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
     justifyContent: 'flex-end'
+  },
+  lowerCardTextWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

@@ -12,7 +12,7 @@ import QuizDisplayer from "../components/QuizDisplayer";
 import GradientBackground from "../components/GradientBackground";
 import { colors } from "../styles/colors";
 import Card from "../components/Card";
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function Game({ route, navigation }) {
   const clickedPlayer = route.params.clickedPlayer;
@@ -94,79 +94,82 @@ export default function Game({ route, navigation }) {
         {gameStatus === "playing" ? (
           <>
             {/* <Text style={styles.challengeTitle}>Challenging {clickedPlayer.name}'s puzzle</Text> */}
-          
+
             <Text style={styles.challengeTitle}>Round: {gameRound}</Text>
             {isDisplayed ? (
               <>
                 <TextInput
+                  autoCorrect={false}
+                  autoComplete="off" 
                   autoCapitalize="characters"
                   value={answer}
                   onChangeText={setAnswer}
                   style={styles.input}
                 />
 
-                <PressableButton 
+                <PressableButton
                   defaultStyle={styles.defaultStyle}
                   pressedStyle={styles.pressedStyle}
-                  
-                  onPress={confirmHandler}>
+                  onPress={confirmHandler}
+                >
                   <Text style={styles.loginButtonText}>Confirm</Text>
                 </PressableButton>
-                <PressableButton 
+                <PressableButton
                   defaultStyle={styles.defaultStyle}
                   pressedStyle={styles.pressedStyle}
-                  onPress={clearHandler}>
+                  onPress={clearHandler}
+                >
                   <Text style={styles.loginButtonText}>Clear</Text>
                 </PressableButton>
-
               </>
             ) : (
               <>
-                <Card width={300} height={70} backgroundColor={colors.whiteWords}>
-
-                  <Text>
-                    Click button "Display" if you are ready to watch the string. Try your best to memorize it.
-                  </Text>
-
-                  
+                <Card
+                  width={300}
+                  height={70}
+                  backgroundColor={colors.whiteWords}
+                >
+                  <View style={styles.noticeWrapper}>
+                    <Text style={styles.noticeText} numberOfLines={1}>
+                      Click "Display" if you are ready!
+                    </Text>
+                  </View>
                 </Card>
-                
 
-                <PressableButton 
+                <PressableButton
                   defaultStyle={styles.defaultStyle}
                   pressedStyle={styles.pressedStyle}
-                  onPress={displayHandler}>
+                  onPress={displayHandler}
+                >
                   <Text style={styles.loginButtonText}>Display</Text>
                 </PressableButton>
-
               </>
             )}
 
-            <PressableButton 
+            <PressableButton
               defaultStyle={styles.defaultStyle}
               pressedStyle={styles.pressedStyle}
-              
-              onPress={quitHandler}>
+              onPress={quitHandler}
+            >
               <Text style={styles.loginButtonText}>Quit</Text>
             </PressableButton>
-
           </>
         ) : (
           <>
             <Text style={styles.challengeTitle}>You {gameStatus}!</Text>
-            {gameStatus ==='lose' ? 
-              <FontAwesome5 name="sad-cry" size={90} color="darkred" /> 
-              : <FontAwesome5 name="smile-beam" size={90} color="green" />}
-
+            {gameStatus === "lose" ? (
+              <FontAwesome5 name="sad-cry" size={90} color="darkred" />
+            ) : (
+              <FontAwesome5 name="smile-beam" size={90} color="green" />
+            )}
 
             <PressableButton
-              defaultStyle={[styles.defaultStyle, {width: 200}]}
+              defaultStyle={[styles.defaultStyle, { width: 200 }]}
               pressedStyle={styles.pressedStyle}
               onPress={() => navigation.navigate("Home", { isMapMode })}
             >
               <Text style={styles.loginButtonText}>Back to home page</Text>
             </PressableButton>
-
           </>
         )}
       </View>
@@ -216,16 +219,22 @@ const styles = StyleSheet.create({
     fontSize: 25,
     alignSelf: "center",
     marginBottom: 10,
-    
   },
   input: {
     fontSize: 20,
-    width: '80%',
+    width: "80%",
     borderWidth: 2,
     borderColor: "grey",
     borderRadius: 5,
     paddingLeft: 5,
     height: 35,
   },
-
+  noticeWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noticeText: {
+    textAlign: "center",
+  },
 });

@@ -1,4 +1,4 @@
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, Alert } from "react-native";
 import React, { useState } from "react";
 import PressableButton from "../components/PressableButton";
 import { auth } from "../Firebase/firebase-setup";
@@ -32,6 +32,10 @@ export default function UserNameEditor({
             defaultStyle={styles.checkDefaultStyle}
             pressedStyle={styles.pressedStyle}
             onPress={async () => {
+              if (text.length === 0 || text.length > 10) {
+                Alert.alert("Invalid name", "Name must be 1-10 characters");
+                return;
+              }
               await updateUserNameInDB(auth.currentUser.uid, text);
               confirmHandler();
             }}

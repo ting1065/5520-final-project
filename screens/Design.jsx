@@ -242,7 +242,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 5,
   },
+  cardUpperWrapper: {
+    flex: 8.5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   buttons: {
+    flex: 1.5,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

@@ -48,8 +48,9 @@ export default function ActivityEditor({
           style={styles.container}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-          
-          <Text style={styles.inputTitle}>Cover Image</Text>
+          <View style={styles.headerContainer}>
+            <Text style={styles.inputTitle}>Cover Image</Text>
+          </View>
           <View style={styles.imageContainer}>
             
             <Image  style={styles.image} source={{ uri: imageUri }} />
@@ -116,6 +117,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 30,
   },
+  headerContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+  },
   image: {
     width: 200,
     height: 200,
@@ -142,6 +149,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 5,
     height: 35,
+    textAlign: "center",
   },
   introInput: {
     fontSize: 20,
@@ -149,8 +157,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.tabBarNotPressed,
     borderRadius: 5,
-    paddingLeft: 5,
+    paddingHorizontal: 5,
     height: "20%",
+    textAlign: "justify",
   },
   loginButtonText: {
     color: colors.whiteWords,

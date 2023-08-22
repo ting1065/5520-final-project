@@ -20,6 +20,8 @@ export default function PlayerInList({ clickHandler, player }) {
                   ? styles.selfName
                   : styles.playerName
               }
+              numberOfLines={1}
+              ellipsizeMode="tail"
             >
               {player.name.length > 9 ? `${player.name.slice(0, 9)}...` : player.name}
             </Text>
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
   nameWrapper: {
     height: "27%",
     width: "100%",
+    paddingHorizontal: "10%",
   },
   imageWrapper: {
     height: "68%",

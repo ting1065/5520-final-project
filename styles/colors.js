@@ -20,4 +20,8 @@ export const colors = {
   tabBarPressed: "#557A46",
   tabBarNotPressed: `grey`,
   scrollBackground: 'lightgray',
+  selfMarker: "#98D8AA",
+  otherMarker: "#F7D060",
+  activeBell: "red",
+  inactiveBell: "grey",
 };
