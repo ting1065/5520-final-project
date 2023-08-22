@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
   personalInfo: {
     fontSize: 25,
     alignSelf: "center",
-    marginVertical: 10,
   },
   combatWords: {
     color: colors.shadowColor,
@@ -203,9 +202,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   challengeButtonContainer: {
-    flex: 1,
+    flex: 0.5,
   },
   titleContainer: {
     flex: 1,
-  }
+    marginTop: 10,
+    justifyContent: 'flex-end'
+  },
 });
