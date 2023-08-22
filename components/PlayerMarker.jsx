@@ -14,15 +14,18 @@ export default function PlayerMarker({ clickHandler, player }) {
       stopPropagation={true}
       onPress={async () => await clickHandler(player)}
     >
-      <View style={styles.playerContainer}>
-        <Text style={styles.playerName}>
-          {player.name.length > 6 ? `${player.name.slice(0, 6)}...` : player.name}
-        </Text>
-        <Image style={styles.image} source={{ uri: player.avatar }} />
-        <Text style={styles.playerName}>Rank: {player.rank}</Text>
-        {auth.currentUser.uid === player.id && (
-          <Text style={styles.selfName}> Me! </Text>
-        )}
+      <View style={auth.currentUser.uid===player.id ? styles.currentPlayerMarkerContainer : styles.otherPlayerMarkerContainer}>
+        <View style={styles.nameWrapper}>
+          <Text style={styles.playerName} numberOfLines={1} ellipsizeMode="tail">
+            {player.name}
+          </Text>
+        </View>
+        <View style={styles.imageWrapper}>
+          <Image style={styles.image} source={{ uri: player.avatar }} />
+        </View>
+        <View style={styles.rankWrapper}>
+          <Text style={styles.playerName} numberOfLines={1} ellipsizeMode="tail">Rank: {player.rank}</Text>
+        </View>
       </View>
     </Marker>
   );
@@ -30,11 +33,10 @@ export default function PlayerMarker({ clickHandler, player }) {
 
 const styles = StyleSheet.create({
   image: {
-    width: 40,
-    height: 40,
-    resizeMode: "cover",
+    height: "100%",
+    resizeMode: "contain",
   },
-  playerContainer: {
+  currentPlayerMarkerContainer: {
     width: 90,
     height: 90,
     borderRadius: 20,
@@ -44,10 +46,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     margin: 10,
-    backgroundColor: colors.shadowColor,
+    backgroundColor: colors.selfMarker,
     ...Platform.select({
       ios: {
-        shadowColor: colors.shadowColor,
+        shadowColor: colors.selfMarker,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  otherPlayerMarkerContainer: {
+    width: 90,
+    height: 90,
+    borderRadius: 20,
+
+    // flexDirection: 'row',
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    alignSelf: "center",
+    margin: 10,
+    backgroundColor: colors.otherMarker,
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.otherMarker,
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.27,
         shadowRadius: 4.65,
@@ -58,11 +83,27 @@ const styles = StyleSheet.create({
     }),
   },
   playerName: {
+    textAlign: "center",
     color: colors.whiteWords,
     fontSize: 15,
   },
   selfName: {
+    textAlign: "center",
     color: colors.goldWords,
     fontSize: 15,
+  },
+  nameWrapper: {
+    width: "100%",
+    height: "20%",
+    paddingHorizontal: "10%",
+  },
+  imageWrapper: {
+    width: "100%",
+    height: "60%",
+  },
+  rankWrapper: {
+    width: "100%",
+    height: "20%",
+    paddingHorizontal: "10%",
   },
 });
