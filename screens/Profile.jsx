@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, Alert } from "react-native";
+import { View, Text, Image, StyleSheet, Alert, ImageBackground, Dimensions } from "react-native";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../Firebase/firebase-setup";
 import { signOut } from "firebase/auth";
@@ -12,6 +12,10 @@ import { colors } from "../styles/colors";
 import Card from "../components/Card";
 import { AntDesign } from "@expo/vector-icons";
 import DeleteAccountBoard from "../components/DeleteAccountBoard";
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const imageSize = Math.min(screenWidth * 0.4, screenHeight * 0.4);
+
 
 export default function Profile() {
   const avatarStorageFolder = "avatars";
@@ -62,66 +66,75 @@ export default function Profile() {
           hideModalHandler={hideModalHandler}
         />
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: user?.avatar }} />
-          <ImageManager
+          <ImageBackground style={styles.image} source={{ uri: user?.avatar }} >
+            <ImageManager
             storeDownloadUri={updateAvatarUri}
             folderName={avatarStorageFolder}
             fileName={avatarFileName}
-          />
+            />
+          </ImageBackground>
+          
         </View>
-        <Card width={300} height={200} backgroundColor={colors.whiteWords}>
-          <Text style={styles.personalInfo}>Personal Info</Text>
-          <Text style={styles.inputTitle}>Your name:</Text>
-          <View style={styles.nameContainer}>
-            {isEditingName ? (
-              <UserNameEditor
-                currentName={user?.name}
-                confirmHandler={() => {
-                  setIsEditingName(false);
-                }}
-                cancelHandler={() => setIsEditingName(false)}
-              />
-            ) : (
-              <Text style={styles.inputDisplay}>{user?.name}</Text>
-            )}
-            {!isEditingName && (
-              <PressableButton
-                defaultStyle={styles.editNameDefaultStyle}
-                pressedStyle={styles.editNamePressedStyle}
-                onPress={() => setIsEditingName(true)}
-              >
-                <View style={styles.editNameButton}>
-                  <AntDesign name="edit" size={24} color={colors.shadowColor} />
-                  <Text style={styles.inputDisplay}> Edit </Text>
-                </View>
-              </PressableButton>
-            )}
-          </View>
-          <Text style={styles.inputTitle}>Your email:</Text>
-          <Text style={styles.inputDisplay}>{user?.email}</Text>
-        </Card>
+        <View style={[{flex: 1},{marginVertical: 10}]}>
 
-        <PressableButton
-          defaultStyle={styles.defaultStyle}
-          pressedStyle={styles.pressedStyle}
-          onPress={async () => {
-            try {
-              await signOut(auth);
-            } catch (error) {
-              console.log("error happened while logging out: ", error);
-            }
-          }}
-        >
-          <Text style={styles.loginButtonText}>Sign Out</Text>
-        </PressableButton>
+        
+          <Card width={300} height={200} backgroundColor={colors.whiteWords} >
+            <Text style={styles.personalInfo}>Personal Info</Text>
+            <Text style={styles.inputTitle}>Your name:</Text>
+            <View style={styles.nameContainer}>
+              {isEditingName ? (
+                <UserNameEditor
+                  currentName={user?.name}
+                  confirmHandler={() => {
+                    setIsEditingName(false);
+                  }}
+                  cancelHandler={() => setIsEditingName(false)}
+                />
+              ) : (
+                <Text style={styles.inputDisplay}>{user?.name}</Text>
+              )}
+              {!isEditingName && (
+                <PressableButton
+                  defaultStyle={styles.editNameDefaultStyle}
+                  pressedStyle={styles.editNamePressedStyle}
+                  onPress={() => setIsEditingName(true)}
+                >
+                  <View style={styles.editNameButton}>
+                    <AntDesign name="edit" size={24} color={colors.shadowColor} />
+                    <Text style={styles.inputDisplay}> Edit </Text>
+                  </View>
+                </PressableButton>
+              )}
+            </View>
+            <Text style={styles.inputTitle}>Your email:</Text>
+            <Text style={styles.inputDisplay}>{user?.email}</Text>
+          </Card>
+        </View>
+        <View style={{flex: 0.8}}>
 
-        <PressableButton
-          defaultStyle={styles.defaultStyle}
-          pressedStyle={styles.pressedStyle}
-          onPress={totallyDeleteUser}
-        >
-          <Text style={styles.loginButtonText}>Delete</Text>
-        </PressableButton>
+        
+          <PressableButton
+            defaultStyle={styles.defaultStyle}
+            pressedStyle={styles.pressedStyle}
+            onPress={async () => {
+              try {
+                await signOut(auth);
+              } catch (error) {
+                console.log("error happened while logging out: ", error);
+              }
+            }}
+          >
+            <Text style={styles.loginButtonText}>Sign Out</Text>
+          </PressableButton>
+
+          <PressableButton
+            defaultStyle={styles.defaultStyle}
+            pressedStyle={styles.pressedStyle}
+            onPress={totallyDeleteUser}
+          >
+            <Text style={styles.loginButtonText}>Delete</Text>
+          </PressableButton>
+        </View>
       </View>
     </GradientBackground>
   );
@@ -133,6 +146,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
+    
   },
   loginButtonText: {
     color: colors.whiteWords,
@@ -166,15 +180,17 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   imageContainer: {
-    position: "relative",
-    marginBottom: 20,
+    flex: 1,
+    justifyContent: 'center',
   },
   image: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
+    position: "relative",
+    width: imageSize,
+    height: imageSize,
+    borderRadius: imageSize / 2,
     borderWidth: 5,
     borderColor: colors.whiteWords,
+    marginTop: 20,
 
     resizeMode: "cover",
   },
@@ -182,6 +198,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    flex: 1,
   },
   personalInfo: {
     fontSize: 25,
