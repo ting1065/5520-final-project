@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
   goDefaultStyle: {
     backgroundColor: colors.tabBarPressed,
     width: 250,
-    height: 20,
+    height: 25,
     borderWidth: 2,
     alignItems: "center",
     justifyContent: "center",
