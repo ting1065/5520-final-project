@@ -4,6 +4,7 @@ import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { colors } from "../styles/colors";
 import Card from "../components/Card";
+import GradientBackground from "../components/GradientBackground";
 
 export default function PlayerClicked({
   clickedPlayer,
@@ -13,6 +14,7 @@ export default function PlayerClicked({
 }) {
   return (
     <Modal visible={modalVisible} animationType="slide">
+      <GradientBackground>
       <View style={styles.container}>
         <View style={ styles.closeContainer}>
           <PressableButton
@@ -126,6 +128,7 @@ export default function PlayerClicked({
           </>
         )}
       </View>
+      </GradientBackground>
     </Modal>
   );
 }

@@ -24,7 +24,7 @@ export default function PlayerMarker({ clickHandler, player }) {
           <Image style={styles.image} source={{ uri: player.avatar }} />
         </View>
         <View style={styles.rankWrapper}>
-          <Text style={styles.playerName} numberOfLines={1} ellipsizeMode="tail">Rank: {player.rank}</Text>
+          <Text style={styles.playerName} numberOfLines={1} ellipsizeMode="tail">{player.rank}</Text>
         </View>
       </View>
     </Marker>
