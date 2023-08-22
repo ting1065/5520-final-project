@@ -119,9 +119,11 @@ export default function PlayerClicked({
                   height={320}
                   backgroundColor={colors.loginButton}
                 >
-                  <Text style={[styles.inputTitle, styles.winLoseStyle]}>
-                    No designed puzzle yet!
-                  </Text>
+                  <View style={styles.lowerCardTextWrapper}>
+                    <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                      No designed puzzle yet!
+                    </Text>
+                  </View>
                 </Card>
               </View>
             )}
@@ -211,5 +213,10 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 10,
     justifyContent: 'flex-end'
+  },
+  lowerCardTextWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
