@@ -1,4 +1,4 @@
-import { Text, Alert, StyleSheet } from "react-native";
+import { Text, Alert, StyleSheet, View } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { auth } from "../Firebase/firebase-setup";
@@ -107,7 +107,9 @@ export default function Map({
           </MapView>
         </>
       ) : (
-        <Text>You need to give access to location</Text>
+        <View style={styles.noAcessWrapper}>
+          <Text>You need to give access to location</Text>
+        </View>
       )}
     </>
   );
@@ -152,5 +154,10 @@ const styles = StyleSheet.create({
   modeText: {
     fontSize: 15,
     color: colors.whiteWords,
+  },
+  noAcessWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
