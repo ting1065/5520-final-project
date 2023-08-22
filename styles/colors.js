@@ -19,4 +19,5 @@ export const colors = {
   bottomheader: "#98D8AA",
   tabBarPressed: "#557A46",
   tabBarNotPressed: `grey`,
+  scrollBackground: 'lightgray',
 };

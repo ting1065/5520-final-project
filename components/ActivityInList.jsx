@@ -72,7 +72,7 @@ export default function ActivityInList({
             style={[{ width: 150, height: 150 }, {alignSelf: 'center'}, {marginVertical: 5}]}
             source={{ uri: activity.imageUri }}
           />
-          <Text style={[{fontWeight: 'bold'}]}>Introduction:</Text>
+          <Text style={styles.boldText}>Introduction:</Text>
           <ScrollView style={styles.scrollViewContainer}>
             <Text style={styles.text}>{activity.intro}</Text>
           </ScrollView>
@@ -92,10 +92,10 @@ export default function ActivityInList({
             
           </PressableButton>
           <View style={styles.playerTagWrapper}>
-            <Text style={{fontWeight: 'bold'}}>Organizer:</Text>
+            <Text style={styles.boldText}>Organizer:</Text>
             <PlayerTagInActivity player={organizer} isInFlatList={false} />
           </View>
-          <Text style={{fontWeight: 'bold'}}>Participants: {activity.participants.length}</Text>
+          <Text style={styles.boldText}>Participants: {activity.participants.length}</Text>
           <View style={styles.playerTagListWrapper}>
             <ParticipantList participants={participants} />
           </View>
@@ -184,13 +184,11 @@ const styles = StyleSheet.create({
     width: 150,
     height: 45,
     marginLeft: 5,
-
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
     backgroundColor: colors.redButton,
-    // Add platform-specific shadow
     ...Platform.select({
       ios: {
         shadowColor: colors.shadowColor,
@@ -240,7 +238,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
-    backgroundColor: 'black',
+    backgroundColor: colors.shadowColor,
     // Add platform-specific shadow
     ...Platform.select({
       ios: {
@@ -255,9 +253,9 @@ const styles = StyleSheet.create({
     }),
   },
   scrollViewContainer: {
-    backgroundColor: "lightgray",
+    backgroundColor: colors.scrollBackground,
     borderWidth: 1,
-    borderColor: "gray",
+    borderColor: colors.greyWords,
     marginVertical: 5,
     height: 70,
     width: '100%',
@@ -293,6 +291,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 5,
   },
-  
-
+  boldText: {
+    fontWeight: 'bold',
+  },
 });
