@@ -106,7 +106,7 @@ export default function DeleteAccountBoard({ modalVisible, hideModalHandler }) {
           <Text style={styles.appName}>Don't Go!</Text>
           <View style={styles.welcomeContainer}>
             <Text style={styles.welcomesmallWrods}>
-              Enter your password to confirm deleting your account
+              Enter your password to confirm deleting
             </Text>
           </View>
 
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
   },
   welcomesmallWrods: {
     color: colors.whiteWords,
+    textAlign: "center",
   },
   appName: {
     fontSize: 45,
