@@ -105,6 +105,8 @@ export default function PuzzleEditor({
               {")"}
             </Text>
             <TextInput
+              autoCorrect={false}
+              autoComplete="off"
               autoCapitalize="characters"
               value={quiz1}
               onChangeText={(text) => {
@@ -119,6 +121,8 @@ export default function PuzzleEditor({
               {")"}
             </Text>
             <TextInput
+              autoCorrect={false}
+              autoComplete="off"
               autoCapitalize="characters"
               value={quiz2}
               onChangeText={(text) => {
@@ -132,6 +136,8 @@ export default function PuzzleEditor({
               {")"}
             </Text>
             <TextInput
+              autoCorrect={false}
+              autoComplete="off"
               autoCapitalize="characters"
               value={quiz3}
               onChangeText={(text) => {
@@ -145,6 +151,8 @@ export default function PuzzleEditor({
               {")"}
             </Text>
             <TextInput
+              autoCorrect={false}
+              autoComplete="off"
               autoCapitalize="characters"
               value={quiz4}
               onChangeText={(text) => {
@@ -158,6 +166,8 @@ export default function PuzzleEditor({
               {")"}
             </Text>
             <TextInput
+              autoCorrect={false}
+              autoComplete="off"
               autoCapitalize="characters"
               value={quiz5}
               onChangeText={(text) => {

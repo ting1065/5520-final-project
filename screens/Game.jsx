@@ -99,6 +99,8 @@ export default function Game({ route, navigation }) {
             {isDisplayed ? (
               <>
                 <TextInput
+                  autoCorrect={false}
+                  autoComplete="off" 
                   autoCapitalize="characters"
                   value={answer}
                   onChangeText={setAnswer}
