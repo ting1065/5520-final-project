@@ -111,8 +111,7 @@ export default function ImageManager({
 
 const styles = StyleSheet.create({
   editButton: {
-    width: 50,
-    height: 50,
+
     borderRadius: 50,
     position: "absolute",
     bottom: 0,

@@ -66,18 +66,17 @@ export default function Profile() {
           hideModalHandler={hideModalHandler}
         />
         <View style={styles.imageContainer}>
-          <ImageBackground style={styles.image} source={{ uri: user?.avatar }} >
+            <Image
+              style={styles.image}
+              source={{ uri: user?.avatar }}
+            />
             <ImageManager
             storeDownloadUri={updateAvatarUri}
             folderName={avatarStorageFolder}
             fileName={avatarFileName}
-            />
-          </ImageBackground>
-          
+            />      
         </View>
-        <View style={[{flex: 1},{marginVertical: 10}]}>
-
-        
+        <View style={styles.cardContainer}>
           <Card width={300} height={200} backgroundColor={colors.whiteWords} >
             <Text style={styles.personalInfo}>Personal Info</Text>
             <Text style={styles.inputTitle}>Your name:</Text>
@@ -110,30 +109,32 @@ export default function Profile() {
             <Text style={styles.inputDisplay}>{user?.email}</Text>
           </Card>
         </View>
-        <View style={{flex: 0.8}}>
-
-        
-          <PressableButton
-            defaultStyle={styles.defaultStyle}
-            pressedStyle={styles.pressedStyle}
-            onPress={async () => {
-              try {
-                await signOut(auth);
-              } catch (error) {
-                console.log("error happened while logging out: ", error);
-              }
-            }}
-          >
-            <Text style={styles.loginButtonText}>Sign Out</Text>
-          </PressableButton>
-
-          <PressableButton
-            defaultStyle={styles.defaultStyle}
-            pressedStyle={styles.pressedStyle}
-            onPress={totallyDeleteUser}
-          >
-            <Text style={styles.loginButtonText}>Delete</Text>
-          </PressableButton>
+        <View style={styles.buttonsContainer}>
+          <View >
+            <PressableButton
+              defaultStyle={styles.defaultStyle}
+              pressedStyle={styles.pressedStyle}
+              onPress={async () => {
+                try {
+                  await signOut(auth);
+                } catch (error) {
+                  console.log("error happened while logging out: ", error);
+                }
+              }}
+            >
+              <Text style={styles.loginButtonText}>Sign Out</Text>
+            </PressableButton>
+          </View>
+            
+          <View style={[{marginLeft: 20}]}>
+            <PressableButton
+              defaultStyle={styles.defaultStyle}
+              pressedStyle={styles.pressedStyle}
+              onPress={totallyDeleteUser}
+            >
+              <Text style={styles.loginButtonText}>Delete</Text>
+            </PressableButton>
+          </View>
         </View>
       </View>
     </GradientBackground>
@@ -162,7 +163,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 5,
     backgroundColor: colors.redButton,
-    // Add platform-specific shadow
     ...Platform.select({
       ios: {
         shadowColor: colors.shadowColor,
@@ -179,21 +179,20 @@ const styles = StyleSheet.create({
     backgroundColor: colors.pressedRedButton,
     opacity: 0.5,
   },
-  imageContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
   image: {
-    position: "relative",
-    width: imageSize,
-    height: imageSize,
-    borderRadius: imageSize / 2,
+    width: 200,
+    height: 200,
+    borderRadius: 100,
     borderWidth: 5,
     borderColor: colors.whiteWords,
-    marginTop: 20,
 
     resizeMode: "cover",
   },
+  imageContainer: {
+    position: "relative",
+    marginVertical: 10,
+  },
+  
   nameContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -227,4 +226,13 @@ const styles = StyleSheet.create({
   editNamePressedStyle: {
     opacity: 0.5,
   },
+  buttonsContainer: {
+    flex: 0.5,
+    flexDirection: 'row',
+  },
+  cardContainer: {
+    flex: 1,
+    marginVertical: 10,
+    justifyContent: 'center',
+  }
 });
