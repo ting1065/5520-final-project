@@ -5,7 +5,7 @@ export default function PlayerTagInActivity({ player, isInFlatList }) {
   return (
     <View style={isInFlatList ? styles.containerInFlatList : styles.container}>
       <View style={styles.nameWrapper}>
-        <Text style={styles.name}>{player.name}</Text>
+        <Text style={styles.name}>{player.name.length > 9 ? `${player.name.slice(0, 9)}...` : player.name}</Text>
       </View>
 
       <View style={styles.avatarWrapper}>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   name: {
-    fontSize: 10,
+    fontSize: 6,
     textAlign: "center",
   },
   avatarWrapper: {
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   rank: {
-    fontSize: 10,
+    fontSize: 6,
     textAlign: "center",
   },
 });
