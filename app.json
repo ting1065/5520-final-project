@@ -33,6 +33,12 @@
           "photosPermission": "The app accesses your photos to let you customize your avatar",
           "cameraPermission": "The app accesses your camera to let you customize your avatar"
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "The app access your location to let you find nearby players"
+        }
       ]
     ]
   }
