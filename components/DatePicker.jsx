@@ -2,12 +2,12 @@ import { View, Text, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import PressableButton from "./PressableButton";
-import { MaterialIcons } from '@expo/vector-icons';
-import { colors } from "../styles/colors";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function DatePicker({ confirmDateHandler, initialDate, date }) {
   const [modalVisible, setModalVisible] = useState(false);
 
+  // format for showing the date
   const dateFormatOptions = {
     year: "numeric",
     month: "long",
@@ -25,14 +25,15 @@ export default function DatePicker({ confirmDateHandler, initialDate, date }) {
     <View style={styles.container}>
       <PressableButton
         defaultStyle={styles.editNameDefaultStyle}
-        pressedStyle={styles.editNamePressedStyle} 
+        pressedStyle={styles.editNamePressedStyle}
         onPress={() => setModalVisible(true)}
       >
         <View style={styles.dateInnerContainer}>
-          <MaterialIcons name="date-range" size={24} color="black" /> 
-          <Text style={styles.inputDisplay}>{"<"}Set Starting Time{">"}</Text>
+          <MaterialIcons name="date-range" size={24} color="black" />
+          <Text style={styles.inputDisplay}>
+            {"<"}Set Starting Time{">"}
+          </Text>
         </View>
-        
       </PressableButton>
       <Text style={styles.inputDisplay}>{formattedDate}</Text>
       <DateTimePickerModal
@@ -61,15 +62,15 @@ export default function DatePicker({ confirmDateHandler, initialDate, date }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 60,
   },
   dateInnerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   editNameDefaultStyle: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     width: 250,
     height: 40,
     borderWidth: 2,
@@ -84,5 +85,4 @@ const styles = StyleSheet.create({
   inputDisplay: {
     fontSize: 20,
   },
-
-})
+});

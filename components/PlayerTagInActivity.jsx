@@ -5,18 +5,31 @@ import { colors } from "../styles/colors";
 
 export default function PlayerTagInActivity({ player, isInFlatList }) {
   return (
-    <View style={[isInFlatList ? styles.containerInFlatList : styles.container, auth.currentUser.uid===player.id ? styles.currentPlayerContainer : styles.otherPlayerContainer]}>
+    <View
+      style={[
+        isInFlatList ? styles.containerInFlatList : styles.container,
+        auth.currentUser.uid === player.id
+          ? styles.currentPlayerContainer
+          : styles.otherPlayerContainer,
+      ]}
+    >
       <View style={styles.nameWrapper}>
-          <Text style={styles.playerName} numberOfLines={1} ellipsizeMode="tail">
-            {player.name}
-          </Text>
-        </View>
-        <View style={styles.imageWrapper}>
-          <Image style={styles.image} source={{ uri: player.avatar }} />
-        </View>
-        <View style={styles.rankWrapper}>
-          <Text style={[styles.playerName, styles.rank]} numberOfLines={1} ellipsizeMode="tail">{player.rank}</Text>
-        </View>
+        <Text style={styles.playerName} numberOfLines={1} ellipsizeMode="tail">
+          {player.name}
+        </Text>
+      </View>
+      <View style={styles.imageWrapper}>
+        <Image style={styles.image} source={{ uri: player.avatar }} />
+      </View>
+      <View style={styles.rankWrapper}>
+        <Text
+          style={[styles.playerName, styles.rank]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {player.rank}
+        </Text>
+      </View>
     </View>
   );
 }
@@ -65,7 +78,7 @@ const styles = StyleSheet.create({
     color: colors.whiteWords,
     fontSize: 8,
   },
-  rank:{
+  rank: {
     fontWeight: "bold",
   },
   image: {

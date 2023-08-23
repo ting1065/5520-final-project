@@ -14,6 +14,7 @@ import * as Notifications from "expo-notifications";
 const Tab = createBottomTabNavigator();
 
 export default function Home({ navigation }) {
+  // take the user to the activity screen when the user clicks on the notification
   useEffect(() => {
     const subscription = Notifications.addNotificationResponseReceivedListener(
       (notification) => {

@@ -30,6 +30,7 @@ export default function Activity({ route }) {
     (player) => player.id === auth.currentUser.uid
   );
 
+  // fetch data of activities collection from database
   useEffect(() => {
     const q = query(collection(db, "activities"));
 
@@ -69,6 +70,7 @@ export default function Activity({ route }) {
     return () => unsubscribe();
   }, []);
 
+  // find the index of the reminded activity, after the user clicked on the notification
   useEffect(() => {
     if (route.params?.remindedActivityId) {
       const index = activities.findIndex(
@@ -164,44 +166,39 @@ export default function Activity({ route }) {
 
   return (
     <GradientBackground>
-        {!activityAsOrganizer && (
-          <View style={styles.addButtonContainer}>
-            
-            <PressableButton 
-              defaultStyle={styles.editNameDefaultStyle}
-              pressedStyle={styles.editNamePressedStyle}
-              onPress={addHandler}>
-              <View style={styles.editNameButton}>
-                <AntDesign
-                  name="edit"
-                  size={24}
-                  color={colors.shadowColor}
-                />
-                <Text style={styles.inputDisplay}>Add/Update Activity</Text>
-              </View>
-            </PressableButton>
-            
+      {!activityAsOrganizer && (
+        <View style={styles.addButtonContainer}>
+          <PressableButton
+            defaultStyle={styles.editNameDefaultStyle}
+            pressedStyle={styles.editNamePressedStyle}
+            onPress={addHandler}
+          >
+            <View style={styles.editNameButton}>
+              <AntDesign name="edit" size={24} color={colors.shadowColor} />
+              <Text style={styles.inputDisplay}>Add/Update Activity</Text>
             </View>
-        )}
-        <ActivityEditor
-          modalVisible={modalVisible}
-          editingActivity={editingActivity}
-          confirmEditHandler={confirmEditHandler}
-          cancelEditHandler={cancelEditHandler}
-          editorRefresher={editorRefresher}
-        />
-        <View style={styles.listContainer}>
-          <ActivityList
-            activities={activities}
-            players={players}
-            editHandler={editHandler}
-            deleteHandler={deleteHandler}
-            joinHandler={joinHandler}
-            leaveHandler={leaveHandler}
-            remindedActivityIndex={remindedActivityIndex}
-            resetRemindedActivityIndex={resetRemindedActivityIndex}
-          />
+          </PressableButton>
         </View>
+      )}
+      <ActivityEditor
+        modalVisible={modalVisible}
+        editingActivity={editingActivity}
+        confirmEditHandler={confirmEditHandler}
+        cancelEditHandler={cancelEditHandler}
+        editorRefresher={editorRefresher}
+      />
+      <View style={styles.listContainer}>
+        <ActivityList
+          activities={activities}
+          players={players}
+          editHandler={editHandler}
+          deleteHandler={deleteHandler}
+          joinHandler={joinHandler}
+          leaveHandler={leaveHandler}
+          remindedActivityIndex={remindedActivityIndex}
+          resetRemindedActivityIndex={resetRemindedActivityIndex}
+        />
+      </View>
     </GradientBackground>
   );
 }

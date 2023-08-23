@@ -7,6 +7,7 @@ const PlayersContext = createContext();
 export default function PlayersProvider({ children }) {
   const [players, setPlayers] = useState([]);
 
+  // fetch all the data of players collection from database
   useEffect(() => {
     const q = query(collection(db, "users"));
 
@@ -32,7 +33,6 @@ export default function PlayersProvider({ children }) {
       sortedPlayers[0].rank = 1;
       return sortedPlayers;
     }
-
     //add rank field to each player object
     let rank = 1;
     let currentUserIndex = 0;

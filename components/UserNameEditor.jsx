@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
   checkcrossButtons: {
     flexDirection: "row",
     marginHorizontal: 20,
-    // width: 200,
     justifyContent: "flex-end",
   },
   checkDefaultStyle: {

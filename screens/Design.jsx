@@ -14,6 +14,7 @@ export default function Design() {
   const [puzzleDoc, setPuzzleDoc] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
+  //fetch current user's puzzle from the puzzles collection of database
   useEffect(() => {
     const q = query(
       collection(db, "puzzles"),
@@ -84,7 +85,9 @@ export default function Design() {
                 </Text>
                 <View style={styles.winLoseStyle}>
                   <Text style={styles.design}>Design win: {puzzleDoc.win}</Text>
-                  <Text style={styles.design}>Design lose: {puzzleDoc.lose}</Text>
+                  <Text style={styles.design}>
+                    Design lose: {puzzleDoc.lose}
+                  </Text>
                 </View>
                 <View style={styles.buttons}>
                   <PressableButton
@@ -150,7 +153,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   cardContainer: {
     flex: 10,
@@ -165,7 +168,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   inputTitle: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: 20,
     color: colors.redButton,
     marginVertical: 5,

@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     alignSelf: "center",
-    // margin: 10,
     backgroundColor: colors.shadowColor,
   },
   leftWrapper: {

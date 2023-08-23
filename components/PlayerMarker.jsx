@@ -14,9 +14,19 @@ export default function PlayerMarker({ clickHandler, player }) {
       stopPropagation={true}
       onPress={async () => await clickHandler(player)}
     >
-      <View style={auth.currentUser.uid===player.id ? styles.currentPlayerMarkerContainer : styles.otherPlayerMarkerContainer}>
+      <View
+        style={
+          auth.currentUser.uid === player.id
+            ? styles.currentPlayerMarkerContainer
+            : styles.otherPlayerMarkerContainer
+        }
+      >
         <View style={styles.nameWrapper}>
-          <Text style={styles.playerName} numberOfLines={1} ellipsizeMode="tail">
+          <Text
+            style={styles.playerName}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
             {player.name}
           </Text>
         </View>
@@ -24,7 +34,13 @@ export default function PlayerMarker({ clickHandler, player }) {
           <Image style={styles.image} source={{ uri: player.avatar }} />
         </View>
         <View style={styles.rankWrapper}>
-          <Text style={styles.playerName} numberOfLines={1} ellipsizeMode="tail">{player.rank}</Text>
+          <Text
+            style={styles.playerName}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {player.rank}
+          </Text>
         </View>
       </View>
     </Marker>
@@ -40,8 +56,6 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     borderRadius: 20,
-
-    // flexDirection: 'row',
     justifyContent: "space-evenly",
     alignItems: "center",
     alignSelf: "center",
@@ -63,8 +77,6 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     borderRadius: 20,
-
-    // flexDirection: 'row',
     justifyContent: "space-evenly",
     alignItems: "center",
     alignSelf: "center",

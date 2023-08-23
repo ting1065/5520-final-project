@@ -1,4 +1,12 @@
-import { View, Text, Modal, TextInput, Image, StyleSheet, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  Text,
+  Modal,
+  TextInput,
+  Image,
+  StyleSheet,
+  KeyboardAvoidingView,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import ImageManager from "./ImageManager";
 import { auth } from "../Firebase/firebase-setup";
@@ -17,19 +25,24 @@ export default function ActivityEditor({
   cancelEditHandler,
   editorRefresher,
 }) {
+  //activity title
   const [title, setTitle] = useState(
     editingActivity ? editingActivity.title : ""
   );
+  //activity cover image uri
   const [imageUri, setImageUri] = useState(
     editingActivity ? editingActivity.imageUri : defaultCoverImage
   );
+  //activity introduction
   const [intro, setIntro] = useState(
     editingActivity ? editingActivity.intro : ""
   );
+  //activity start date
   const [startDate, setStartDate] = useState(
     editingActivity ? editingActivity.date : null
   );
 
+  //set initial values based on editingActivity
   useEffect(() => {
     setTitle(editingActivity ? editingActivity.title : "");
     setImageUri(editingActivity ? editingActivity.imageUri : defaultCoverImage);
@@ -44,7 +57,7 @@ export default function ActivityEditor({
   return (
     <Modal visible={modalVisible} animationType="slide">
       <GradientBackground>
-        <KeyboardAvoidingView 
+        <KeyboardAvoidingView
           style={styles.container}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
@@ -52,8 +65,7 @@ export default function ActivityEditor({
             <Text style={styles.inputTitle}>Cover Image</Text>
           </View>
           <View style={styles.imageContainer}>
-            
-            <Image  style={styles.image} source={{ uri: imageUri }} />
+            <Image style={styles.image} source={{ uri: imageUri }} />
             <ImageManager
               storeDownloadUri={setImageUri}
               folderName="activities"
@@ -68,7 +80,7 @@ export default function ActivityEditor({
               setTitle(text);
             }}
             style={styles.titleInput}
-          /> 
+          />
           <Text style={styles.inputTitle}>Introduction</Text>
           <TextInput
             autoCapitalize="none"
@@ -96,16 +108,16 @@ export default function ActivityEditor({
               <Text style={styles.loginButtonText}>confirm</Text>
             </PressableButton>
 
-            <PressableButton 
+            <PressableButton
               defaultStyle={styles.defaultStyle}
               pressedStyle={styles.pressedStyle}
-              onPress={cancelEditHandler}>
+              onPress={cancelEditHandler}
+            >
               <Text style={styles.loginButtonText}>cancel</Text>
             </PressableButton>
-          </View>  
+          </View>
         </KeyboardAvoidingView>
       </GradientBackground>
-
     </Modal>
   );
 }
@@ -129,7 +141,6 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 5,
     borderColor: colors.whiteWords,
-
     resizeMode: "cover",
   },
   imageContainer: {
@@ -143,7 +154,7 @@ const styles = StyleSheet.create({
   },
   titleInput: {
     fontSize: 20,
-    width: '80%',
+    width: "80%",
     borderWidth: 2,
     borderColor: colors.tabBarNotPressed,
     borderRadius: 5,
@@ -153,7 +164,7 @@ const styles = StyleSheet.create({
   },
   introInput: {
     fontSize: 20,
-    width: '80%',
+    width: "80%",
     borderWidth: 2,
     borderColor: colors.tabBarNotPressed,
     borderRadius: 5,
@@ -192,8 +203,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   buttons: {
-    flexDirection: 'row',
+    flexDirection: "row",
     flex: 4,
-  }
-
+  },
 });

@@ -16,6 +16,7 @@ export default function Map({
   const [selectedLocation, setSelectedLocation] = useState(null);
   const mapRef = useRef(null);
 
+  // click on the map to change the base location
   useEffect(() => {
     if (!selectedLocation) {
       return;
@@ -118,8 +119,6 @@ export default function Map({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // height: '100%',
-    // alignItems: 'center',
     justifyContent: "center",
   },
   modeContainer: {

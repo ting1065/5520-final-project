@@ -1,11 +1,11 @@
-import { View, Text, Alert, StyleSheet  } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import React from "react";
 import * as Notifications from "expo-notifications";
 import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { addUserToUsersToRemindInActivityInDB } from "../Firebase/firebase-helper";
 import { colors } from "../styles/colors";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function ActivityReminder({
   activityTitle,
@@ -53,13 +53,17 @@ export default function ActivityReminder({
   };
 
   return (
-      <PressableButton 
-        defaultStyle={styles.reminderDefaultStyle}
-        pressedStyle={styles.reminderPressedStyle} 
-        onPress={notificationHandler}
-      >
-        <MaterialCommunityIcons name="bell-ring-outline" size={24} color={colors.inactiveBell} />
-      </PressableButton>
+    <PressableButton
+      defaultStyle={styles.reminderDefaultStyle}
+      pressedStyle={styles.reminderPressedStyle}
+      onPress={notificationHandler}
+    >
+      <MaterialCommunityIcons
+        name="bell-ring-outline"
+        size={24}
+        color={colors.inactiveBell}
+      />
+    </PressableButton>
   );
 }
 
@@ -71,4 +75,4 @@ const styles = StyleSheet.create({
   reminderPressedStyle: {
     backgroundColor: colors.activeBell,
   },
-})
+});
