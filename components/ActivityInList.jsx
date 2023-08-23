@@ -110,15 +110,14 @@ export default function ActivityInList({
             source={{ uri: activity.imageUri }}
           />
           <View style={styles.introWrapper}>
-          <Text style={styles.boldText}>Introduction:</Text>
-          <View style={styles.introTextContainer}>
-            <TextInput
-              style={styles.introText}
-              multiline={true}
-              editable={false}
-              value={activity.intro}
-            />
-          </View>
+            <Text style={styles.boldText}>Introduction:</Text>
+            <ScrollView
+              style={styles.introTextContainer}
+              contentContainerStyle={styles.introTextContentContainer}
+              keyboardShouldPersistTaps="handled"
+            >
+              <Text style={styles.introText}>{activity.intro}</Text>
+            </ScrollView>
           </View>
           <View style={styles.dateWrapper}>
             <Text style={styles.boldText}>Date:</Text>
@@ -178,7 +177,7 @@ export default function ActivityInList({
               >
                 <Text style={styles.buttonText}>leave</Text>
               </PressableButton>
-              </View>
+            </View>
           ) : (
             <View style={styles.buttons}>
               <PressableButton
@@ -190,7 +189,7 @@ export default function ActivityInList({
               >
                 <Text style={styles.buttonText}>join</Text>
               </PressableButton>
-              </View>
+            </View>
           )}
         </Card>
       </View>
@@ -303,7 +302,15 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     height: 70,
     width: "100%",
-    padding: 5,
+  },
+  introTextContentContainer: {
+    alignItems: "center",
+  },
+  introText: {
+    flex: 1,
+    width: "98%",
+    fontSize: 15,
+    textAlign: "justify",
   },
   eventTitle: {
     fontSize: 25,
@@ -330,11 +337,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     marginVertical: 5,
-  },
-  introText: {
-    flex: 1,
-    fontSize: 15,
-    textAlign: "justify",
   },
   headerButtonWrapper: {
     flexDirection: "row",
