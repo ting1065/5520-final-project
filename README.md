@@ -8,6 +8,7 @@ Memory Master
 Iteration 3  
 
 - added notification feature
+- enabled account deletion along with clearing all corresponding data and storage
 - enhanced other functionalities
 - optimized styling
 
@@ -55,8 +56,7 @@ Mainly responsible for component design and implementation, including designing 
 ## Data model  
 
 ### Collections  
-1. users  
-fields: 
+1. users: 
 - id
 - name
 - avatar
@@ -66,11 +66,22 @@ fields:
 - location
 - score
 
-2. puzzles  
-fields: userId(id from "users" collection), coverImageUri, puzzle, win, lose  
+2. puzzles:
+- userId (id from "users" collection)
+- coverImageUri
+- puzzle
+- win
+- lose
+- winners (list of id from from "users" collection)
 
-3. activities  
-fields: title, imageUri, intro, organizer(id from "users" collection), participants(list of id from "users collection")  
+3. activities:
+- title
+- imageUri
+- intro
+- organizer (id from "users" collection)
+- participants (list of id from "users" collection)  
+- date
+- usersToRemind (list of id from "users" collection) 
 
 ### Storage  
 used to save users' avatars and cover images of activities  
