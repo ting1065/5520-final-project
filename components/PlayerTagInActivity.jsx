@@ -15,7 +15,7 @@ export default function PlayerTagInActivity({ player, isInFlatList }) {
           <Image style={styles.image} source={{ uri: player.avatar }} />
         </View>
         <View style={styles.rankWrapper}>
-          <Text style={styles.playerName} numberOfLines={1} ellipsizeMode="tail">{player.rank}</Text>
+          <Text style={[styles.playerName, styles.rank]} numberOfLines={1} ellipsizeMode="tail">{player.rank}</Text>
         </View>
     </View>
   );
@@ -64,6 +64,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: colors.whiteWords,
     fontSize: 8,
+  },
+  rank:{
+    fontWeight: "bold",
   },
   image: {
     height: "100%",
