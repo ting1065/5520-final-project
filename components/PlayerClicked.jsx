@@ -2,8 +2,9 @@ import { View, Text, Modal, Image, StyleSheet } from "react-native";
 import React from "react";
 import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
-import { colors } from '../Colors';
+import { colors } from "../styles/colors";
 import Card from "../components/Card";
+import GradientBackground from "../components/GradientBackground";
 
 export default function PlayerClicked({
   clickedPlayer,
@@ -13,75 +14,128 @@ export default function PlayerClicked({
 }) {
   return (
     <Modal visible={modalVisible} animationType="slide">
-      
+      <GradientBackground>
       <View style={styles.container}>
-        <PressableButton 
-            defaultStyle={[styles.defaultStyle, {backgroundColor: colors.shadowColor}, {alignSelf: 'flex-end'}, {marginRight: 20}, {width: 70}]}
+        <View style={ styles.closeContainer}>
+          <PressableButton
+            defaultStyle={[
+              styles.defaultStyle,
+              { backgroundColor: colors.shadowColor },
+              { alignSelf: "flex-end" },
+              { marginRight: 20 },
+              { width: 70 },
+            ]}
             pressedStyle={styles.pressedStyle}
             onPress={() => closeHandler()}
           >
             <Text style={styles.loginButtonText}>Close</Text>
           </PressableButton>
+        </View>
+        
         {clickedPlayer && (
           <>
-            <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Combat Record</Text>
-            <View style={styles.cardContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={[styles.combatWords, styles.personalInfo, {marginBottom: 5}]}>
+              {clickedPlayer.name}
+              </Text>
+            
               <Card
                 width={300}
                 height={100}
                 backgroundColor={colors.loginButton}
-          
               >
-                {/* <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Combat Record</Text> */}
-                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Win: {clickedPlayer.win}</Text>
-                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Lose: {clickedPlayer.lose}</Text>
+                <View style={styles.upperBoardTextContainer}>
+                  <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                    Rank: {clickedPlayer.rank}
+                  </Text>
+                  <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                    Score: {clickedPlayer.score}
+                  </Text>
+                </View>
+                <View style={styles.upperBoardTextContainer}>
+                  <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                    Win: {clickedPlayer.win}
+                  </Text>
+                  <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                    Lose: {clickedPlayer.lose}
+                  </Text>
+                </View>
               </Card>
-            </View>
-            <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Puzzle</Text>
-            <View style={styles.cardContainer}>
-              
-              <Card
-                width={300}
-                height={320}
-                backgroundColor={colors.loginButton}
-            
-              >
-                {/* <Text style={[styles.combatWords, styles.personalInfo]}>{clickedPlayer.name}'s Puzzle</Text> */}
-                <Image
-                  style={styles.image}
-                  source={{ uri: clickedPlayer.puzzleCover }}
-                />
-                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Puzzle win: {clickedPlayer.puzzleWin}</Text>
-                <Text style={[styles.inputTitle, styles.winLoseStyle]}>Puzzle lose: {clickedPlayer.puzzleLose}</Text>
-              </Card>
-            </View>
+            </View >
+
             
             
+
             {clickedPlayer.puzzleExists ? (
               <>
-                
-                {auth.currentUser.uid !== clickedPlayer.id && (
-                  <>
-                    <PressableButton
-                      defaultStyle={styles.defaultStyle}
-                      pressedStyle={styles.pressedStyle}
-                      onPress={() => challengeHandler(clickedPlayer)}
+                <View style={[styles.puzzleContainer, {flex: 6}, ]}>
+                  
+                  <Text style={[styles.combatWords, styles.personalInfo]}>
+                    {clickedPlayer.name}'s Puzzle
+                  </Text>
+                  <View style={styles.cardContainer}>
+                    <Card
+                      width={300}
+                      height={300}
+                      backgroundColor={colors.loginButton}
                     >
-                      <Text style={styles.loginButtonText}>Challenge it!</Text>
-                    </PressableButton>
-
-                  </>
-                )}
+                      <Image
+                        style={styles.image}
+                        source={{ uri: clickedPlayer.puzzleCover }}
+                      />
+                      <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                        Puzzle Win: {clickedPlayer.puzzleWin}
+                      </Text>
+                      <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                        Puzzle Lose: {clickedPlayer.puzzleLose}
+                      </Text>
+                    </Card>
+                  </View>
+                    
+                </View>
+                {auth.currentUser.uid !== clickedPlayer.id &&
+                  (clickedPlayer.puzzleWinners.includes(
+                    auth.currentUser.uid
+                  ) ? (
+                    <Text style={[styles.inputTitle, styles.winLoseStyle, {flex: 1} ]}>
+                      You have already solved this puzzle!
+                    </Text>
+                  ) : (
+                    <View style={styles.challengeButtonContainer}>
+                      <PressableButton
+                        defaultStyle={styles.defaultStyle}
+                        pressedStyle={styles.pressedStyle}
+                        onPress={() => challengeHandler(clickedPlayer)}
+                      >
+                        <Text style={styles.loginButtonText}>
+                          Challenge it!
+                        </Text>
+                      </PressableButton>
+                    </View>
+                  ))}
               </>
             ) : (
-              <Text >this player has not designed puzzle yet</Text>
+              <View style={[styles.puzzleContainer ]}>
+                <Text style={[styles.combatWords, styles.personalInfo, {marginBottom: 5}]}>
+                    {clickedPlayer.name}'s Puzzle
+                    </Text>
+                <Card
+                  width={300}
+                  height={300}
+                  backgroundColor={colors.loginButton}
+                >
+                  <View style={styles.lowerCardTextWrapper}>
+                    <Text style={[styles.inputTitle, styles.winLoseStyle]}>
+                      No designed puzzle yet!
+                    </Text>
+                  </View>
+                </Card>
+              </View>
             )}
           </>
         )}
-        
-        
-        
       </View>
+      </GradientBackground>
     </Modal>
   );
 }
@@ -90,43 +144,54 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    marginTop: 40,
+  },
+  closeContainer: {
+    flex: 2,
+    alignSelf: "flex-end",
+
+  },
+  upperBoardTextContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
   personalInfo: {
     fontSize: 25,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   combatWords: {
     color: colors.shadowColor,
-  }, 
+  },
   winLoseStyle: {
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   inputTitle: {
     fontSize: 20,
     color: colors.redButton,
     marginVertical: 5,
   },
+  puzzleContainer: {
+    marginVertical: 5,
+    flex: 7,
+    justifyContent: 'center',
+  },
   cardContainer: {
-    marginVertical: 25,
+    alignSelf: 'center',
   },
   image: {
-    marginVertical: 10,
-
+    marginVertical: 5,
     width: 200,
     height: 200,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   defaultStyle: {
     width: 150,
     height: 45,
-    marginBottom: 20,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
     backgroundColor: colors.redButton,
-    // Add platform-specific shadow
     ...Platform.select({
       ios: {
         shadowColor: colors.shadowColor,
@@ -146,7 +211,22 @@ const styles = StyleSheet.create({
   loginButtonText: {
     color: colors.whiteWords,
     fontSize: 20,
+    alignSelf: "center",
+  },
+  challengeButtonContainer: {
+    width: '100%',
+    flex: 1,
+    justifyContent: 'center',
     alignSelf: 'center',
-
+    paddingBottom: 10,
+  },
+  titleContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  lowerCardTextWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

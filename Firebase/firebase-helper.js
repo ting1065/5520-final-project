@@ -13,9 +13,10 @@ import {
   arrayRemove,
   increment,
 } from "firebase/firestore";
-import { db } from "./firebase-setup";
+import { ref, deleteObject } from "firebase/storage";
+import { deleteUser } from "firebase/auth";
+import { db, auth, storage } from "./firebase-setup";
 import { getRandomImageFromNASA } from "../external-api/helper";
-import { Alert } from "react-native";
 
 const defaultAvatar =
   "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/1200px-SpongeBob_SquarePants_character.svg.png";
@@ -33,6 +34,7 @@ export async function addUserToDB(id, email) {
       lose: 0,
       id: id,
       location: null,
+      score: 0,
     });
   } catch (e) {
     console.error("Error happened while adding user to db: ", e);
@@ -74,6 +76,30 @@ export async function updateUserAvatarInDB(id, newAvatarUri) {
   }
 }
 
+//increment a user's score in db
+export async function incrementUserScoreInDB(id) {
+  try {
+    const docRef = doc(db, "users", id);
+    await updateDoc(docRef, {
+      score: increment(1),
+    });
+  } catch (e) {
+    console.error("Error happened while incrementing user's score in db: ", e);
+  }
+}
+
+//decrement a user's score in db
+export async function decrementUserScoreInDB(id) {
+  try {
+    const docRef = doc(db, "users", id);
+    await updateDoc(docRef, {
+      score: increment(-1),
+    });
+  } catch (e) {
+    console.error("Error happened while decrementing user's score in db: ", e);
+  }
+}
+
 //increment a user's win in db
 export async function incrementUserWinInDB(id) {
   try {
@@ -81,6 +107,7 @@ export async function incrementUserWinInDB(id) {
     await updateDoc(docRef, {
       win: increment(1),
     });
+    await incrementUserScoreInDB(id);
   } catch (e) {
     console.error("Error happened while incrementing user's win in db: ", e);
   }
@@ -93,6 +120,7 @@ export async function incrementUserLoseInDB(id) {
     await updateDoc(docRef, {
       lose: increment(1),
     });
+    await decrementUserScoreInDB(id);
   } catch (e) {
     console.error("Error happened while incrementing user's lose in db: ", e);
   }
@@ -107,6 +135,15 @@ export async function updateUserLocationInDB(id, newLocation) {
     });
   } catch (e) {
     console.error("Error happened while updating user's location in db: ", e);
+  }
+}
+
+//delete a user from db
+export async function deleteUserFromDB(id) {
+  try {
+    await deleteDoc(doc(db, "users", id));
+  } catch (e) {
+    console.error("Error happened while deleting user from db: ", e);
   }
 }
 
@@ -127,6 +164,7 @@ export async function addPuzzleToDB(puzzle, userId) {
       coverImageUri: coverImageUri,
       win: 0,
       lose: 0,
+      winners: [],
     });
   } catch (e) {
     console.error("Error happened while adding puzzle to db: ", e);
@@ -162,6 +200,9 @@ export async function updatePuzzleInDB(id, newPuzzle) {
     await updateDoc(docRef, {
       coverImageUri: newCoverImageUri,
       puzzle: newPuzzle,
+      win: 0,
+      lose: 0,
+      winners: [],
     });
   } catch (e) {
     console.error("Error happened while updating puzzle in db: ", e);
@@ -169,24 +210,27 @@ export async function updatePuzzleInDB(id, newPuzzle) {
 }
 
 //increment a puzzle's win in db
-export async function incrementPuzzleWinInDB(id) {
+export async function incrementPuzzleWinInDB(id, designerId) {
   try {
     const docRef = doc(db, "puzzles", id);
     await updateDoc(docRef, {
       win: increment(1),
     });
+    await incrementUserScoreInDB(designerId);
   } catch (e) {
     console.error("Error happened while incrementing puzzle's win in db: ", e);
   }
 }
 
 //increment a puzzle's lose in db
-export async function incrementPuzzleLoseInDB(id) {
+export async function incrementPuzzleLoseInDB(id, designerId, winnerId) {
   try {
     const docRef = doc(db, "puzzles", id);
     await updateDoc(docRef, {
       lose: increment(1),
+      winners: arrayUnion(winnerId),
     });
+    await decrementUserScoreInDB(designerId);
   } catch (e) {
     console.error("Error happened while incrementing puzzle's lose in db: ", e);
   }
@@ -204,28 +248,61 @@ export async function deletePuzzleFromDB(id) {
 //activities collection
 
 //add a new activity to db
-export async function addActivityToDB(title, imageUri, intro, organizer) {
+export async function addActivityToDB(title, imageUri, intro, organizer, date) {
   try {
     await addDoc(collection(db, "activities"), {
       title: title,
       imageUri: imageUri,
       intro: intro,
       organizer: organizer,
+      date: date,
       participants: [organizer],
+      usersToRemind: [],
     });
   } catch (e) {
     console.error("Error happened while adding activity to db: ", e);
   }
 }
 
+//read a single activity from db using user id
+export async function getActivityFromDB(userId) {
+  try {
+    const q = query(
+      collection(db, "activities"),
+      where("organizer", "==", userId)
+    );
+    const querySnapshot = await getDocs(q);
+    const doc = querySnapshot.docs[0];
+    if (doc) {
+      return { ...doc.data(), id: doc.id };
+    } else {
+      return null;
+    }
+  } catch (e) {
+    console.error(
+      "Error happened while getting a user's activity from db: ",
+      e
+    );
+  }
+}
+
 //update an activity in db
-export async function updateActivityInDB(activityId, title, imageUri, intro) {
+export async function updateActivityInDB(
+  activityId,
+  title,
+  imageUri,
+  intro,
+  date,
+  usersToRemind
+) {
   try {
     const docRef = doc(db, "activities", activityId);
     await updateDoc(docRef, {
       title: title,
       imageUri: imageUri,
       intro: intro,
+      date: date,
+      usersToRemind: usersToRemind,
     });
   } catch (e) {
     console.error("Error happened while updating activity in db: ", e);
@@ -242,6 +319,21 @@ export async function addParticipantToActivityInDB(activityId, participantId) {
   } catch (e) {
     console.error(
       "Error happened while adding participant to activity in db: ",
+      e
+    );
+  }
+}
+
+//add a user to usersToRemind in an activity in db
+export async function addUserToUsersToRemindInActivityInDB(activityId, userId) {
+  try {
+    const docRef = doc(db, "activities", activityId);
+    await updateDoc(docRef, {
+      usersToRemind: arrayUnion(userId),
+    });
+  } catch (e) {
+    console.error(
+      "Error happened while adding user to usersToRemind in activity in db: ",
       e
     );
   }
@@ -271,5 +363,45 @@ export async function deleteActivityFromDB(activityId) {
     await deleteDoc(doc(db, "activities", activityId));
   } catch (e) {
     console.error("Error happened while deleting activity from db: ", e);
+  }
+}
+
+//storage
+
+//delete a user's avatar image from storage
+export async function deleteUserAvatarImageFromStorage(userId) {
+  try {
+    const userAvatarRef = ref(storage, `avatars/${userId}`);
+    await deleteObject(userAvatarRef);
+  } catch (e) {
+    console.log(
+      "<No Panic Needed> Avatar image not deleted from storage because: ",
+      e
+    );
+  }
+}
+
+//delete a user's activity cover image from storage
+export async function deleteUserActivityImageFromStorage(userId) {
+  try {
+    const activityCoverImageRef = ref(storage, `activities/${userId}`);
+    await deleteObject(activityCoverImageRef);
+  } catch (e) {
+    console.log(
+      "<No Panic Needed> Activity cover image not deleted from storage because: ",
+      e
+    );
+  }
+}
+
+//account
+
+//delete a user's account
+export async function deleteUserAccount() {
+  try {
+    const user = auth.currentUser;
+    await deleteUser(user);
+  } catch (e) {
+    console.error("Error happened while deleting user account: ", e);
   }
 }

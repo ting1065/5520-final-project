@@ -1,10 +1,10 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, Alert } from "react-native";
 import React, { useState } from "react";
 import PressableButton from "../components/PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { updateUserNameInDB } from "../Firebase/firebase-helper";
-import { FontAwesome } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
+import { FontAwesome } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 export default function UserNameEditor({
   currentName,
@@ -15,7 +15,6 @@ export default function UserNameEditor({
 
   return (
     <View>
-      
       <View style={styles.checkcrossContainer}>
         <View>
           <TextInput
@@ -27,12 +26,16 @@ export default function UserNameEditor({
             style={styles.textInput}
           />
         </View>
-        
+
         <View style={styles.checkcrossButtons}>
           <PressableButton
             defaultStyle={styles.checkDefaultStyle}
             pressedStyle={styles.pressedStyle}
             onPress={async () => {
+              if (text.length === 0 || text.length > 10) {
+                Alert.alert("Invalid name", "Name must be 1-10 characters");
+                return;
+              }
               await updateUserNameInDB(auth.currentUser.uid, text);
               confirmHandler();
             }}
@@ -40,14 +43,14 @@ export default function UserNameEditor({
             <FontAwesome name="check-square" size={30} color="green" />
           </PressableButton>
 
-          <PressableButton 
+          <PressableButton
             defaultStyle={styles.crossDefaultStyle}
             pressedStyle={styles.pressedStyle}
-            onPress={cancelHandler}>
+            onPress={cancelHandler}
+          >
             <Entypo name="squared-cross" size={31} color="darkred" />
           </PressableButton>
         </View>
-          
       </View>
     </View>
   );
@@ -55,31 +58,28 @@ export default function UserNameEditor({
 
 const styles = StyleSheet.create({
   checkcrossContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   textInput: {
     fontSize: 20,
     width: 200,
     borderWidth: 2,
-    borderColor: 'grey',
+    borderColor: "grey",
     borderRadius: 5,
     paddingLeft: 5,
     height: 35,
   },
   checkcrossButtons: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginHorizontal: 20,
     // width: 200,
-    justifyContent: 'flex-end',
-
+    justifyContent: "flex-end",
   },
   checkDefaultStyle: {
     marginRight: 10,
-
   },
   pressedStyle: {
     opacity: 0.5,
-  }
-
-})
+  },
+});

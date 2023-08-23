@@ -20,5 +20,5 @@ export default function PressableButton({
 }
 
 const styles = StyleSheet.create({
-  styleByDefault: { backgroundColor: 'transparent' },
+  styleByDefault: { backgroundColor: "transparent" },
 });

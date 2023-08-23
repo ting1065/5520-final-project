@@ -1,15 +1,22 @@
-import { View, Text, TextInput, Alert, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Alert,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import React, { useState } from "react";
 import PressableButton from "../components/PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addUserToDB } from "../Firebase/firebase-helper";
 import Card from "../components/Card";
-import { colors } from '../Colors';
-import {LinearGradient}  from 'expo-linear-gradient';
-import { AntDesign } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { colors } from "../styles/colors";
+import { AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import GradientBackground from "../components/GradientBackground";
 
 export default function Signup({ navigation }) {
@@ -46,23 +53,18 @@ export default function Signup({ navigation }) {
 
   return (
     <GradientBackground>
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        
         <Text style={styles.appName}>Memory Master</Text>
         <View style={styles.welcomeContainer}>
           <Text style={styles.welcomeBigWrods}>Welcome!</Text>
           <Text style={styles.welcomesmallWrods}>Signup into your account</Text>
         </View>
 
-        <Card 
-          width={300}
-          height={460}
-          backgroundColor={colors.whiteWords}
-        >
-          <AntDesign name="user" size={24} style={styles.user}/>
+        <Card width={300} height={460} backgroundColor={colors.whiteWords}>
+          <AntDesign name="user" size={24} style={styles.user} />
           <Text style={styles.inputTitle}>Email</Text>
           <View style={styles.inputContainer}>
             <View style={styles.iconContainer}>
@@ -71,6 +73,7 @@ export default function Signup({ navigation }) {
             <TextInput
               autoCapitalize="none"
               placeholder="name@example.com"
+              placeholderTextColor={colors.placeHolder}
               value={email}
               onChangeText={(newText) => setEmail(newText)}
               style={styles.textInput}
@@ -79,11 +82,12 @@ export default function Signup({ navigation }) {
           <Text style={styles.inputTitle}>Password</Text>
           <View style={styles.inputContainer}>
             <View style={styles.iconContainer}>
-              <Ionicons name="ios-lock-closed-outline" size={24}/>
+              <Ionicons name="ios-lock-closed-outline" size={24} />
             </View>
             <TextInput
               autoCapitalize="none"
               placeholder="at least 6 characters"
+              placeholderTextColor={colors.placeHolder}
               secureTextEntry={true}
               value={password}
               onChangeText={(newText) => setPassword(newText)}
@@ -93,11 +97,12 @@ export default function Signup({ navigation }) {
           <Text style={styles.inputTitle}>Confirm Password</Text>
           <View style={styles.inputContainer}>
             <View style={styles.iconContainer}>
-              <Ionicons name="ios-lock-closed-outline" size={24}/>
+              <Ionicons name="ios-lock-closed-outline" size={24} />
             </View>
             <TextInput
               autoCapitalize="none"
               placeholder="enter your password again"
+              placeholderTextColor={colors.placeHolder}
               secureTextEntry={true}
               value={confirmedPassword}
               onChangeText={(newText) => setConfirmedPassword(newText)}
@@ -105,7 +110,7 @@ export default function Signup({ navigation }) {
             />
           </View>
 
-          <PressableButton 
+          <PressableButton
             defaultStyle={styles.defaultStyle}
             pressedStyle={styles.pressedStyle}
             onPress={() => signupHandler()}
@@ -114,8 +119,8 @@ export default function Signup({ navigation }) {
           </PressableButton>
         </Card>
         <View style={styles.bottomContainer}>
-          <Text>Already Registered?   </Text>
-          <PressableButton 
+          <Text>Already Registered? </Text>
+          <PressableButton
             // defaultStyle={styles.defaultStyleBottom}
             pressedStyle={styles.pressedStyleBottom}
             onPress={() => navigation.replace("Login")}
@@ -131,14 +136,14 @@ export default function Signup({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 2,
   },
-  welcomeContainer : {
+  welcomeContainer: {
     width: 300,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 40,
   },
   welcomeBigWrods: {
@@ -152,8 +157,8 @@ const styles = StyleSheet.create({
     fontSize: 45,
     color: colors.appName,
     marginBottom: 20,
-    fontFamily: Platform.OS === 'ios' ? 'Cochin' : 'Roboto',
-    fontWeight: 'bold',
+    fontFamily: Platform.OS === "ios" ? "Cochin" : "Roboto",
+    fontWeight: "bold",
   },
   inputTitle: {
     fontSize: 20,
@@ -162,18 +167,18 @@ const styles = StyleSheet.create({
   textInput: {
     fontSize: 20,
     height: 40,
-    width: '90%',
+    width: "90%",
     paddingLeft: 5,
   },
   user: {
     marginTop: 10,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   inputContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     backgroundColor: colors.inputBackground,
     borderRadius: 5,
-  }, 
+  },
   iconContainer: {
     marginHorizontal: 5,
     marginTop: 8,
@@ -181,16 +186,15 @@ const styles = StyleSheet.create({
   loginButtonText: {
     color: colors.whiteWords,
     fontSize: 20,
-    alignSelf: 'center',
-
+    alignSelf: "center",
   },
   defaultStyle: {
     width: 200,
     height: 45,
     marginTop: 30,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
     backgroundColor: colors.loginButton,
     // Add platform-specific shadow
@@ -200,7 +204,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.27,
         shadowRadius: 4.65,
-        
       },
       android: {
         elevation: 6,
@@ -213,7 +216,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     marginTop: 30,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   // defaultStyleBottom: {
 
@@ -223,6 +226,5 @@ const styles = StyleSheet.create({
   },
   createAccountText: {
     color: colors.redWords,
-  }
-  
+  },
 });

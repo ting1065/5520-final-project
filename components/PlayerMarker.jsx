@@ -1,9 +1,8 @@
 import { View, Text, Image, StyleSheet, Platform } from "react-native";
 import React from "react";
-import PressableButton from "./PressableButton";
 import { auth } from "../Firebase/firebase-setup";
 import { Marker } from "react-native-maps";
-import { colors } from '../Colors';
+import { colors } from "../styles/colors";
 
 export default function PlayerMarker({ clickHandler, player }) {
   return (
@@ -15,40 +14,65 @@ export default function PlayerMarker({ clickHandler, player }) {
       stopPropagation={true}
       onPress={async () => await clickHandler(player)}
     >
-      <View style={styles.playerContainer}>
-        <Text style={styles.playerName}>{player.name}</Text>
-        <Image
-          style={styles.image}
-          source={{ uri: player.avatar }}
-        />
-        {auth.currentUser.uid === player.id && <Text style={styles.selfName}> You! </Text>}
+      <View style={auth.currentUser.uid===player.id ? styles.currentPlayerMarkerContainer : styles.otherPlayerMarkerContainer}>
+        <View style={styles.nameWrapper}>
+          <Text style={styles.playerName} numberOfLines={1} ellipsizeMode="tail">
+            {player.name}
+          </Text>
+        </View>
+        <View style={styles.imageWrapper}>
+          <Image style={styles.image} source={{ uri: player.avatar }} />
+        </View>
+        <View style={styles.rankWrapper}>
+          <Text style={styles.playerName} numberOfLines={1} ellipsizeMode="tail">{player.rank}</Text>
+        </View>
       </View>
-      
     </Marker>
   );
 }
 
 const styles = StyleSheet.create({
   image: {
-    width: 40, 
-    height: 40,
-    resizeMode: 'cover',
-  
+    height: "100%",
+    resizeMode: "contain",
   },
-  playerContainer: {
+  currentPlayerMarkerContainer: {
     width: 90,
     height: 90,
-    borderRadius: 40,
+    borderRadius: 20,
 
     // flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    alignSelf: 'center',
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    alignSelf: "center",
     margin: 10,
-    backgroundColor: colors.shadowColor,
+    backgroundColor: colors.selfMarker,
     ...Platform.select({
       ios: {
-        shadowColor: colors.shadowColor,
+        shadowColor: colors.selfMarker,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  otherPlayerMarkerContainer: {
+    width: 90,
+    height: 90,
+    borderRadius: 20,
+
+    // flexDirection: 'row',
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    alignSelf: "center",
+    margin: 10,
+    backgroundColor: colors.otherMarker,
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.otherMarker,
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.27,
         shadowRadius: 4.65,
@@ -59,11 +83,31 @@ const styles = StyleSheet.create({
     }),
   },
   playerName: {
+    textAlign: "center",
     color: colors.whiteWords,
     fontSize: 15,
   },
   selfName: {
+    textAlign: "center",
     color: colors.goldWords,
     fontSize: 15,
   },
-})
+  nameWrapper: {
+    width: "100%",
+    height: "20%",
+    paddingHorizontal: "10%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imageWrapper: {
+    width: "100%",
+    height: "60%",
+  },
+  rankWrapper: {
+    width: "100%",
+    height: "20%",
+    paddingHorizontal: "10%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

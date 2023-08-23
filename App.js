@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState, useEffect } from "react";
@@ -8,8 +8,18 @@ import Signup from "./screens/Signup";
 import Login from "./screens/Login";
 import Home from "./screens/Home";
 import Game from "./screens/Game";
-import PressableButton from "./components/PressableButton";
-import { colors } from './Colors';
+import * as Notifications from "expo-notifications";
+import { colors } from "./styles/colors";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    };
+  },
+});
 
 const Stack = createNativeStackNavigator();
 
@@ -28,14 +38,16 @@ export default function App() {
 
   const AuthStack = (
     <>
-      <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }}/>
-      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
-      {/* <Stack.Screen name="Signup">
-        {props => <Signup {...props} onLayoutRootView={onLayoutRootView} />} */}
-      {/* </Stack.Screen>
-      <Stack.Screen name="Login">
-        {props => <Login {...props} onLayoutRootView={onLayoutRootView} />}
-      </Stack.Screen> */}
+      <Stack.Screen
+        name="Signup"
+        component={Signup}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
     </>
   );
 
@@ -54,6 +66,9 @@ export default function App() {
             headerLeft: () => {
               return <></>;
             },
+            headerStyle: {
+              backgroundColor: colors.gradient1,
+            }
           };
         }}
       />

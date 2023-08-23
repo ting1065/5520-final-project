@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "5520-final-project",
-    "slug": "5520-final-project",
+    "name": "Memory Master",
+    "slug": "Memory Master",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -32,6 +32,12 @@
         {
           "photosPermission": "The app accesses your photos to let you customize your avatar",
           "cameraPermission": "The app accesses your camera to let you customize your avatar"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "The app access your location to let you find nearby players"
         }
       ]
     ]

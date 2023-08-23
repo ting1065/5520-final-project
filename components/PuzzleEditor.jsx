@@ -1,8 +1,10 @@
-import { View, Text, Modal, TextInput, Alert, StyleSheet } from "react-native";
+import { View, Text, Modal, TextInput, Alert, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import { auth } from "../Firebase/firebase-setup";
 import { addPuzzleToDB, updatePuzzleInDB } from "../Firebase/firebase-helper";
 import PressableButton from "./PressableButton";
+import GradientBackground from "./GradientBackground";
+import { colors } from "../styles/colors";
 
 export default function PuzzleEditor({
   puzzleDoc,
@@ -88,87 +90,183 @@ export default function PuzzleEditor({
 
   return (
     <Modal visible={modalVisible} animationType="slide">
-      <View style={styles.container}>
-        <Text>quiz 1:</Text>
-        <Text>
-          {"("}length of {quizLengths[0]}
-          {")"}
-        </Text>
-        <TextInput
-          autoCapitalize="characters"
-          value={quiz1}
-          onChangeText={(text) => {
-            setQuiz1(text);
-          }}
-        />
-        <Text>quiz 2:</Text>
-        <Text>
-          {"("}length of {quizLengths[1]}
-          {")"}
-        </Text>
-        <TextInput
-          autoCapitalize="characters"
-          value={quiz2}
-          onChangeText={(text) => {
-            setQuiz2(text);
-          }}
-        />
-        <Text>quiz 3:</Text>
-        <Text>
-          {"("}length of {quizLengths[2]}
-          {")"}
-        </Text>
-        <TextInput
-          autoCapitalize="characters"
-          value={quiz3}
-          onChangeText={(text) => {
-            setQuiz3(text);
-          }}
-        />
-        <Text>quiz 4:</Text>
-        <Text>
-          {"("}length of {quizLengths[3]}
-          {")"}
-        </Text>
-        <TextInput
-          autoCapitalize="characters"
-          value={quiz4}
-          onChangeText={(text) => {
-            setQuiz4(text);
-          }}
-        />
-        <Text>quiz 5:</Text>
-        <Text>
-          {"("}length of {quizLengths[4]}
-          {")"}
-        </Text>
-        <TextInput
-          autoCapitalize="characters"
-          value={quiz5}
-          onChangeText={(text) => {
-            setQuiz5(text);
-          }}
-        />
-        <Text>=====</Text>
-        <PressableButton onPress={async () => await pushNewPuzzle()}>
-          <Text>confirm</Text>
-        </PressableButton>
-        <Text>=====</Text>
-        <Text>=====</Text>
-        <Text>=====</Text>
-        <PressableButton onPress={() => cancel()}>
-          <Text>cancel</Text>
-        </PressableButton>
-        <Text>=====</Text>
-      </View>
+      <GradientBackground>
+        <KeyboardAvoidingView 
+          style={styles.container}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 100: 0} // Adjust the offset as needed
+    
+  
+        >
+          <ScrollView style={styles.quizContainer}>
+            <Text style={styles.inputTitle}>Quiz 1:</Text>
+            <Text style={styles.length}>
+              {"("}length of {quizLengths[0]}
+              {")"}
+            </Text>
+            <TextInput
+              autoCorrect={false}
+              autoComplete="off"
+              autoCapitalize="characters"
+              value={quiz1}
+              onChangeText={(text) => {
+                setQuiz1(text.toUpperCase());
+              }}
+              style={styles.titleInput}
+            />
+            
+            <Text style={styles.inputTitle}>Quiz 2:</Text>
+            <Text style={styles.length}>
+              {"("}length of {quizLengths[1]}
+              {")"}
+            </Text>
+            <TextInput
+              autoCorrect={false}
+              autoComplete="off"
+              autoCapitalize="characters"
+              value={quiz2}
+              onChangeText={(text) => {
+                setQuiz2(text.toUpperCase());
+              }}
+              style={styles.titleInput}
+            />
+            <Text style={styles.inputTitle}>Quiz 3:</Text>
+            <Text style={styles.length}>
+              {"("}length of {quizLengths[2]}
+              {")"}
+            </Text>
+            <TextInput
+              autoCorrect={false}
+              autoComplete="off"
+              autoCapitalize="characters"
+              value={quiz3}
+              onChangeText={(text) => {
+                setQuiz3(text.toUpperCase());
+              }}
+              style={styles.titleInput}
+            />
+            <Text style={styles.inputTitle}>Quiz 4:</Text>
+            <Text style={styles.length}>
+              {"("}length of {quizLengths[3]}
+              {")"}
+            </Text>
+            <TextInput
+              autoCorrect={false}
+              autoComplete="off"
+              autoCapitalize="characters"
+              value={quiz4}
+              onChangeText={(text) => {
+                setQuiz4(text.toUpperCase());
+              }}
+              style={styles.titleInput}
+            />
+            <Text style={styles.inputTitle}>Quiz 5:</Text>
+            <Text style={styles.length}>
+              {"("}length of {quizLengths[4]}
+              {")"}
+            </Text>
+            <TextInput
+              autoCorrect={false}
+              autoComplete="off"
+              autoCapitalize="characters"
+              value={quiz5}
+              onChangeText={(text) => {
+                setQuiz5(text.toUpperCase());
+              }}
+              style={styles.titleInput}
+            />
+          </ScrollView>
+        </KeyboardAvoidingView>
+        <View style={styles.buttons}>
+            <PressableButton 
+              defaultStyle={styles.defaultStyle}
+              pressedStyle={styles.pressedStyle}
+              onPress={async () => await pushNewPuzzle()}
+            >
+              <Text style={styles.loginButtonText}>Confirm</Text>
+            </PressableButton>
+
+            <PressableButton 
+              defaultStyle={styles.defaultStyle}
+              pressedStyle={styles.pressedStyle}
+              onPress={() => cancel()}
+            >
+              <Text style={styles.loginButtonText}>Cancel</Text>
+            </PressableButton>
+        </View>
+      </GradientBackground>
+      
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 5,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 40,
+
   },
+  inputTitle: {
+    fontSize: 20,
+    color: colors.greyWords,
+    marginVertical: 10,
+    alignSelf: 'center',
+  },
+  titleInput: {
+    fontSize: 15,
+    width: '80%',
+    borderWidth: 2,
+    borderColor: "grey",
+    borderRadius: 5,
+    height: 35,
+    marginVertical: 10,
+    paddingLeft: 5,
+    alignSelf: 'center',
+  },
+  loginButtonText: {
+    color: colors.whiteWords,
+    fontSize: 20,
+    alignSelf: "center",
+  },
+  defaultStyle: {
+    width: 120,
+    height: 45,
+    marginHorizontal: 10,
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    backgroundColor: colors.redButton,
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.shadowColor,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
+  },
+  pressedStyle: {
+    backgroundColor: colors.pressedRedButton,
+    opacity: 0.5,
+  },
+  buttons: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  quizContainer: {
+    flex: 1,
+    width: '100%',
+    paddingTop: 20,
+  },
+  length: {
+    alignSelf: 'center',
+  }
+
 });

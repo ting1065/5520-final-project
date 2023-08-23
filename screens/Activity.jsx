@@ -1,4 +1,4 @@
-import { View, Text, Alert, StyleSheet  } from "react-native";
+import { View, Text, Alert, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import PressableButton from "../components/PressableButton";
 import ActivityList from "../components/ActivityList";
@@ -13,14 +13,22 @@ import {
   deleteActivityFromDB,
 } from "../Firebase/firebase-helper";
 import GradientBackground from "../components/GradientBackground";
-import { colors } from '../Colors';
+import { usePlayers } from "../contexts/PlayersContext";
+import { AntDesign } from "@expo/vector-icons";
+import { colors } from "../styles/colors";
 
-export default function Activity() {
+export default function Activity({ route }) {
   const [activities, setActivities] = useState([]);
   const [editingActivity, setEditingActivity] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [activityAsOrganizer, setActivityAsOrganizer] = useState(null);
-  const [players, setPlayers] = useState([]);
+  const [editorRefresher, setEditorRefresher] = useState(false);
+  const [remindedActivityIndex, setRemindedActivityIndex] = useState(null);
+
+  const { players } = usePlayers();
+  const currentUser = players.find(
+    (player) => player.id === auth.currentUser.uid
+  );
 
   useEffect(() => {
     const q = query(collection(db, "activities"));
@@ -28,7 +36,11 @@ export default function Activity() {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (!querySnapshot.empty) {
         const activitiesFromDB = querySnapshot.docs.map((activity) => {
-          return { ...activity.data(), id: activity.id };
+          return {
+            ...activity.data(),
+            date: activity.data().date.toDate(),
+            id: activity.id,
+          };
         });
 
         const activitiesAsOrganizer = activitiesFromDB.filter(
@@ -58,35 +70,59 @@ export default function Activity() {
   }, []);
 
   useEffect(() => {
-    const q = query(collection(db, "users"));
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      if (!querySnapshot.empty) {
-        const players = querySnapshot.docs.map((player) => player.data());
-        setPlayers(players);
-      } else {
-        setPlayers([]);
+    if (route.params?.remindedActivityId) {
+      const index = activities.findIndex(
+        (activity) => activity.id === route.params.remindedActivityId
+      );
+      if (!index) {
+        setRemindedActivityIndex(-1);
       }
-    });
+      setRemindedActivityIndex(index);
+    }
+  }, [route]);
 
-    return () => unsubscribe();
-  }, []);
+  function resetRemindedActivityIndex() {
+    setRemindedActivityIndex(null);
+  }
+
+  function addHandler() {
+    if (!currentUser.location) {
+      Alert.alert(
+        "No Base Location",
+        "Set your base location in 'Find' before posting an activity."
+      );
+      return;
+    }
+    setModalVisible(true);
+  }
 
   function editHandler(activity) {
     setEditingActivity(activity);
     setModalVisible(true);
   }
 
-  async function confirmEditHandler(title, imageUri, intro) {
-    if (!(title && imageUri && intro)) {
+  async function confirmEditHandler(title, imageUri, intro, date) {
+    if (editingActivity && date < editingActivity.date) {
+      Alert.alert("You can only change the starting time LATER.");
+      return;
+    }
+
+    if (!(title && imageUri && intro && date)) {
       Alert.alert("Please fill in all fields");
       return;
     }
 
     if (editingActivity) {
-      await updateActivityInDB(editingActivity.id, title, imageUri, intro);
+      await updateActivityInDB(
+        editingActivity.id,
+        title,
+        imageUri,
+        intro,
+        date,
+        editingActivity.date === date ? editingActivity.usersToRemind : []
+      );
     } else {
-      await addActivityToDB(title, imageUri, intro, auth.currentUser.uid);
+      await addActivityToDB(title, imageUri, intro, auth.currentUser.uid, date);
     }
 
     setModalVisible(false);
@@ -95,6 +131,7 @@ export default function Activity() {
 
   function cancelEditHandler() {
     setEditingActivity(null);
+    setEditorRefresher(!editorRefresher);
     setModalVisible(false);
   }
 
@@ -110,6 +147,7 @@ export default function Activity() {
           text: "Delete",
           onPress: async () => {
             await deleteActivityFromDB(activity.id);
+            setEditorRefresher(!editorRefresher);
           },
         },
       ]
@@ -126,52 +164,76 @@ export default function Activity() {
 
   return (
     <GradientBackground>
-      <View>
         {!activityAsOrganizer && (
-          <>
-            <Text>=======</Text>
-            <PressableButton
-              onPress={() => {
-                setModalVisible(true);
-              }}
-            >
-              <Text>add activity</Text>
+          <View style={styles.addButtonContainer}>
+            
+            <PressableButton 
+              defaultStyle={styles.editNameDefaultStyle}
+              pressedStyle={styles.editNamePressedStyle}
+              onPress={addHandler}>
+              <View style={styles.editNameButton}>
+                <AntDesign
+                  name="edit"
+                  size={24}
+                  color={colors.shadowColor}
+                />
+                <Text style={styles.inputDisplay}>Add/Update Activity</Text>
+              </View>
             </PressableButton>
-            <Text>=======</Text>
-          </>
+            
+            </View>
         )}
         <ActivityEditor
           modalVisible={modalVisible}
           editingActivity={editingActivity}
           confirmEditHandler={confirmEditHandler}
           cancelEditHandler={cancelEditHandler}
+          editorRefresher={editorRefresher}
         />
-
-        <Text style={styles.activityList}>Activity list</Text>
-
-        <ActivityList
-          activities={activities}
-          players={players}
-          editHandler={editHandler}
-          deleteHandler={deleteHandler}
-          joinHandler={joinHandler}
-          leaveHandler={leaveHandler}
-        />
-      </View>
+        <View style={styles.listContainer}>
+          <ActivityList
+            activities={activities}
+            players={players}
+            editHandler={editHandler}
+            deleteHandler={deleteHandler}
+            joinHandler={joinHandler}
+            leaveHandler={leaveHandler}
+            remindedActivityIndex={remindedActivityIndex}
+            resetRemindedActivityIndex={resetRemindedActivityIndex}
+          />
+        </View>
     </GradientBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  addButtonContainer: {
     flex: 1,
-    // height: '100%',
-    // alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 20,
   },
-  activityList: {
-    marginTop: 10,
-    fontSize: 25,
-    alignSelf: 'center',
+  listContainer: {
+    flex: 9,
   },
-})
+  editNameButton: {
+    flexDirection: "row",
+    alignSelf: "center",
+  },
+  editNameDefaultStyle: {
+    width: 220,
+    height: 50,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    borderRadius: 5,
+    marginRight: 5,
+    marginBottom: 20,
+  },
+  editNamePressedStyle: {
+    opacity: 0.5,
+  },
+  inputDisplay: {
+    fontSize: 20,
+    marginLeft: 5,
+  },
+});
