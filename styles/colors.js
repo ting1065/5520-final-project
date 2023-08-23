@@ -24,4 +24,5 @@ export const colors = {
   otherMarker: "#F7D060",
   activeBell: "red",
   inactiveBell: "grey",
+  placeHolder: "#98908C",
 };

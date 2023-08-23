@@ -73,6 +73,7 @@ export default function Signup({ navigation }) {
             <TextInput
               autoCapitalize="none"
               placeholder="name@example.com"
+              placeholderTextColor={colors.placeHolder}
               value={email}
               onChangeText={(newText) => setEmail(newText)}
               style={styles.textInput}
@@ -86,6 +87,7 @@ export default function Signup({ navigation }) {
             <TextInput
               autoCapitalize="none"
               placeholder="at least 6 characters"
+              placeholderTextColor={colors.placeHolder}
               secureTextEntry={true}
               value={password}
               onChangeText={(newText) => setPassword(newText)}
@@ -100,6 +102,7 @@ export default function Signup({ navigation }) {
             <TextInput
               autoCapitalize="none"
               placeholder="enter your password again"
+              placeholderTextColor={colors.placeHolder}
               secureTextEntry={true}
               value={confirmedPassword}
               onChangeText={(newText) => setConfirmedPassword(newText)}
