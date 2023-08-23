@@ -103,7 +103,7 @@ export default function Game({ route, navigation }) {
                   autoComplete="off" 
                   autoCapitalize="characters"
                   value={answer}
-                  onChangeText={setAnswer}
+                  onChangeText={(text) => {setAnswer(text.toUpperCase())}}
                   style={styles.input}
                 />
 
