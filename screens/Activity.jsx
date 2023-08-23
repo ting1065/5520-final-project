@@ -164,9 +164,8 @@ export default function Activity({ route }) {
 
   return (
     <GradientBackground>
-      <View style={styles.addButtonContainer}>
         {!activityAsOrganizer && (
-          <>
+          <View style={styles.addButtonContainer}>
             
             <PressableButton 
               defaultStyle={styles.editNameDefaultStyle}
@@ -182,7 +181,7 @@ export default function Activity({ route }) {
               </View>
             </PressableButton>
             
-          </>
+            </View>
         )}
         <ActivityEditor
           modalVisible={modalVisible}
@@ -203,7 +202,6 @@ export default function Activity({ route }) {
             resetRemindedActivityIndex={resetRemindedActivityIndex}
           />
         </View>
-      </View>
     </GradientBackground>
   );
 }
