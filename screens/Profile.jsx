@@ -1,4 +1,12 @@
-import { View, Text, Image, StyleSheet, Alert, ImageBackground, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Alert,
+  ImageBackground,
+  Dimensions,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../Firebase/firebase-setup";
 import { signOut } from "firebase/auth";
@@ -13,10 +21,6 @@ import Card from "../components/Card";
 import { AntDesign } from "@expo/vector-icons";
 import DeleteAccountBoard from "../components/DeleteAccountBoard";
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-const imageSize = Math.min(screenWidth * 0.4, screenHeight * 0.4);
-
-
 export default function Profile() {
   const avatarStorageFolder = "avatars";
   const avatarFileName = auth.currentUser.uid;
@@ -25,6 +29,7 @@ export default function Profile() {
   const [isEditingName, setIsEditingName] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
+  // listen to the current user's data in the database
   useEffect(() => {
     const unsubscribe = onSnapshot(
       doc(db, "users", auth.currentUser.uid),
@@ -66,18 +71,15 @@ export default function Profile() {
           hideModalHandler={hideModalHandler}
         />
         <View style={styles.imageContainer}>
-            <Image
-              style={styles.image}
-              source={{ uri: user?.avatar }}
-            />
-            <ImageManager
+          <Image style={styles.image} source={{ uri: user?.avatar }} />
+          <ImageManager
             storeDownloadUri={updateAvatarUri}
             folderName={avatarStorageFolder}
             fileName={avatarFileName}
-            />      
+          />
         </View>
         <View style={styles.cardContainer}>
-          <Card width={300} height={200} backgroundColor={colors.whiteWords} >
+          <Card width={300} height={200} backgroundColor={colors.whiteWords}>
             <Text style={styles.personalInfo}>Personal Info</Text>
             <Text style={styles.inputTitle}>Your name:</Text>
             <View style={styles.nameContainer}>
@@ -99,7 +101,11 @@ export default function Profile() {
                   onPress={() => setIsEditingName(true)}
                 >
                   <View style={styles.editNameButton}>
-                    <AntDesign name="edit" size={24} color={colors.shadowColor} />
+                    <AntDesign
+                      name="edit"
+                      size={24}
+                      color={colors.shadowColor}
+                    />
                     <Text style={styles.inputDisplay}> Edit </Text>
                   </View>
                 </PressableButton>
@@ -110,7 +116,7 @@ export default function Profile() {
           </Card>
         </View>
         <View style={styles.buttonsContainer}>
-          <View >
+          <View>
             <PressableButton
               defaultStyle={styles.defaultStyle}
               pressedStyle={styles.pressedStyle}
@@ -125,8 +131,8 @@ export default function Profile() {
               <Text style={styles.loginButtonText}>Sign Out</Text>
             </PressableButton>
           </View>
-            
-          <View style={[{marginLeft: 20}]}>
+
+          <View style={[{ marginLeft: 20 }]}>
             <PressableButton
               defaultStyle={styles.defaultStyle}
               pressedStyle={styles.pressedStyle}
@@ -147,7 +153,6 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    
   },
   loginButtonText: {
     color: colors.whiteWords,
@@ -185,14 +190,12 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 5,
     borderColor: colors.whiteWords,
-
     resizeMode: "cover",
   },
   imageContainer: {
     position: "relative",
     marginVertical: 10,
   },
-  
   nameContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -228,11 +231,11 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flex: 0.5,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   cardContainer: {
     flex: 1,
     marginVertical: 10,
-    justifyContent: 'center',
-  }
+    justifyContent: "center",
+  },
 });

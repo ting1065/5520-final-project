@@ -19,7 +19,7 @@ export const colors = {
   bottomheader: "#98D8AA",
   tabBarPressed: "#557A46",
   tabBarNotPressed: `grey`,
-  scrollBackground: 'lightgray',
+  scrollBackground: "lightgray",
   selfMarker: "#98D8AA",
   otherMarker: "#F7D060",
   activeBell: "red",

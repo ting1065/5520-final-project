@@ -101,7 +101,6 @@ export default function Login({ navigation }) {
         <View style={styles.bottomContainer}>
           <Text>New User? </Text>
           <PressableButton
-            // defaultStyle={styles.defaultStyleBottom}
             pressedStyle={styles.pressedStyleBottom}
             onPress={() => {
               navigation.replace("Signup");
@@ -199,9 +198,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     flexDirection: "row",
   },
-  // defaultStyleBottom: {
-
-  // },
   pressedStyleBottom: {
     opacity: 0.2,
   },

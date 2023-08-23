@@ -1,4 +1,14 @@
-import { View, Text, Modal, TextInput, Alert, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Modal,
+  TextInput,
+  Alert,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { auth } from "../Firebase/firebase-setup";
 import { addPuzzleToDB, updatePuzzleInDB } from "../Firebase/firebase-helper";
@@ -14,6 +24,7 @@ export default function PuzzleEditor({
 }) {
   const [resetHandler, setResetHandler] = useState(false);
 
+  // quiz format requirements
   const quizPattern = /^[A-Z0-9]+$/;
   const quizLengths = [5, 6, 7, 8, 9, 10];
   const puzzleDocId = puzzleDoc?.id;
@@ -91,12 +102,10 @@ export default function PuzzleEditor({
   return (
     <Modal visible={modalVisible} animationType="slide">
       <GradientBackground>
-        <KeyboardAvoidingView 
+        <KeyboardAvoidingView
           style={styles.container}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
-          keyboardVerticalOffset={Platform.OS === "ios" ? 100: 0} // Adjust the offset as needed
-    
-  
+          keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0} // Adjust the offset as needed
         >
           <ScrollView style={styles.quizContainer}>
             <Text style={styles.inputTitle}>Quiz 1:</Text>
@@ -114,7 +123,7 @@ export default function PuzzleEditor({
               }}
               style={styles.titleInput}
             />
-            
+
             <Text style={styles.inputTitle}>Quiz 2:</Text>
             <Text style={styles.length}>
               {"("}length of {quizLengths[1]}
@@ -178,24 +187,23 @@ export default function PuzzleEditor({
           </ScrollView>
         </KeyboardAvoidingView>
         <View style={styles.buttons}>
-            <PressableButton 
-              defaultStyle={styles.defaultStyle}
-              pressedStyle={styles.pressedStyle}
-              onPress={async () => await pushNewPuzzle()}
-            >
-              <Text style={styles.loginButtonText}>Confirm</Text>
-            </PressableButton>
+          <PressableButton
+            defaultStyle={styles.defaultStyle}
+            pressedStyle={styles.pressedStyle}
+            onPress={async () => await pushNewPuzzle()}
+          >
+            <Text style={styles.loginButtonText}>Confirm</Text>
+          </PressableButton>
 
-            <PressableButton 
-              defaultStyle={styles.defaultStyle}
-              pressedStyle={styles.pressedStyle}
-              onPress={() => cancel()}
-            >
-              <Text style={styles.loginButtonText}>Cancel</Text>
-            </PressableButton>
+          <PressableButton
+            defaultStyle={styles.defaultStyle}
+            pressedStyle={styles.pressedStyle}
+            onPress={() => cancel()}
+          >
+            <Text style={styles.loginButtonText}>Cancel</Text>
+          </PressableButton>
         </View>
       </GradientBackground>
-      
     </Modal>
   );
 }
@@ -206,24 +214,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-
   },
   inputTitle: {
     fontSize: 20,
     color: colors.greyWords,
     marginVertical: 10,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   titleInput: {
     fontSize: 15,
-    width: '80%',
+    width: "80%",
     borderWidth: 2,
     borderColor: "grey",
     borderRadius: 5,
     height: 35,
     marginVertical: 10,
     paddingLeft: 5,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   loginButtonText: {
     color: colors.whiteWords,
@@ -256,17 +263,16 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   buttons: {
-    flexDirection: 'row',
+    flexDirection: "row",
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   quizContainer: {
     flex: 1,
-    width: '100%',
+    width: "100%",
     paddingTop: 20,
   },
   length: {
-    alignSelf: 'center',
-  }
-
+    alignSelf: "center",
+  },
 });

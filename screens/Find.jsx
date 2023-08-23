@@ -21,12 +21,14 @@ export default function Find({ navigation, route }) {
   const [initialRegion, setInitialRegion] = useState(null);
   const { players } = usePlayers();
 
+  // check if the user is coming from the map mode
   useEffect(() => {
     if (route.params?.isMapMode) {
       setIsMapMode(true);
     }
   }, []);
 
+  // fetch and add puzzle data to the player object when clicked
   async function clickHandler(player) {
     setModalVisible(true);
     const puzzleData = await getPuzzleFromDB(player.id);
@@ -76,6 +78,7 @@ export default function Find({ navigation, route }) {
         return;
       }
       setHasPermission(true);
+      // getLastKnownPositionAsync() is way more faster than getCurrentPositionAsync()
       const currentLocation = await Location.getLastKnownPositionAsync();
       setInitialRegion({
         latitude: currentLocation.coords.latitude,

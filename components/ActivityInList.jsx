@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Linking,
   ScrollView,
-  TextInput,
 } from "react-native";
 import React from "react";
 import { auth } from "../Firebase/firebase-setup";
@@ -32,6 +31,7 @@ export default function ActivityInList({
     activity.participants.includes(player.id)
   );
 
+  // format for showing the date
   const dateFormatOptions = {
     year: "numeric",
     month: "long",
@@ -42,6 +42,7 @@ export default function ActivityInList({
     timeZoneName: "short",
   };
 
+  // calculate the difference between now and the activity date
   const secondDiff = () => {
     const now = new Date();
     const secondDiff = Math.floor((activity.date - now) / 1000) - 86400;
@@ -52,6 +53,7 @@ export default function ActivityInList({
     }
   };
 
+  // open google map with navigating to the organizer's location
   function navigationHandler() {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${organizer.location.latitude},${organizer.location.longitude}`;
 
@@ -99,7 +101,6 @@ export default function ActivityInList({
               </PressableButton>
             </View>
           </View>
-          {/* Title */}
           <Text style={styles.eventTitle}>{activity.title}</Text>
           <Image
             style={[

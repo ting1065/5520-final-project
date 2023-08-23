@@ -93,17 +93,17 @@ export default function Game({ route, navigation }) {
         )}
         {gameStatus === "playing" ? (
           <>
-            {/* <Text style={styles.challengeTitle}>Challenging {clickedPlayer.name}'s puzzle</Text> */}
-
             <Text style={styles.challengeTitle}>Round: {gameRound}</Text>
             {isDisplayed ? (
               <>
                 <TextInput
                   autoCorrect={false}
-                  autoComplete="off" 
+                  autoComplete="off"
                   autoCapitalize="characters"
                   value={answer}
-                  onChangeText={(text) => {setAnswer(text.toUpperCase())}}
+                  onChangeText={(text) => {
+                    setAnswer(text.toUpperCase());
+                  }}
                   style={styles.input}
                 />
 

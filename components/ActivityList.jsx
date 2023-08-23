@@ -14,6 +14,7 @@ export default function ActivityList({
 }) {
   const activityListRef = useRef(null);
 
+  // for scrolling to the reminded activity
   useEffect(() => {
     if (!remindedActivityIndex) {
       return;
