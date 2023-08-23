@@ -5,16 +5,11 @@ Group 8: Fengting Tang, Chenlei Luo
 Memory Master
 
 ## Stage
-Iteration 2  
+Iteration 3  
 
-Added functionalities:
-- Authentication
-- Camera use
-- Location use
-- External API use
-
-To be added:  
-- Notification
+- added notification feature
+- enhanced other functionalities
+- optimized styling
 
 ## Contribution
 Fengting Tang  
@@ -48,11 +43,28 @@ Mainly responsible for component design and implementation, including designing 
 8. Profile Page
 <img src="/resources/profile_page.PNG" alt="Profile Page image" width="200"/>
 
+9. Game Page
+<img src="/resources/game_page.PNG" alt="Game Page image" width="200"/>
+
+9. Puzzle Editor
+<img src="/resources/puzzle_editor.PNG" alt="Puzzle Editor image" width="200"/>
+
+9. Activity Editor
+<img src="/resources/activity_editor.PNG" alt="Activity Editor image" width="200"/>
+
 ## Data model  
-To be optimized...
+
 ### Collections  
 1. users  
-fields: id, name, avatar, email, win, lose, location  
+fields: 
+- id
+- name
+- avatar
+- email
+- win
+- lose
+- location
+- score
 
 2. puzzles  
 fields: userId(id from "users" collection), coverImageUri, puzzle, win, lose  
