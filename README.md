@@ -19,9 +19,9 @@ Mainly responsible for functionalities and data management, including integratin
 Chenlei Luo  
 Mainly responsible for component design and implementation, including designing the structures of all the screens and components, testing all the functionalities, and implementing the styling of all components.
 
-## Contribution
+## Demo Video
 
-Demo Video: [Video Link](https://www.youtube.com/watch?v=KYIEmXL1Pc4)
+[Video Link](https://www.youtube.com/watch?v=KYIEmXL1Pc4)
 
 ## UI
 1. Login Page
