@@ -1,5 +1,5 @@
-# 5520 Final project 
-Group 8: Fengting Tang, Chenlei Luo
+# Memory Master Mobile Game
+Fengting Tang, Chenlei Luo
 
 ## App name  
 Memory Master
