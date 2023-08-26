@@ -19,7 +19,7 @@ Mainly responsible for functionalities and data management, including integratin
 Chenlei Luo  
 Mainly responsible for component design and implementation, including designing the structures of all the screens and components, testing all the functionalities, and implementing the styling of all components.
 
-## Demo Video
+## Demo video
 
 [Video Link](https://www.youtube.com/watch?v=KYIEmXL1Pc4)
 
@@ -101,6 +101,6 @@ Are you up for the challenge? Join now and prove your wit! Beat the competition 
 ## Slogan  
 Challenge, Connect, Conquer! Memory puzzles & social fun!  
 
-## Target Users   
+## Target users   
 People aged over 12 who are brain training fans  
 
