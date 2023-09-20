@@ -51,10 +51,10 @@ Mainly responsible for component design and implementation, including designing 
 9. Game Page
 <img src="/resources/game_page.PNG" alt="Game Page image" width="200"/>
 
-9. Puzzle Editor
+10. Puzzle Editor
 <img src="/resources/puzzle_editor.PNG" alt="Puzzle Editor image" width="200"/>
 
-9. Activity Editor
+11. Activity Editor
 <img src="/resources/activity_editor.PNG" alt="Activity Editor image" width="200"/>
 
 ## Data model  
